@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csB2D98684{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs6FD73CFB{text-align:left;text-indent:0pt;margin:5pt 24pt 5pt 24pt}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+		</style>
+	</head>
+	<body>
+		<h2 class="cs868C439D">
+			<a name="program-telemetry-event-log"><span class="csB2D98684">Program-Telemetry Event Log</span></a></h2>
+		<p class="cs6FD73CFB"><span class="cs8926E06">win7</span><span class="cs9C1B1871">及以上存在，在应用程序启动时为应用程序处理应用程序兼容性缓存请求</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">文件夹中的位置：</span><span class="cs9FB05234">C:\Windows\System32\winevt\Logs\Microsoft-Windows-Application-Experience%4Program-Telemetry.evtx</span></p><p class="cs40DD2BC9"><span><img src="安全技术/电子取证/Windows取证/从日志中取证/Program-Telemetry%20Event%20Log_files/image0.png" width="560" height="53" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">在</span><span class="cs8926E06">Windows</span><span class="cs9C1B1871">事件查看器的位置：</span><span class="cs9FB05234">Applications and Services Logs\Microsoft\Application-Experience\Program-Telemetry</span><span class="cs9C1B1871">，如图</span></p><p class="cs40DD2BC9"><span><img src="安全技术/电子取证/Windows取证/从日志中取证/Program-Telemetry%20Event%20Log_files/image1.png" width="560" height="293" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">日志获取：</span></p><p class="cs3A447A38"><span class="cs9FB05234">wevtutil qe /f:text Microsoft-Windows-Application-Experience/Program-Telemetry</span></p><p class="cs40DD2BC9"><span class="cs8926E06">Event IDs</span><span class="cs9C1B1871">：</span><span class="cs8926E06">500/505</span></p><p class="cs40DD2BC9"><span class="cs8926E06">image</span></p></body>
+</html>

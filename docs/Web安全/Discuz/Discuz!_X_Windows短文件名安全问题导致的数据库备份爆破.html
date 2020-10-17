@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.csE3F655E4{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:bold;font-style:normal;}
+			.cs5BEC2C28{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:bold;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="discuz-x-windows短文件名安全问题导致的数据库备份爆破"><span class="csDE05BCC">Discuz! X Windows</span><span class="csECDA2D3">短文件名安全问题导致的数据库备份爆破</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">看似是比较鸡肋的小技巧，但在猜一些随机命令的文件名时非常有用，比如：利用短文件名我们可以下载数据库备份文件（文件名中含有随机字符），利用备份文件我们可以尝试解密用户密码。</span></p><h2 class="cs868C439D">
+			<a name="二漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">存在</span><span class="cs8926E06">Windows</span><span class="cs9C1B1871">短文件名爆破的系统中</span></p><h2 class="cs868C439D">
+			<a name="三复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">1.png</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">数据库备份功能默认备份在目录</span><span class="cs8926E06">&quot;backup_</span><span class="cs9C1B1871">随机字符串</span><span class="cs8926E06">&quot;</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">文件名为</span><span class="csE3F655E4">年月日</span><span class="cs5BEC2C28">_</span><span class="csE3F655E4">随机字符串</span></p><p class="cs40DD2BC9"><span class="cs8926E06">windows</span><span class="cs9C1B1871">下短文件名访问文件或目录只需要知道前</span><span class="cs8926E06">6</span><span class="cs9C1B1871">个字符</span><span class="cs8926E06"> backup</span><span class="cs9C1B1871">正好</span><span class="cs8926E06">6</span><span class="cs9C1B1871">个</span><span class="cs8926E06"> </span><span class="cs9C1B1871">就可以判断备份目录是否存在</span></p><p class="cs3A447A38"><span class="cs9FB05234">https://www.0-sec.org/data/backup~1/</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">进而通过爆破年月日来寻找数据库备份文件</span></p><p class="cs3A447A38"><span class="cs9FB05234">https://www.0-sec.org/data/backup~1/190814~1.sql</span></p><p class="cs40DD2BC9"><span class="cs8926E06">2.png</span></p></body>
+</html>

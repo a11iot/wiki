@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs7FFD2630{color:#000000;background-color:transparent;font-family:Microsoft JhengHei UI;font-size:11pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="yunyecms-v202-后台注入漏洞二"><span class="csDE05BCC">Yunyecms V2.0.2 </span><span class="csECDA2D3">后台注入漏洞（二）</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">云业</span><span class="cs8926E06">CMS</span><span class="cs9C1B1871">内容管理系统是由云业信息科技开发的一款专门用于中小企业网站建设的</span><span class="cs8926E06">PHP</span><span class="cs9C1B1871">开源</span><span class="cs8926E06">CMS</span><span class="cs9C1B1871">，可用来快速建设一个品牌官网</span><span class="cs8926E06">(PC</span><span class="cs9C1B1871">，手机，微信都能访问</span><span class="cs8926E06">)</span><span class="cs9C1B1871">，后台功能强大，安全稳定，操作简单。</span></p><h2 class="cs868C439D">
+			<a name="二漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">yunyecms 2.0.2</span></p><h2 class="cs868C439D">
+			<a name="三复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">漏洞出现在在后台文件</span><span class="cs8926E06">de</span><span class="cs9FB05234">***.php</span><span class="cs7FFD2630">中，</span><span class="cs8926E06">de</span><span class="cs9FB05234">***_add</span><span class="cs9C1B1871">函数对</span><span class="cs8926E06">GET</span><span class="cs9C1B1871">和</span><span class="cs8926E06">POST</span><span class="cs9C1B1871">参数先进行了是否</span><span class="cs8926E06">empty</span><span class="cs9C1B1871">判断，最终将传入的几个参数传给了</span><span class="cs8926E06">edit_admin_department</span><span class="cs9C1B1871">。</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Yunyecms/Yunyecms%20V2.0.2%20%e5%90%8e%e5%8f%b0%e6%b3%a8%e5%85%a5%e6%bc%8f%e6%b4%9e%ef%bc%88%e4%ba%8c%ef%bc%89_files/image0.png" width="560" height="327" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">跟入</span><span class="cs8926E06">edit_admin_department</span><span class="cs9C1B1871">，对参数依次进行了处理，但是发现只有</span><span class="cs9FB05234">$departmentname,$olddepartmentname</span><span class="cs9C1B1871">进行了</span><span class="cs8926E06">usafestr</span><span class="cs9C1B1871">安全过滤，漏网的</span><span class="cs9FB05234">$id</span><span class="cs9C1B1871">拼接到了</span><span class="cs8926E06">sql</span><span class="cs9C1B1871">语句中执行。</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Yunyecms/Yunyecms%20V2.0.2%20%e5%90%8e%e5%8f%b0%e6%b3%a8%e5%85%a5%e6%bc%8f%e6%b4%9e%ef%bc%88%e4%ba%8c%ef%bc%89_files/image1.png" width="560" height="242" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">最终导致了</span><span class="cs8926E06">SQL</span><span class="cs9C1B1871">注入。</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Yunyecms/Yunyecms%20V2.0.2%20%e5%90%8e%e5%8f%b0%e6%b3%a8%e5%85%a5%e6%bc%8f%e6%b4%9e%ef%bc%88%e4%ba%8c%ef%bc%89_files/image2.png" width="560" height="252" alt="" style="border-width:0px;" /></span></p></body>
+</html>

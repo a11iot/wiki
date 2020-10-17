@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs7FFD2630{color:#000000;background-color:transparent;font-family:Microsoft JhengHei UI;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs6FD73CFB{text-align:left;text-indent:0pt;margin:5pt 24pt 5pt 24pt}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="jizhicms-171-后台配置文件删除"><span class="csDE05BCC">Jizhicms 1.7.1 </span><span class="csECDA2D3">后台配置文件删除</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="二漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="三复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">该漏洞的触发同样也是源于</span><span class="cs8926E06">frparam</span><span class="cs9C1B1871">函数没有对传入的文件路径进行必要的过滤</span><span class="cs8926E06"><br/></span><span class="cs9C1B1871">在</span><span class="cs8926E06"> /A/c/PluginsController.php</span><span class="cs9C1B1871">中的</span><span class="cs8926E06">action_do</span><span class="cs9C1B1871">函数中的</span><span class="cs8926E06">483</span><span class="cs9C1B1871">到</span><span class="cs8926E06">494</span><span class="cs9C1B1871">行中由于未对目录进行限制导致的目录穿越漏洞，只要文件中包含</span><span class="cs8926E06">config.php</span><span class="cs9C1B1871">文件即可触发</span><span class="cs8926E06">deldir</span><span class="cs9C1B1871">函数进行文件删除操作</span><span class="cs8926E06"><br/>Conf</span><span class="cs9C1B1871">文件夹中包含</span><span class="cs8926E06">config.php</span><span class="cs9C1B1871">，该文件夹为网站配置信息储存的地方，一旦被删除，网站将无法正常运行</span><span class="cs8926E06"><br/><img src="Web安全/Jizhicms/Jizhicms%201.7.1%20%e5%90%8e%e5%8f%b0%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6%e5%88%a0%e9%99%a4_files/image0.png" width="560" height="165" alt="" style="border-width:0px;" /><br/>deldir</span><span class="cs9C1B1871">函数的功能是遍历目标文件下的所有文件进行删除操作</span></p><p class="cs3A447A38"><span class="cs9FB05234">function deldir($dir) {</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;//</span><span class="cs7FFD2630">先删除目录下的文件：</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;$dh=opendir($dir);</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;while ($file=readdir($dh)) {</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if($file!=&quot;.&quot; &amp;&amp; $file!=&quot;..&quot;) {</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$fullpath=$dir.&quot;/&quot;.$file;</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(!is_dir($fullpath)) {</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;unlink($fullpath);</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} else {</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;deldir($fullpath);</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;}</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;closedir($dh);</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">成功删除了</span><span class="cs8926E06">Conf</span><span class="cs9C1B1871">文件夹</span><span class="cs8926E06"><br/><img src="Web安全/Jizhicms/Jizhicms%201.7.1%20%e5%90%8e%e5%8f%b0%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6%e5%88%a0%e9%99%a4_files/image1.png" width="560" height="169" alt="" style="border-width:0px;" /></span></p><h2 class="cs868C439D">
+			<a name="四参考链接"><span class="cs83F14626">四、参考链接</span></a></h2>
+		<p class="cs6FD73CFB"><span class="cs8926E06">https://xz.aliyun.com/t/7775#toc-3</span></p></body>
+</html>

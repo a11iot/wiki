@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="eyoucms-142-后台插件getshell"><span class="csDE05BCC">Eyoucms 1.42 </span><span class="csECDA2D3">后台插件</span><span class="csDE05BCC">getshell</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">需要进后台</span><span class="cs8926E06">+</span><span class="cs9C1B1871">知道后台插件密码</span></p><h2 class="cs868C439D">
+			<a name="二漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="三复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">需要知道后台密码</span><span class="cs8926E06">+</span><span class="cs9C1B1871">后台插件密码</span></p><p class="cs40DD2BC9"><span class="cs8926E06">//</span><span class="cs9C1B1871">如果第一次使用插件，那么密码可以直接设置，如果管理员设置过了，则可以选择爆破</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">插件有格式限制，可以从官网随便下个，解压后插入</span><span class="cs8926E06">php</span><span class="cs9C1B1871">文件重新打包上传</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Eyoucms/Eyoucms%201.42%20%e5%90%8e%e5%8f%b0%e6%8f%92%e4%bb%b6getshell_files/image0.png" width="560" height="388" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">可以看出文件已成功解压到服务器</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Eyoucms/Eyoucms%201.42%20%e5%90%8e%e5%8f%b0%e6%8f%92%e4%bb%b6getshell_files/image1.png" width="560" height="290" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">直接访问</span><span class="cs8926E06">403</span><span class="cs9C1B1871">，分析了下受</span><span class="cs8926E06">.htaccess</span><span class="cs9C1B1871">影响不能解析，在</span><span class="cs8926E06">php</span><span class="cs9C1B1871">文件目录增加该文件并删除</span><span class="cs8926E06">php,</span><span class="cs9C1B1871">重新上传该插件，即可解析</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Eyoucms/Eyoucms%201.42%20%e5%90%8e%e5%8f%b0%e6%8f%92%e4%bb%b6getshell_files/image2.png" width="560" height="295" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span><img src="Web安全/Eyoucms/Eyoucms%201.42%20%e5%90%8e%e5%8f%b0%e6%8f%92%e4%bb%b6getshell_files/image3.png" width="560" height="122" alt="" style="border-width:0px;" /></span></p></body>
+</html>

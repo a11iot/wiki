@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs5BEC2C28{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:bold;font-style:normal;}
+			.cs6FD73CFB{text-align:left;text-indent:0pt;margin:5pt 24pt 5pt 24pt}
+			.cs508254C{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;text-decoration: none;}
+			.cs4B51D5E4{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="spring-boot-sql"><span class="csDE05BCC">Spring Boot sql</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="二漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="三复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<p class="cs3A447A38"><span class="cs9FB05234">spring.datasource.tomcat.validationQuery=drop+table+users</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">许您指定任何</span><span class="cs8926E06">SQL</span><span class="cs9C1B1871">查询，它将针对当前数据库自动执行。它可以是任何语句，包括插入，更新或删除。</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Spring_Boot/Spring%20Boot%20sql_files/image0.png" width="560" height="127" alt="" style="border-width:0px;" /></span></p><p class="cs3A447A38"><span class="cs9FB05234">spring.datasource.tomcat.url=jdbc:hsqldb:https://localhost:3002/xdb</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">允许您修改当前的</span><span class="cs8926E06">JDBC</span><span class="cs9C1B1871">连接字符串。</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">最后一个看起来不错，但是问题是当运行数据库连接的应用程序已经建立时，仅更新</span><span class="cs8926E06">JDBC</span><span class="cs9C1B1871">字符串没有任何效果。希望在这种情况下，还有另一个属性可以对我们有所帮助：</span></p><p class="cs3A447A38"><span class="cs9FB05234">spring.datasource.tomcat.max-active=777</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">我们可以在此处使用的技巧是增加到数据库的同时连接数。因此，我们可以更改</span><span class="cs8926E06">JDBC</span><span class="cs9C1B1871">连接字符串，增加连接数，然后将许多请求发送到应用程序以模拟繁重的负载。在负载下，应用程序将使用更新的恶意</span><span class="cs8926E06">JDBC</span><span class="cs9C1B1871">字符串创建新的数据库连接。我在</span><span class="cs8926E06">Mysql</span><span class="cs9C1B1871">本地对这项技术进行了测试，它的工作原理就像一个魅力。</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Spring_Boot/Spring%20Boot%20sql_files/image1.png" width="560" height="156" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">除此之外，还有其他一些看起来有趣的属性，但实际上并没有真正的用处：</span></p><p class="cs40DD2BC9"><span class="cs5BEC2C28">spring.datasource.url</span></p><p class="cs6FD73CFB"><span class="cs9C1B1871">数据库连接字符串（仅用于第一个连接）</span></p><p class="cs40DD2BC9"><span class="cs5BEC2C28">spring.datasource.jndiName</span></p><p class="cs6FD73CFB"><span class="cs9C1B1871">数据库</span><span class="cs8926E06">JNDI</span><span class="cs9C1B1871">字符串（仅用于第一个连接）</span></p><p class="cs40DD2BC9"><span class="cs5BEC2C28">spring.datasource.tomcat.dataSourceJNDI</span></p><p class="cs6FD73CFB"><span class="cs9C1B1871">数据库</span><span class="cs8926E06">JNDI</span><span class="cs9C1B1871">字符串（根本不使用）</span></p><p class="cs40DD2BC9"><span class="cs5BEC2C28">spring.cloud.config.uri</span><span class="cs8926E06">=<a class="cs508254C" href="https://www.veracode.com/blog/research/exploiting-spring-boot-actuators#"><span class="cs4B51D5E4">http://artsploit.com/</span></a></span></p><p class="cs6FD73CFB"><span class="cs8926E06">spring cloud</span><span class="cs9C1B1871">配置</span><span class="cs8926E06">url</span><span class="cs9C1B1871">（在应用程序启动后不起任何作用，只使用初始值。）</span></p></body>
+</html>

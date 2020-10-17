@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs5BEC2C28{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:bold;font-style:normal;}
+			.cs6FD73CFB{text-align:left;text-indent:0pt;margin:5pt 24pt 5pt 24pt}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="稻草人cms-115-后台任意文件上传导致getshell"><span class="csECDA2D3">稻草人</span><span class="csDE05BCC">cms 1.1.5 </span><span class="csECDA2D3">后台任意文件上传导致</span><span class="csDE05BCC">getshell</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="二漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">稻草人</span><span class="cs8926E06">cms 1.1.5</span></p><h2 class="cs868C439D">
+			<a name="三复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">首先进去后台，我们黑盒测试一下上传点，这里很多图片上传点</span><span class="cs8926E06"><br/></span><span class="cs9C1B1871">我们随便找一个上传</span><span class="cs8926E06">php</span><span class="cs9C1B1871">文件</span><span class="cs8926E06"><br/><img src="Web安全/稻草人cms/%e7%a8%bb%e8%8d%89%e4%ba%bacms%201.1.5%20%e5%90%8e%e5%8f%b0%e4%bb%bb%e6%84%8f%e6%96%87%e4%bb%b6%e4%b8%8a%e4%bc%a0%e5%af%bc%e8%87%b4getshell_files/image0.png" width="560" height="322" alt="" style="border-width:0px;" /><br/></span><span class="cs9C1B1871">这个好像是只对</span><span class="cs5BEC2C28">Content-Type:</span><span class="cs8926E06"> </span><span class="cs9C1B1871">做了判断，我们来验证一下</span><span class="cs8926E06"><br/><img src="Web安全/稻草人cms/%e7%a8%bb%e8%8d%89%e4%ba%bacms%201.1.5%20%e5%90%8e%e5%8f%b0%e4%bb%bb%e6%84%8f%e6%96%87%e4%bb%b6%e4%b8%8a%e4%bc%a0%e5%af%bc%e8%87%b4getshell_files/image1.png" width="560" height="335" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">这里回显正常</span><span class="cs8926E06"><br/></span><span class="cs9C1B1871">而且前端直接暴露了我们上传的地址，直接上蚁剑连接：</span><span class="cs8926E06"><br/><img src="Web安全/稻草人cms/%e7%a8%bb%e8%8d%89%e4%ba%bacms%201.1.5%20%e5%90%8e%e5%8f%b0%e4%bb%bb%e6%84%8f%e6%96%87%e4%bb%b6%e4%b8%8a%e4%bc%a0%e5%af%bc%e8%87%b4getshell_files/image2.png" width="560" height="339" alt="" style="border-width:0px;" /><br/></span><span class="cs9C1B1871">成功</span><span class="cs8926E06">getshell</span><span class="cs9C1B1871">。</span><span class="cs8926E06"><br/></span><span class="cs9C1B1871">事实上后台所有能上传图片的地方都是通过这种方式验证，导致我们可以在多处</span><span class="cs8926E06">getshell</span><span class="cs9C1B1871">。</span><span class="cs8926E06"><br/></span><span class="cs9C1B1871">我们看一下代码</span><span class="cs8926E06"><br/>include/class/class.upload.php<br/><img src="Web安全/稻草人cms/%e7%a8%bb%e8%8d%89%e4%ba%bacms%201.1.5%20%e5%90%8e%e5%8f%b0%e4%bb%bb%e6%84%8f%e6%96%87%e4%bb%b6%e4%b8%8a%e4%bc%a0%e5%af%bc%e8%87%b4getshell_files/image3.png" width="560" height="577" alt="" style="border-width:0px;" /><br/><img src="Web安全/稻草人cms/%e7%a8%bb%e8%8d%89%e4%ba%bacms%201.1.5%20%e5%90%8e%e5%8f%b0%e4%bb%bb%e6%84%8f%e6%96%87%e4%bb%b6%e4%b8%8a%e4%bc%a0%e5%af%bc%e8%87%b4getshell_files/image4.png" width="560" height="242" alt="" style="border-width:0px;" /><br/></span><span class="cs9C1B1871">这里仅仅对文件类型通过</span><span class="cs8926E06">allow_files </span><span class="cs9C1B1871">这个数组中的白名单检测，导致我们可以轻松绕过</span><span class="cs8926E06">--</span></p><h2 class="cs868C439D">
+			<a name="参考链接"><span class="cs83F14626">参考链接</span></a></h2>
+		<p class="cs6FD73CFB"><span class="cs8926E06">https://xz.aliyun.com/t/7904#toc-1</span></p></body>
+</html>

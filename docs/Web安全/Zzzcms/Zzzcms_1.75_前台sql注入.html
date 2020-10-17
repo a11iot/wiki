@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs6FD73CFB{text-align:left;text-indent:0pt;margin:5pt 24pt 5pt 24pt}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="zzzcms-175-前台sql注入"><span class="csDE05BCC">Zzzcms 1.75 </span><span class="csECDA2D3">前台</span><span class="csDE05BCC">sql</span><span class="csECDA2D3">注入</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="二漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">Zzzcms 1.75</span></p><h2 class="cs868C439D">
+			<a name="三复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">注入点的入口在</span><span class="cs8926E06">plugins\sms\sms_list.php</span><span class="cs9C1B1871">文件中，</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Zzzcms/Zzzcms%201.75%20%e5%89%8d%e5%8f%b0sql%e6%b3%a8%e5%85%a5_files/image0.png" width="560" height="433" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">其中</span><span class="cs8926E06">id</span><span class="cs9C1B1871">参数是用户</span><span class="cs8926E06">post</span><span class="cs9C1B1871">输入的参数，并且在第</span><span class="cs8926E06">7</span><span class="cs9C1B1871">行中调用了</span><span class="cs8926E06">db_delete</span><span class="cs9C1B1871">去删除指定</span><span class="cs8926E06">id</span><span class="cs9C1B1871">的数据，进入</span><span class="cs8926E06">db_delete</span><span class="cs9C1B1871">函数后可以看到函数本身并不长，逻辑还是较为清晰的。</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">在获取到代表着数据库连接的</span><span class="cs8926E06">$d</span><span class="cs9C1B1871">后开始处理传入的</span><span class="cs8926E06">$where</span><span class="cs9C1B1871">条件变量，接着调用</span><span class="cs8926E06">db_cond_to_sqladd</span><span class="cs9C1B1871">函数后传入</span><span class="cs8926E06">db_exec</span><span class="cs9C1B1871">进行</span><span class="cs8926E06">sql</span><span class="cs9C1B1871">语句的执行过程。</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Zzzcms/Zzzcms%201.75%20%e5%89%8d%e5%8f%b0sql%e6%b3%a8%e5%85%a5_files/image1.png" width="560" height="315" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">这里继续看</span><span class="cs8926E06">db_cond_to_sqladd</span><span class="cs9C1B1871">函数部分，该函数代码部分比较长（</span><span class="cs8926E06">70</span><span class="cs9C1B1871">行），但只需要着重看其中几个处理分支即可。注入点传入的条件变量是数组，自然进入下面的第一个红框控制流中。接着，假如传入的参数</span><span class="cs8926E06">id</span><span class="cs9C1B1871">也是数组并且不存在</span><span class="cs8926E06">key</span><span class="cs9C1B1871">为</span><span class="cs8926E06">0</span><span class="cs9C1B1871">的元素，那么会进入第二个红框控制流中。</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">关键点在于第三个红框的控制流中，作为键名</span><span class="cs8926E06">key</span><span class="cs9C1B1871">的</span><span class="cs8926E06">$k1</span><span class="cs9C1B1871">直接拼接到了条件语句中。</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Zzzcms/Zzzcms%201.75%20%e5%89%8d%e5%8f%b0sql%e6%b3%a8%e5%85%a5_files/image2.png" width="560" height="582" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">在代码中加入</span><span class="cs8926E06">sql</span><span class="cs9C1B1871">语句回显进行测试，当我们传入如下</span><span class="cs8926E06">post</span><span class="cs9C1B1871">的</span><span class="cs8926E06">id</span><span class="cs9C1B1871">后，返回的</span><span class="cs8926E06">sql</span><span class="cs9C1B1871">语句如下所示，已经形成可以利用的</span><span class="cs8926E06">SQL</span><span class="cs9C1B1871">注入点了：</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Zzzcms/Zzzcms%201.75%20%e5%89%8d%e5%8f%b0sql%e6%b3%a8%e5%85%a5_files/image3.png" width="560" height="150" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">利用</span><span class="cs8926E06">BENCHMARK</span><span class="cs9C1B1871">函数可以直接构造</span><span class="cs8926E06">exp</span><span class="cs9C1B1871">利用时间盲注得到数据库信息。</span></p><h2 class="cs868C439D">
+			<a name="参考链接"><span class="cs83F14626">参考链接</span></a></h2>
+		<p class="cs6FD73CFB"><span class="cs8926E06">https://xz.aliyun.com/t/7414</span></p></body>
+</html>

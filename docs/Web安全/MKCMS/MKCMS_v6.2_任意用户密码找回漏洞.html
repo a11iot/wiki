@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs6FD73CFB{text-align:left;text-indent:0pt;margin:5pt 24pt 5pt 24pt}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="mkcms-v62-任意用户密码找回漏洞"><span class="csDE05BCC">MKCMS v6.2 </span><span class="csECDA2D3">任意用户密码找回漏洞</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="二漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">MKCMS v6.2</span></p><h2 class="cs868C439D">
+			<a name="三复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">任意用户密码找回</span><span class="cs8926E06"><br/></span><span class="cs9C1B1871">这个问题主要是</span><span class="cs9FB05234">/ucenter/repass.php</span><span class="cs9C1B1871">代码里，找回密码的逻辑有问题，第</span><span class="cs8926E06">10</span><span class="cs9C1B1871">行查询到</span><span class="cs9FB05234">username</span><span class="cs9C1B1871">、</span><span class="cs8926E06"> </span><span class="cs9FB05234">email</span><span class="cs9C1B1871">能对应上之后，</span><span class="cs8926E06">14</span><span class="cs9C1B1871">行就直接重置密码了。。。而且密码的范围在</span><span class="cs8926E06">12</span><span class="cs9C1B1871">行有写，只有</span><span class="cs8926E06">90000</span><span class="cs9C1B1871">种可能，重置之后，</span><span class="cs8926E06">burp</span><span class="cs9C1B1871">跑一下不就</span><span class="cs8926E06">ok</span><span class="cs9C1B1871">了？（当然要结合验证码重用才能有效爆破）</span></p><p class="cs40DD2BC9"><span><img src="Web安全/MKCMS/MKCMS%20v6.2%20%e4%bb%bb%e6%84%8f%e7%94%a8%e6%88%b7%e5%af%86%e7%a0%81%e6%89%be%e5%9b%9e%e6%bc%8f%e6%b4%9e_files/image0.png" width="560" height="335" alt="" style="border-width:0px;" /></span></p><h2 class="cs868C439D">
+			<a name="参考链接"><span class="cs83F14626">参考链接</span></a></h2>
+		<p class="cs6FD73CFB"><span class="cs8926E06">https://xz.aliyun.com/t/7580#toc-4</span></p></body>
+</html>

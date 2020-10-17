@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs6FD73CFB{text-align:left;text-indent:0pt;margin:5pt 24pt 5pt 24pt}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="jizhicms-171-后台任意文件夹压缩下载"><span class="csDE05BCC">Jizhicms 1.7.1 </span><span class="csECDA2D3">后台任意文件夹压缩下载</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="二漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">Jizhicms 1.7.1</span></p><h2 class="cs868C439D">
+			<a name="三复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">这个的漏洞触发同样位于</span><span class="cs8926E06">CMS</span><span class="cs9C1B1871">的插件部分</span><span class="cs8926E06">,</span><span class="cs9C1B1871">只需要替换</span><span class="cs8926E06">filepath</span><span class="cs9C1B1871">的值为要打包的文件夹即可</span><span class="cs8926E06"><br/></span><span class="cs9C1B1871">打包网站下载</span><span class="cs8926E06"><br/><img src="Web安全/Jizhicms/Jizhicms%201.7.1%20%e5%90%8e%e5%8f%b0%e4%bb%bb%e6%84%8f%e6%96%87%e4%bb%b6%e5%a4%b9%e5%8e%8b%e7%bc%a9%e4%b8%8b%e8%bd%bd_files/image0.png" width="560" height="282" alt="" style="border-width:0px;" /><br/></span><span class="cs9C1B1871">根据</span><span class="cs8926E06">url</span><span class="cs9C1B1871">定位到漏洞位置，位于</span><span class="cs8926E06">/A/c/PluginsController.php</span><span class="cs9C1B1871">中的</span><span class="cs8926E06">output</span><span class="cs9C1B1871">函数，该函数主要是获取用户输入的文件名然后进行压缩在发送给客户端</span><span class="cs8926E06">,<br/></span><span class="cs9C1B1871">还是这个</span><span class="cs8926E06">frparam</span><span class="cs9C1B1871">函数，由前文可知该函数没有对传入的参数进行过滤的话，从而导致了可以进行目录穿越，然后可以压缩不同的目录下载任意文件，条件只需要知道文件夹名字</span><span class="cs8926E06"><br/><img src="Web安全/Jizhicms/Jizhicms%201.7.1%20%e5%90%8e%e5%8f%b0%e4%bb%bb%e6%84%8f%e6%96%87%e4%bb%b6%e5%a4%b9%e5%8e%8b%e7%bc%a9%e4%b8%8b%e8%bd%bd_files/image1.png" width="560" height="210" alt="" style="border-width:0px;" /></span></p><h2 class="cs868C439D">
+			<a name="参考链接"><span class="cs83F14626">参考链接</span></a></h2>
+		<p class="cs6FD73CFB"><span class="cs8926E06">https://xz.aliyun.com/t/7775#toc-3</span></p></body>
+</html>

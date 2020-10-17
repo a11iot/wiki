@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.csD6CA00D2{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:bold;font-style:normal;}
+			.cs508254C{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;text-decoration: none;}
+			.cs4B51D5E4{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.csBF12A472{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:italic;}
+			.cs6EDCDAE2{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:italic;}
+			.cs1C2E50E7{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="xsssniper"><span class="csDE05BCC">XssSniper</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="介绍说明"><span class="cs83F14626">介绍说明</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">一直以来，隐式输出的</span><span class="cs8926E06">DomXSS</span><span class="cs9C1B1871">漏洞难以被传统的扫描工具发现，而</span><span class="cs8926E06">XssSniper</span><span class="cs9C1B1871">是依托于</span><span class="cs8926E06">Chrome</span><span class="cs9C1B1871">浏览器的扩展，通过动态解析可以快速准确的发现</span><span class="cs8926E06">DomXSS</span><span class="cs9C1B1871">漏洞。</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">此外，本扩展不仅可以发现隐式输出的</span><span class="cs8926E06">XSS</span><span class="cs9C1B1871">，还可以发现显示输出的</span><span class="cs8926E06">DomXSS</span><span class="cs9C1B1871">，反射式</span><span class="cs8926E06">XSS</span><span class="cs9C1B1871">，自动寻找</span><span class="cs8926E06">JSONP</span><span class="cs9C1B1871">的</span><span class="cs8926E06">XSS</span><span class="cs9C1B1871">，以及检测</span><span class="cs8926E06">SOME</span><span class="cs9C1B1871">漏洞（同源方法执行）。</span></p><h2 class="cs868C439D">
+			<a name="下载地址"><span class="cs83F14626">下载地址</span></a></h2>
+		<h3 class="cs868C439D">
+			<a name="谷歌游览器"><span class="csD6CA00D2">谷歌游览器</span></a></h3>
+		<p class="cs40DD2BC9"><span class="cs8926E06"><a class="cs508254C" href="https://chrome.google.com/webstore/detail/xsssniper/pnhekakhikkhloodcedfcmfpjddcagpi?hl=zh-CN"><span class="cs4B51D5E4">https://chrome.google.com/webstore/detail/xsssniper/pnhekakhikkhloodcedfcmfpjddcagpi?hl=zh-CN</span></a></span></p><h3 class="cs868C439D">
+			<a name="官方下载地址"><span class="csD6CA00D2">官方下载地址</span></a></h3>
+		<p class="cs40DD2BC9"><span class="cs8926E06"><a class="cs508254C" href="https://0kee.360.cn/domXss/XssSniper.crx"><span class="cs4B51D5E4">https://0kee.360.cn/domXss/XssSniper.crx</span></a></span></p><h2 class="cs868C439D">
+			<a name="使用说明"><span class="cs83F14626">使用说明</span></a></h2>
+		<h3 class="cs868C439D">
+			<a name="原理"><span class="csD6CA00D2">原理</span></a></h3>
+		<h4 class="cs868C439D">
+			<a name="xss检测原理"><span class="csBF12A472">XSS</span><span class="cs6EDCDAE2">检测原理</span></a></h4>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">本扩展采用了两种方法去检测</span><span class="cs8926E06">DOMXSS</span><span class="cs9C1B1871">。</span></p><h4 class="cs868C439D">
+			<a name="第一种方法：fuzz"><span class="cs6EDCDAE2">第一种方法：</span><span class="csBF12A472">FUZZ</span></a></h4>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">这种检测方法误报率非常低，只要是检测出来的一定都是都是存在漏洞的。但是代价是漏报率也比较高。</span><span class="cs8926E06"> </span><span class="cs9C1B1871">具体来说是在当前页面中创建一个隐形的</span><span class="cs8926E06">iframe</span><span class="cs9C1B1871">，在这个</span><span class="cs8926E06">iframe</span><span class="cs9C1B1871">中采用不同字符组合截断的</span><span class="cs8926E06">payload</span><span class="cs9C1B1871">去</span><span class="cs8926E06">fuzz</span><span class="cs9C1B1871">当前页面中的每个</span><span class="cs8926E06">url</span><span class="cs9C1B1871">参数，以及</span><span class="cs8926E06">location.hash</span><span class="cs9C1B1871">参数。如果</span><span class="cs8926E06">payload</span><span class="cs9C1B1871">执行，说明漏洞一定存在。</span></p><h4 class="cs868C439D">
+			<a name="第二种方法：监控js错误变化"><span class="cs6EDCDAE2">第二种方法：监控</span><span class="csBF12A472">js</span><span class="cs6EDCDAE2">错误变化</span></a></h4>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">如果</span><span class="cs8926E06">xss</span><span class="cs9C1B1871">存在方式比较隐蔽，或者需要非常复杂的字符组合来截断的话，</span><span class="cs8926E06">payload</span><span class="cs9C1B1871">是无法正常执行的，然而尽管如此，</span><span class="cs8926E06">payload</span><span class="cs9C1B1871">可能会引发一些</span><span class="cs8926E06">js</span><span class="cs9C1B1871">语法异常，扩展只需要检测这些异常就可以。然后提示用户错误位置，错误内容，错误的行数，让用户手工去</span><span class="cs8926E06"> </span><span class="cs9C1B1871">因此以这种方式检测</span><span class="cs8926E06">XSS</span><span class="cs9C1B1871">，漏报少，但是代价是误报较高。</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">两种检测方式相互结合，取长补短。</span></p><h4 class="cs868C439D">
+			<a name="使用方法"><span class="cs6EDCDAE2">使用方法</span></a></h4>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">打开控制面板</span></p><p class="cs40DD2BC9"><span><img src="安全工具/浏览器插件/XssSniper_files/image0.png" width="463" height="620" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">第一次使用的时候请手工更新一下策略，将测试目标填入列表中。</span><span class="cs8926E06">tester</span><span class="cs9C1B1871">并非是主动检测这些列表域名中的漏洞。而是在你浏览这些网站时，检测当前页面中的</span><span class="cs8926E06">XSS</span><span class="cs9C1B1871">漏洞。</span><span class="cs8926E06"> </span><span class="cs9C1B1871">所以，开启</span><span class="cs8926E06">fuzz</span><span class="cs9C1B1871">后，只需要正常浏览这些网站即可。</span></p><h5 class="cs868C439D">
+			<a name="第一种报警方式：payload直接执行"><span class="cs1C2E50E7">第一种报警方式：</span><span class="cs4B51D5E4">payload</span><span class="cs1C2E50E7">直接执行</span></a></h5>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">如果在浏览过程中发现弹出了对话框，显示一个带有</span><span class="cs8926E06">xss payload</span><span class="cs9C1B1871">的</span><span class="cs8926E06">url</span><span class="cs9C1B1871">，如下图，说明该</span><span class="cs8926E06">url</span><span class="cs9C1B1871">可以触发</span><span class="cs8926E06">XSS</span><span class="cs9C1B1871">漏洞。</span></p><p class="cs40DD2BC9"><span><img src="安全工具/浏览器插件/XssSniper_files/image1.png" width="560" height="211" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">按下</span><span class="cs8926E06">F12</span><span class="cs9C1B1871">打开</span><span class="cs8926E06">console</span><span class="cs9C1B1871">控制台，测试过的</span><span class="cs8926E06">URL</span><span class="cs9C1B1871">都会在里面显示。将刚刚对话框中显示的</span><span class="cs8926E06">url+payload</span><span class="cs9C1B1871">复制出来即可。</span></p><p class="cs40DD2BC9"><span><img src="安全工具/浏览器插件/XssSniper_files/image2.png" width="560" height="161" alt="" style="border-width:0px;" /></span></p><h5 class="cs868C439D">
+			<a name="第二种报警方式：payload使js抛出异常"><span class="cs1C2E50E7">第二种报警方式：</span><span class="cs4B51D5E4">payload</span><span class="cs1C2E50E7">使</span><span class="cs4B51D5E4">js</span><span class="cs1C2E50E7">抛出异常</span></a></h5>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">如果在浏览页面时候右下角弹出如下告警，说明</span><span class="cs8926E06">payload</span><span class="cs9C1B1871">使</span><span class="cs8926E06">js</span><span class="cs9C1B1871">抛出了不同的异常。</span></p><p class="cs40DD2BC9"><span><img src="安全工具/浏览器插件/XssSniper_files/image3.png" width="485" height="152" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">此时打开</span><span class="cs8926E06">F12</span><span class="cs9C1B1871">打开控制台，依照图示找到异常内容和触发异常的</span><span class="cs8926E06">payload</span><span class="cs9C1B1871">，另外还可以找到抛出异常的文件和行号，方便调试</span></p><p class="cs40DD2BC9"><span><img src="安全工具/浏览器插件/XssSniper_files/image4.png" width="560" height="174" alt="" style="border-width:0px;" /></span></p><h5 class="cs868C439D">
+			<a name="第三种告警：jsonp反射式xss"><span class="cs1C2E50E7">第三种告警：</span><span class="cs4B51D5E4">JSONP</span><span class="cs1C2E50E7">反射式</span><span class="cs4B51D5E4">XSS</span></a></h5>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">若发现如下告警，说明页面中使用的</span><span class="cs8926E06">jsonp</span><span class="cs9C1B1871">存在</span><span class="cs8926E06">xss</span><span class="cs9C1B1871">漏洞。</span><span class="cs8926E06">url</span><span class="cs9C1B1871">已经在提示中给出。</span></p><p class="cs40DD2BC9"><span><img src="安全工具/浏览器插件/XssSniper_files/image5.png" width="492" height="127" alt="" style="border-width:0px;" /></span></p><h5 class="cs868C439D">
+			<a name="第四种告警：some漏洞"><span class="cs1C2E50E7">第四种告警：</span><span class="cs4B51D5E4">SOME</span><span class="cs1C2E50E7">漏洞</span></a></h5>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">当扩展发现当前页面中的参数在</span><span class="cs8926E06">jsonp</span><span class="cs9C1B1871">也出现时，就会给出以下告警，需要测试者手工确认页面参数能否影响</span><span class="cs8926E06">jsonp</span><span class="cs9C1B1871">的返回参数。</span></p><p class="cs40DD2BC9"><span class="cs8926E06">image</span></p></body>
+</html>

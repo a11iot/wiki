@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csB2D98684{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs6FD73CFB{text-align:left;text-indent:0pt;margin:5pt 24pt 5pt 24pt}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.csE3F655E4{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:bold;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h2 class="cs868C439D">
+			<a name="background-activity-moderator-bam"><span class="csB2D98684">Background Activity Moderator (BAM)</span></a></h2>
+		<p class="cs6FD73CFB"><span class="cs8926E06">BAM</span><span class="cs9C1B1871">是一个控制后台应用程序活动的</span><span class="cs8926E06">Windows</span><span class="cs9C1B1871">服务，该服务存在于</span><span class="cs8926E06">windows10 version 1709</span><span class="cs9C1B1871">及以后版本中</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">注册表路径为：</span></p><p class="cs40DD2BC9"><span class="csE3F655E4">注</span><span class="cs9C1B1871">：记录实时更新，数据无加密</span></p><p class="cs3A447A38"><span class="cs9FB05234">HKLM\SYSTEM\CurrentControlSet\Services\bam\UserSettings\{SID}</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">记录包含了程序路径和上次执行日期和时间，其中执行日期键值类型为</span><span class="cs9FB05234">FILETIME(64bit little Endian)</span></p><p class="cs40DD2BC9"><span><img src="安全技术/电子取证/Windows取证/从注册表中取证/Background%20Activity%20Moderator%20(BAM)_files/image0.png" width="560" height="356" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">执行时间提取：以</span><span class="cs9FB05234">winrar</span><span class="cs9C1B1871">为例子</span></p><p class="cs40DD2BC9"><span><img src="安全技术/电子取证/Windows取证/从注册表中取证/Background%20Activity%20Moderator%20(BAM)_files/image1.png" width="560" height="176" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">把</span><span class="cs9FB05234">filetime</span><span class="cs9C1B1871">转化为</span><span class="cs9FB05234">datetime</span></p><p class="cs3A447A38"><span class="cs9FB05234">from __future__ import division</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">import struct</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">import sys</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">from binascii import unhexlify</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">from datetime import datetime, timedelta</span><span class="cs8926E06"><br/><br/></span><span class="cs9FB05234">nt_timestamp = struct.unpack(&quot;&lt;Q&quot;, unhexlify(&quot;dc14dd91be7cd501&quot;))[0]</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">epoch = datetime(1601, 1, 1, 0, 0, 0)</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">nt_datetime = epoch + timedelta(microseconds=nt_timestamp / 10)</span><span class="cs8926E06"><br/><br/></span><span class="cs9FB05234">print(nt_datetime.strftime(&quot;%Y/%m/%d %H:%M:%S&quot;))</span></p><p class="cs40DD2BC9"><span class="cs8926E06">output</span><span class="cs9C1B1871">：</span><span class="cs8926E06">2019/10/07 03:23:</span></p></body>
+</html>

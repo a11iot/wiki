@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csB2D98684{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs6FD73CFB{text-align:left;text-indent:0pt;margin:5pt 24pt 5pt 24pt}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.csE3F655E4{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:bold;font-style:normal;}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs508254C{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;text-decoration: none;}
+			.cs4B51D5E4{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h2 class="cs868C439D">
+			<a name="shimcache-appcompatcache"><span class="csB2D98684">ShimCache (AppCompatCache)</span></a></h2>
+		<p class="cs6FD73CFB"><span class="cs9C1B1871">用来识别应用程序兼容性问题。缓存数据跟踪文件路径、大小、上次修改时间和是否被执行（取决于操作系统），</span><span class="cs8926E06">Windows XP</span><span class="cs9C1B1871">的</span><span class="cs8926E06">ShimCache</span><span class="cs9C1B1871">被限制为</span><span class="cs8926E06">96</span><span class="cs9C1B1871">条记录，此后所有版本最多保留</span><span class="cs8926E06">1024</span><span class="cs9C1B1871">条记录。</span></p><p class="cs40DD2BC9"><span class="csE3F655E4">注</span><span class="cs9C1B1871">：虽然记录在</span><span class="cs9FB05234">ShimCache</span><span class="cs9C1B1871">中的存在但是并不能</span><span class="cs8926E06">100%</span><span class="cs9C1B1871">证明文件是被执行过的，但它确实显示了与文件交互的窗口</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">注册表位置：</span></p><p class="cs40DD2BC9"><span class="csE3F655E4">注</span><span class="cs9C1B1871">：数据加密，重启之后更新</span></p><p class="cs3A447A38"><span class="cs9FB05234">HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\AppCompatCache</span></p><p class="cs40DD2BC9"><span><img src="安全技术/电子取证/Windows取证/从注册表中取证/ShimCache%20(AppCompatCache)_files/image0.png" width="560" height="122" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">解析工具（</span><span class="cs8926E06">C#</span><span class="cs9C1B1871">）：</span></p><p class="cs3A447A38"><span class="cs9FB05234">https://github.com/ianxtianxt/AppCompatCacheParser</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">例子</span><span class="cs8926E06"> </span><span class="cs9C1B1871">以</span><span class="cs8926E06">csv</span><span class="cs9C1B1871">格式保存的指定路径</span></p><p class="cs3A447A38"><span class="cs9FB05234">AppCompatCacheParser.exe --csv .</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">按上次修改时间排序</span></p><p class="cs3A447A38"><span class="cs9FB05234">AppCompatCacheParser.exe --csv . -t</span></p><p class="cs40DD2BC9"><span><img src="安全技术/电子取证/Windows取证/从注册表中取证/ShimCache%20(AppCompatCache)_files/image1.png" width="560" height="294" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">如果我们想离线分析，我们可以用这个项目：</span><span class="cs8926E06"><a class="cs508254C" href="https://github.com/ianxtianxt/ShimCacheParser"><span class="cs4B51D5E4">https://github.com/ianxtianxt/ShimCacheParser</span></a></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">导出注册表</span></p><p class="cs3A447A38"><span class="cs9FB05234">reg export &quot;HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\AppCompatCache&quot; ShimCache.reg</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">解析</span></p><p class="cs3A447A38"><span class="cs9FB05234">python ShimCacheParser.py -o test.csv -r ShimCache.reg -t</span></p><p class="cs40DD2BC9"><span><img src="安全技术/电子取证/Windows取证/从注册表中取证/ShimCache%20(AppCompatCache)_files/image2.png" width="560" height="146" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">结果</span></p><p class="cs40DD2BC9"><span class="cs8926E06">&nbsp;</span></p></body>
+</html>

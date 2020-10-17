@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.csD6CA00D2{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:bold;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs7FFD2630{color:#000000;background-color:transparent;font-family:Microsoft JhengHei UI;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs6FD73CFB{text-align:left;text-indent:0pt;margin:5pt 24pt 5pt 24pt}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="zzzcms-161-后台远程命令执行漏洞"><span class="csDE05BCC">Zzzcms 1.61 </span><span class="csECDA2D3">后台远程命令执行漏洞</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">zzzphp cms </span><span class="cs9C1B1871">，远程代码执行漏洞存在的主要原因是页面对模块的</span><span class="cs8926E06">php</span><span class="cs9C1B1871">代码过滤不严谨，导致在后台可以写入</span><span class="cs8926E06">php</span><span class="cs9C1B1871">代码从而造成代码执行。</span></p><h2 class="cs868C439D">
+			<a name="二漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">Zzzcms 1.61</span></p><h2 class="cs868C439D">
+			<a name="三复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<h3 class="cs868C439D">
+			<a name="漏洞分析"><span class="csD6CA00D2">漏洞分析</span></a></h3>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">打开</span><span class="cs8926E06">/search/index.php</span></p><p class="cs3A447A38"><span class="cs9FB05234">require dirname(dirname(__FILE__)). &#39;/inc/zzz_client.php&#39;;</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">发现是跳到</span><span class="cs8926E06">/inc/zzz_client.php</span><span class="cs9C1B1871">，那么我们就来到</span><span class="cs8926E06">/inc/zzz_client.php</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Zzzcms/Zzzcms%201.61%20%e5%90%8e%e5%8f%b0%e8%bf%9c%e7%a8%8b%e5%91%bd%e4%bb%a4%e6%89%a7%e8%a1%8c%e6%bc%8f%e6%b4%9e_files/image0.png" width="560" height="39" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">发现解析模块是通过</span><span class="cs8926E06">ParsetTemplate</span><span class="cs9C1B1871">来解析的，那么我们找到</span><span class="cs8926E06">ParserTemplate</span><span class="cs9C1B1871">类的</span><span class="cs8926E06">php</span><span class="cs9C1B1871">文件</span><span class="cs8926E06">zzz_template.php</span><span class="cs9C1B1871">。在</span><span class="cs8926E06">zzz_template.php</span><span class="cs9C1B1871">中我们发现一个</span><span class="cs8926E06">IF</span><span class="cs9C1B1871">语句</span></p><p class="cs3A447A38"><span class="cs9FB05234">$zcontent = $this-&gt;parserIfLabel( $zcontent ); // IF</span><span class="cs7FFD2630">语句</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">那么我们来到</span><span class="cs8926E06">zzz_template.php</span><span class="cs9C1B1871">中对</span><span class="cs8926E06">parserIfLabel</span><span class="cs9C1B1871">的定义</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Zzzcms/Zzzcms%201.61%20%e5%90%8e%e5%8f%b0%e8%bf%9c%e7%a8%8b%e5%91%bd%e4%bb%a4%e6%89%a7%e8%a1%8c%e6%bc%8f%e6%b4%9e_files/image1.png" width="560" height="234" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">发现</span><span class="cs8926E06">$ifstr </span><span class="cs9C1B1871">经过一连串的花里胡哨的过滤最后进了</span><span class="cs8926E06">evel</span><span class="cs9C1B1871">函数，然后使用了</span><span class="cs8926E06">evel</span><span class="cs9C1B1871">函数执行，最后造成了本次远程代码执行漏洞。</span></p><h3 class="cs868C439D">
+			<a name="漏洞复现"><span class="csD6CA00D2">漏洞复现</span></a></h3>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">在后台模块管理中的电脑模块找到</span><span class="cs8926E06">cn2016</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Zzzcms/Zzzcms%201.61%20%e5%90%8e%e5%8f%b0%e8%bf%9c%e7%a8%8b%e5%91%bd%e4%bb%a4%e6%89%a7%e8%a1%8c%e6%bc%8f%e6%b4%9e_files/image2.png" width="560" height="338" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">然后在</span><span class="cs8926E06">cn2016</span><span class="cs9C1B1871">文件中到</span><span class="cs8926E06">html</span><span class="cs9C1B1871">文件，然后在</span><span class="cs8926E06">html</span><span class="cs9C1B1871">文件中找到</span><span class="cs8926E06">search.html</span><span class="cs9C1B1871">，然后将其的代码修改为</span></p><p class="cs3A447A38"><span class="cs9FB05234">{if:assert($_request[phpinfo()])}phpinfo();{end if}</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Zzzcms/Zzzcms%201.61%20%e5%90%8e%e5%8f%b0%e8%bf%9c%e7%a8%8b%e5%91%bd%e4%bb%a4%e6%89%a7%e8%a1%8c%e6%bc%8f%e6%b4%9e_files/image3.png" width="560" height="378" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">然后打开</span><span class="cs9FB05234">http://xxxx.com/zzzcms/search/</span><span class="cs9C1B1871">就可以看到我们刚刚输入的</span><span class="cs8926E06">phpinfo()</span><span class="cs9C1B1871">执行了。</span></p><h2 class="cs868C439D">
+			<a name="参考链接"><span class="cs83F14626">参考链接</span></a></h2>
+		<p class="cs6FD73CFB"><span class="cs8926E06">https://xz.aliyun.com/t/4471</span></p></body>
+</html>

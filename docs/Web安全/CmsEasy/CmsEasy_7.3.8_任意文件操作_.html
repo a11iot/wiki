@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs1C2E50E7{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs6FD73CFB{text-align:left;text-indent:0pt;margin:5pt 24pt 5pt 24pt}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="cmseasy-738-任意文件操作"><span class="csDE05BCC">CmsEasy 7.3.8 </span><span class="csECDA2D3">任意文件操作</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="二漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">CmsEasy 7.3.8</span></p><h2 class="cs868C439D">
+			<a name="三复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">&ldquo;</span><span class="cs9C1B1871">无需代码，自由拖拽布局，适应所有设备</span><span class="cs8926E06">&rdquo;</span><span class="cs9C1B1871">是这个系统宣传的特色，后台自然地存在自定义网站模板功能，这种功能中如果处理不当很可能造成文件任意读、写或者删除的脆弱性问题，需要着重注意。</span></p><p class="cs40DD2BC9"><span><img src="Web安全/CmsEasy/CmsEasy%207.3.8%20%e4%bb%bb%e6%84%8f%e6%96%87%e4%bb%b6%e6%93%8d%e4%bd%9c%20_files/image0.png" width="560" height="326" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">观察模板编辑功能，存在对模板的</span><span class="cs8926E06">html</span><span class="cs9C1B1871">文件的读取操作，对应到</span><span class="cs8926E06">HTTP</span><span class="cs9C1B1871">请求可以明显看到可控参数</span></p><p class="cs40DD2BC9"><span><img src="Web安全/CmsEasy/CmsEasy%207.3.8%20%e4%bb%bb%e6%84%8f%e6%96%87%e4%bb%b6%e6%93%8d%e4%bd%9c%20_files/image1.png" width="560" height="172" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">看到功能不急着看代码，首先想到黑盒测试一下，手动修改</span><span class="cs8926E06">id</span><span class="cs9C1B1871">参数后观察发现可以这个接口果然没有做好限制和过滤，可以读取任意传参文件</span></p><p class="cs40DD2BC9"><span><img src="Web安全/CmsEasy/CmsEasy%207.3.8%20%e4%bb%bb%e6%84%8f%e6%96%87%e4%bb%b6%e6%93%8d%e4%bd%9c%20_files/image2.png" width="560" height="182" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">观察接口</span><span class="cs8926E06">URL</span><span class="cs9C1B1871">中的参数，猜测除了</span><span class="cs8926E06">fetch</span><span class="cs9C1B1871">之外应该还有保存和删除的功能，但是功能接口的接收参数就不知道了，因此需要去看源码以进行下一步操作</span></p><h5 class="cs868C439D">
+			<a name="定位到接口的功能函数文件后发现经过了加密混淆处理"><span class="cs1C2E50E7">定位到接口的功能函数文件后，发现经过了加密混淆处理。。。</span></a></h5>
+		<p class="cs40DD2BC9"><span><img src="Web安全/CmsEasy/CmsEasy%207.3.8%20%e4%bb%bb%e6%84%8f%e6%96%87%e4%bb%b6%e6%93%8d%e4%bd%9c%20_files/image3.png" width="560" height="249" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">经过一番操作后，最终得到了文件删除的接口函数大致内容，很明显地存在文件删除路径可控问题</span></p><p class="cs40DD2BC9"><span><img src="Web安全/CmsEasy/CmsEasy%207.3.8%20%e4%bb%bb%e6%84%8f%e6%96%87%e4%bb%b6%e6%93%8d%e4%bd%9c%20_files/image4.png" width="560" height="105" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span><img src="Web安全/CmsEasy/CmsEasy%207.3.8%20%e4%bb%bb%e6%84%8f%e6%96%87%e4%bb%b6%e6%93%8d%e4%bd%9c%20_files/image5.png" width="560" height="244" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span><img src="Web安全/CmsEasy/CmsEasy%207.3.8%20%e4%bb%bb%e6%84%8f%e6%96%87%e4%bb%b6%e6%93%8d%e4%bd%9c%20_files/image6.png" width="560" height="164" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">同理，文件写也存在问题，这里就不详细列出了，感兴趣的朋友可以再看看</span></p><h2 class="cs868C439D">
+			<a name="参考链接"><span class="cs83F14626">参考链接</span></a></h2>
+		<p class="cs6FD73CFB"><span class="cs8926E06">https://xz.aliyun.com/t/7273</span></p></body>
+</html>

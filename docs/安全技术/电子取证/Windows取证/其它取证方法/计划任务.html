@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csD6CA00D2{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs7FFD2630{color:#000000;background-color:transparent;font-family:Microsoft JhengHei UI;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h3 class="cs868C439D">
+			<a name="计划任务"><span class="csD6CA00D2">计划任务</span></a></h3>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">计划任务往往是一个值得关注的点也是一个容易忽略的点。站在攻击的角度来讲，计划任务可以持久化后门、执行指定恶意程序等等；站在防御、取证的角度来讲，计划任务执行之后，系统是不会自动删除的（重启或者注销也是不会删除的），这就可能导致入侵者会忽略把计划任务清除，这就有利于我们的取证</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">列出所有任务</span></p><p class="cs3A447A38"><span class="cs9FB05234">cmd</span><span class="cs7FFD2630">：</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">schtasks.exe</span><span class="cs8926E06"><br/><br/></span><span class="cs9FB05234">powershell</span><span class="cs7FFD2630">：</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Get-ScheduledTask</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">根据文件夹列出所有任务</span><span class="cs8926E06"> powershell:</span></p><p class="cs3A447A38"><span class="cs9FB05234">Get-ScheduledTask -TaskPath &quot;\&quot;</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">根据任务名查看任务的详情信息</span></p><p class="cs3A447A38"><span class="cs9FB05234">schtasks.exe /query /v /tn test /fo list</span></p><p class="cs40DD2BC9"><span class="cs8926E06">&nbsp;</span></p></body>
+</html>

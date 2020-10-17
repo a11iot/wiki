@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csB2D98684{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs7FFD2630{color:#000000;background-color:transparent;font-family:Microsoft JhengHei UI;font-size:11pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h2 class="cs868C439D">
+			<a name="Xdd89a23b99553971924c87b07ed119d66ef2147"><span class="csB2D98684">1.</span><span class="cs83F14626">是否开启远程桌面，</span><span class="csB2D98684">1</span><span class="cs83F14626">表示关闭，</span><span class="csB2D98684">0</span><span class="cs83F14626">表示开启</span></a></h2>
+		<p class="cs3A447A38"><span class="cs9FB05234">EXEC master..xp_regread &#39;HKEY_LOCAL_MACHINE&#39;,&#39;SYSTEM\CurrentControlSet\Control\Terminal Server&#39; &nbsp;,&#39;fDenyTSConnections&#39;</span></p><h2 class="cs868C439D">
+			<a name="Xa92db6186b461c8762292643ccb38902a13083a"><span class="csB2D98684">2.</span><span class="cs83F14626">读取远程桌面端口</span></a></h2>
+		<p class="cs3A447A38"><span class="cs9FB05234">EXEC master..xp_regread &#39;HKEY_LOCAL_MACHINE&#39;,&#39;SYSTEM\CurrentControlSet\Control\Terminal &nbsp;Server\WinStations\RDP-Tcp&#39;,&#39;PortNumber&#39;</span></p><h2 class="cs868C439D">
+			<a name="X7c094e02d4b2591718dcf2552bc984f948b237e"><span class="csB2D98684">3.</span><span class="cs83F14626">开启远程桌面</span></a></h2>
+		<p class="cs3A447A38"><span class="cs9FB05234">EXEC master.dbo.xp_regwrite&#39;HKEY_LOCAL_MACHINE&#39;,&#39;SYSTEM\CurrentControlSet\Control\Terminal &nbsp;Server&#39;,&#39;fDenyTSConnections&#39;,&#39;REG_DWORD&#39;,0;</span></p><p class="cs40DD2BC9"><span class="cs8926E06">reg</span><span class="cs9C1B1871">文件开启远程桌面：</span></p><p class="cs3A447A38"><span class="cs9FB05234">Windows Registry Editor Version 5.00HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal &nbsp;Server]&quot;fDenyTSConnections&quot;=dword:00000000[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal &nbsp;Server\WinStations\RDP-Tcp]&quot;PortNumber&quot;=dword:00000d3d ////</span><span class="cs8926E06"><br/><br/></span><span class="cs7FFD2630">保存</span><span class="cs9FB05234">micropoor.reg</span><span class="cs7FFD2630">，并执行</span><span class="cs9FB05234">regedit /s micropoor.reg</span><span class="cs8926E06"><br/><br/></span><span class="cs9FB05234"> </span><span class="cs7FFD2630">注：如果第一次开启远程桌面，部分需要配置防火墙规则允许远程端口。</span><span class="cs8926E06"><br/><br/></span><span class="cs9FB05234"> netsh advfirewall firewall add rule name=&quot;Remote Desktop&quot; protocol=TCP dir=in localport=3389 action=allow</span></p><h2 class="cs868C439D">
+			<a name="X9c45612eb28b649fdc63f60f9274a3f26c92381"><span class="csB2D98684">4.</span><span class="cs83F14626">关闭远程桌面</span></a></h2>
+		<p class="cs3A447A38"><span class="cs9FB05234">EXEC master.dbo.xp_regwrite&#39;HKEY_LOCAL_MACHINE&#39;,&#39;SYSTEM\CurrentControlSet\Control\Terminal &nbsp;Server&#39;,&#39;fDenyTSConnections&#39;,&#39;REG_DWORD&#39;,1;</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Micropoo</span></p></body>
+</html>

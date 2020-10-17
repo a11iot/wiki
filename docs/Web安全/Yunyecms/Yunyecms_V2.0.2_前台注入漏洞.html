@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.csD6CA00D2{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:bold;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs6FD73CFB{text-align:left;text-indent:0pt;margin:5pt 24pt 5pt 24pt}
+			.cs508254C{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;text-decoration: none;}
+			.cs4B51D5E4{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="yunyecms-v202-前台注入漏洞"><span class="csDE05BCC">Yunyecms V2.0.2 </span><span class="csECDA2D3">前台注入漏洞</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一、漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">云业</span><span class="cs8926E06">CMS</span><span class="cs9C1B1871">内容管理系统是由云业信息科技开发的一款专门用于中小企业网站建设的</span><span class="cs8926E06">PHP</span><span class="cs9C1B1871">开源</span><span class="cs8926E06">CMS</span><span class="cs9C1B1871">，可用来快速建设一个品牌官网</span><span class="cs8926E06">(PC</span><span class="cs9C1B1871">，手机，微信都能访问</span><span class="cs8926E06">)</span><span class="cs9C1B1871">，后台功能强大，安全稳定，操作简单。</span></p><h2 class="cs868C439D">
+			<a name="二、漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">yunyecms 2.0.2</span></p><h2 class="cs868C439D">
+			<a name="三、复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<h3 class="cs868C439D">
+			<a name="漏洞分析"><span class="csD6CA00D2">漏洞分析</span></a></h3>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">下载源码，搭建起来，打开登录页面。</span></p><p class="cs3A447A38"><span class="cs9FB05234">http://127.0.0.1/yunyecms_2.0.2/admin.php?c=login&amp;=</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">1</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">打开</span><span class="cs8926E06">Seay</span><span class="cs9C1B1871">源代码审计工具，分析代码。</span><span class="cs8926E06"> </span><span class="cs9C1B1871">经过一番寻找与</span><span class="cs8926E06">&ldquo;</span><span class="cs9C1B1871">提示</span><span class="cs8926E06">&rdquo;</span><span class="cs9C1B1871">，发现</span><span class="cs8926E06">getip()</span><span class="cs9C1B1871">方法获取</span><span class="cs8926E06">ip</span><span class="cs9C1B1871">没有进行过滤，可能有戏。</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Yunyecms/Yunyecms%20V2.0.2%20%e5%89%8d%e5%8f%b0%e6%b3%a8%e5%85%a5%e6%bc%8f%e6%b4%9e_files/image0.png" width="560" height="188" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">搜索</span><span class="cs8926E06">getip()</span><span class="cs9C1B1871">函数，发现</span><span class="cs8926E06">login.php</span><span class="cs9C1B1871">调用了该函数，变量为</span><span class="cs8926E06">$logiparr</span><span class="cs9C1B1871">。</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Yunyecms/Yunyecms%20V2.0.2%20%e5%89%8d%e5%8f%b0%e6%b3%a8%e5%85%a5%e6%bc%8f%e6%b4%9e_files/image1.png" width="560" height="246" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">跟踪该变量，发现</span><span class="cs8926E06">CheckLoginTimes</span><span class="cs9C1B1871">函数调用该变量。</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Yunyecms/Yunyecms%20V2.0.2%20%e5%89%8d%e5%8f%b0%e6%b3%a8%e5%85%a5%e6%bc%8f%e6%b4%9e_files/image2.png" width="560" height="229" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">去到该函数定义处，发现我们的</span><span class="cs8926E06">ip</span><span class="cs9C1B1871">变量没有进行任何过滤直接由</span><span class="cs8926E06">GetCount</span><span class="cs9C1B1871">函数执行。</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Yunyecms/Yunyecms%20V2.0.2%20%e5%89%8d%e5%8f%b0%e6%b3%a8%e5%85%a5%e6%bc%8f%e6%b4%9e_files/image3.png" width="560" height="240" alt="" style="border-width:0px;" /></span></p><h3 class="cs868C439D">
+			<a name="漏洞发现"><span class="csD6CA00D2">漏洞发现</span></a></h3>
+		<p class="cs3A447A38"><span class="cs9FB05234">$cnt=$this-&gt;db-&gt;GetCount(&quot;select count(*) as total from `#yunyecms_adminloginfail` &nbsp;where ip=&#39;$ip&#39; and failtimes&gt;=&quot;.ADMLOGIN_MINUTES.&quot; and lastlogintime&gt;$checktime limit 1&quot;);</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">可以看出，我们可以构造该</span><span class="cs8926E06">ip</span><span class="cs9C1B1871">变量达到注入目的，打开</span><span class="cs8926E06">burp</span><span class="cs9C1B1871">抓包。</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Yunyecms/Yunyecms%20V2.0.2%20%e5%89%8d%e5%8f%b0%e6%b3%a8%e5%85%a5%e6%bc%8f%e6%b4%9e_files/image4.png" width="560" height="328" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">发送到</span><span class="cs8926E06">Repeater</span><span class="cs9C1B1871">模块，构造参数，可以看到</span><span class="cs8926E06">sql</span><span class="cs9C1B1871">报错。</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Yunyecms/Yunyecms%20V2.0.2%20%e5%89%8d%e5%8f%b0%e6%b3%a8%e5%85%a5%e6%bc%8f%e6%b4%9e_files/image5.png" width="560" height="195" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">进一步利用，得到数据库名称，漏洞存在。</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Yunyecms/Yunyecms%20V2.0.2%20%e5%89%8d%e5%8f%b0%e6%b3%a8%e5%85%a5%e6%bc%8f%e6%b4%9e_files/image6.png" width="560" height="205" alt="" style="border-width:0px;" /></span></p><h3 class="cs868C439D">
+			<a name="漏洞利用"><span class="csD6CA00D2">漏洞利用</span></a></h3>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">将抓的包保存下来，使用</span><span class="cs8926E06">sqlmap</span><span class="cs9C1B1871">去跑就可以了。</span></p><p class="cs3A447A38"><span class="cs9FB05234">sqlmap.py -r C:\Users\Administrator\Desktop\yunye.txt --batch</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Yunyecms/Yunyecms%20V2.0.2%20%e5%89%8d%e5%8f%b0%e6%b3%a8%e5%85%a5%e6%bc%8f%e6%b4%9e_files/image7.png" width="560" height="293" alt="" style="border-width:0px;" /></span></p><h2 class="cs868C439D">
+			<a name="参考链接"><span class="cs83F14626">参考链接</span></a></h2>
+		<p class="cs6FD73CFB"><span class="cs8926E06"><a class="cs508254C" href="http://www.freesion.com/article/7074313754/"><span class="cs4B51D5E4">http://www.freesion.com/article/7074313754/</span></a></span></p></body>
+</html>

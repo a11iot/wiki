@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.csD6CA00D2{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:bold;font-style:normal;}
+			.cs6FD73CFB{text-align:left;text-indent:0pt;margin:5pt 24pt 5pt 24pt}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs7FFD2630{color:#000000;background-color:transparent;font-family:Microsoft JhengHei UI;font-size:11pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="cobalt-strike-安装说明"><span class="csDE05BCC">Cobalt Strike </span><span class="csECDA2D3">安装说明</span></a></h1>
+		<p class="cs40DD2BC9"><span><img src="安全工具/CobaltStrike/Cobalt_Strike_3.x系列教程/Cobalt%20Strike%20%e5%ae%89%e8%a3%85%e8%af%b4%e6%98%8e_files/image0.jpg" width="560" height="277" alt="" style="border-width:0px;" /></span></p><h2 class="cs868C439D">
+			<a name="安装"><span class="cs83F14626">安装</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">Cobalt Strike </span><span class="cs9C1B1871">分为客户端和服务端，可分布式操作、协同作战。服务器端只能运行在</span><span class="cs8926E06">Linux</span><span class="cs9C1B1871">系统中，可搭建在</span><span class="cs8926E06">VPS</span><span class="cs9C1B1871">上。</span></p><h3 class="cs868C439D">
+			<a name="服务端"><span class="csD6CA00D2">服务端</span></a></h3>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">服务端关键的文件是</span><span class="cs8926E06">teamserver</span><span class="cs9C1B1871">以及</span><span class="cs8926E06">cobaltstrike.jar</span><span class="cs9C1B1871">，将这两个文件放到服务器上同一个目录，然后运行：</span></p><p class="cs6FD73CFB"><span class="cs9C1B1871">安装</span><span class="cs8926E06">java</span><span class="cs9C1B1871">环境</span></p><p class="cs3A447A38"><span class="cs9FB05234">sudo apt install default-jre</span></p><p class="cs6FD73CFB"><span class="cs9C1B1871">赋权</span></p><p class="cs3A447A38"><span class="cs9FB05234">chmod +x teamserver</span></p><p class="cs6FD73CFB"><span class="cs9C1B1871">安装</span><span class="cs8926E06">screen</span></p><p class="cs3A447A38"><span class="cs9FB05234">apt-get install screen</span></p><p class="cs6FD73CFB"><span class="cs9C1B1871">输入</span></p><p class="cs3A447A38"><span class="cs9FB05234">screen</span></p><p class="cs6FD73CFB"><span class="cs9C1B1871">在新窗口执行我们需要执行的命令</span></p><p class="cs3A447A38"><span class="cs9FB05234">./teamserver ip pass</span></p><p class="cs3A447A38"><span class="cs7FFD2630">按下组合键</span><span class="cs9FB05234">Ctrl a d</span><span class="cs7FFD2630">关闭窗口并后台执行</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">screen -ls &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cs7FFD2630">查看后台会话</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">screen -ls &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cs7FFD2630">重新进入会话窗口</span></p><h2 class="cs868C439D">
+			<a name="客户端"><span class="cs83F14626">客户端</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">客户端在</span><span class="cs8926E06">Windows</span><span class="cs9C1B1871">、</span><span class="cs8926E06">Linux</span><span class="cs9C1B1871">、</span><span class="cs8926E06">Mac</span><span class="cs9C1B1871">下都可以运行</span><span class="cs8926E06"> (</span><span class="cs9C1B1871">需要配置好</span><span class="cs8926E06">Java</span><span class="cs9C1B1871">环境</span><span class="cs8926E06">)</span><span class="cs9C1B1871">。启动</span><span class="cs8926E06">Cobalt Strike</span><span class="cs9C1B1871">客户端，输入服务端的</span><span class="cs8926E06">IP</span><span class="cs9C1B1871">以及端口、连接密码，用户名可以任意设置。</span></p><p class="cs40DD2BC9"><span><img src="安全工具/CobaltStrike/Cobalt_Strike_3.x系列教程/Cobalt%20Strike%20%e5%ae%89%e8%a3%85%e8%af%b4%e6%98%8e_files/image0.png" width="560" height="313" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">在控制台所有操作指令都会被记录保留在</span><span class="cs8926E06">Cobalt Stri</span></p></body>
+</html>

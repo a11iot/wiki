@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.csD6CA00D2{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:bold;font-style:normal;}
+			.cs6FD73CFB{text-align:left;text-indent:0pt;margin:5pt 24pt 5pt 24pt}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="eyoucms-139-前台sql注入"><span class="csDE05BCC">Eyoucms 1.3.9 </span><span class="csECDA2D3">前台</span><span class="csDE05BCC">sql</span><span class="csECDA2D3">注入</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="二漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="三复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<p class="cs3A447A38"><span class="cs9FB05234">http://0-sec.org:8081/eyoucms/?m=home&amp;c=View&amp;a=index&amp;aid=89</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Eyoucms/Eyoucms%201.3.9%20%e5%89%8d%e5%8f%b0sql%e6%b3%a8%e5%85%a5_files/image0.png" width="560" height="293" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">然后开启</span><span class="cs8926E06">burp</span><span class="cs9C1B1871">抓包，构建如下的包</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">需要改两方面的参数一是</span><span class="cs8926E06">referer</span><span class="cs9C1B1871">，改成我们访问的页面</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">然后将</span><span class="cs8926E06">get</span><span class="cs9C1B1871">的</span><span class="cs8926E06">url</span><span class="cs9C1B1871">构造为如下</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Eyoucms/Eyoucms%201.3.9%20%e5%89%8d%e5%8f%b0sql%e6%b3%a8%e5%85%a5_files/image1.png" width="560" height="444" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">然后放进</span><span class="cs8926E06">sqlmap</span><span class="cs9C1B1871">一把梭就行啦</span></p><h3 class="cs868C439D">
+			<a name="代码分析"><span class="csD6CA00D2">代码分析</span></a></h3>
+		<p class="cs40DD2BC9"><span><img src="Web安全/Eyoucms/Eyoucms%201.3.9%20%e5%89%8d%e5%8f%b0sql%e6%b3%a8%e5%85%a5_files/image2.png" width="560" height="266" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs8926E06">&#39;url_screen_var&#39;</span><span class="cs9C1B1871">这个值</span><span class="cs8926E06">=&gt;&#39;ZXLjbXM&#39;</span><span class="cs9C1B1871">，这里它</span><span class="cs8926E06">cms</span><span class="cs9C1B1871">也注释说明了这个参数代表了文章状态，在前台使用的。</span></p><p class="cs40DD2BC9"><span class="cs8926E06">ZXljbXM</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">这里使用这个参数是需要注册一个用户权限，正好是可以在前台使用</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">所以上图的</span><span class="cs8926E06">refer</span><span class="cs9C1B1871">就代表我们是从用户权限的那里过来的</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">根据它</span><span class="cs8926E06"> ZXLjbXM </span><span class="cs9C1B1871">所需求的构造如下</span><span class="cs8926E06">url</span><span class="cs9C1B1871">。</span></p><p class="cs3A447A38"><span class="cs9FB05234">GET /eyoucms/?ZXljbXM=1&amp;a=index&amp;c=Lists&amp;m=home&amp;tid=3&amp;yanse=1</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">看最后的参数</span><span class="cs8926E06">yanse </span><span class="cs9C1B1871">是它这个的</span><span class="cs8926E06">cms</span><span class="cs9C1B1871">的产品评论里的参数。本来是系统自带的</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">但是这个参数也是属于用户发表的文章里面的构造，所以结合</span><span class="cs8926E06">ZXLjbXM </span><span class="cs9C1B1871">即可构造可以存在注入的</span><span class="cs8926E06">url</span><span class="cs9C1B1871">链接</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Eyoucms/Eyoucms%201.3.9%20%e5%89%8d%e5%8f%b0sql%e6%b3%a8%e5%85%a5_files/image3.png" width="560" height="274" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">它这里请求的参数没有做防护</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">其实它这个文件的三个参数都是可以注入但是构造的请求</span><span class="cs8926E06">url</span><span class="cs9C1B1871">不相同。通过更改最后的参数即可</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">如果安装者是经过调整此点，或者仅用来展示网站的，那利用点可能微乎其微了</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">这个注入点比较鸡肋。其实没有多少高深的东西，只是笔者运气好，恰好看见这个参数。要不真的发现不了。</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">因为这个文件属于它</span><span class="cs8926E06">cms</span><span class="cs9C1B1871">自带的一处产品编辑的文件，实在不容易被注意到。</span></p><h2 class="cs868C439D">
+			<a name="四参考链接"><span class="cs83F14626">四、参考链接</span></a></h2>
+		<p class="cs6FD73CFB"><span class="cs8926E06">https://xz.aliyun.com/t/6983</span></p></body>
+</html>

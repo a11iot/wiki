@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs6FD73CFB{text-align:left;text-indent:0pt;margin:5pt 24pt 5pt 24pt}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="cobalt-strike-ssh登录"><span class="csDE05BCC">Cobalt Strike SSH</span><span class="csECDA2D3">登录</span></a></h1>
+		<p class="cs40DD2BC9"><span class="cs8926E06">ssh</span><span class="cs9C1B1871">批量登录比较简单，同样利用当前已上线的目标机进行登录。</span></p><p class="cs3A447A38"><span class="cs9FB05234">beacon&gt; portscan 192.168.144.170-210 22 arp 200</span></p><p class="cs40DD2BC9"><span><img src="安全工具/CobaltStrike/Cobalt_Strike_3.x系列教程/Cobalt_Strike_批量上线主机/Cobalt%20Strike%20ssh%e7%99%bb%e5%bd%95_files/image0.png" width="560" height="264" alt="" style="border-width:0px;" /></span></p><p class="cs6FD73CFB"><span class="cs9C1B1871">在</span><span class="cs8926E06">Credentials</span><span class="cs9C1B1871">中添加</span><span class="cs8926E06">ssh</span><span class="cs9C1B1871">的口令信息。（</span><span class="cs8926E06">ssh</span><span class="cs9C1B1871">口令可事先通过其他方式获取，不建议用此工具进行</span><span class="cs8926E06">ssh</span><span class="cs9C1B1871">爆破，效率慢）</span></p><p class="cs40DD2BC9"><span><img src="安全工具/CobaltStrike/Cobalt_Strike_3.x系列教程/Cobalt_Strike_批量上线主机/Cobalt%20Strike%20ssh%e7%99%bb%e5%bd%95_files/image1.png" width="560" height="204" alt="" style="border-width:0px;" /></span></p><p class="cs6FD73CFB"><span class="cs9C1B1871">选择</span><span class="cs8926E06">Login&ndash;&gt;ssh</span><span class="cs9C1B1871">登录。</span></p><p class="cs40DD2BC9"><span><img src="安全工具/CobaltStrike/Cobalt_Strike_3.x系列教程/Cobalt_Strike_批量上线主机/Cobalt%20Strike%20ssh%e7%99%bb%e5%bd%95_files/image2.png" width="560" height="260" alt="" style="border-width:0px;" /></span></p><p class="cs6FD73CFB"><span class="cs9C1B1871">选择刚添加的</span><span class="cs8926E06">ssh</span><span class="cs9C1B1871">口令，主机</span><span class="cs8926E06">Session</span><span class="cs9C1B1871">，即从哪台主机连接过去。</span></p><p class="cs40DD2BC9"><span><img src="安全工具/CobaltStrike/Cobalt_Strike_3.x系列教程/Cobalt_Strike_批量上线主机/Cobalt%20Strike%20ssh%e7%99%bb%e5%bd%95_files/image3.png" width="560" height="414" alt="" style="border-width:0px;" /></span></p><p class="cs6FD73CFB"><span class="cs8926E06">ssh</span><span class="cs9C1B1871">成功登录后，就实现了</span><span class="cs8926E06">Linux</span><span class="cs9C1B1871">目标机的上线，在</span><span class="cs8926E06">Beacon</span><span class="cs9C1B1871">中可以看到执行的命令。若需要上线的</span><span class="cs8926E06">Linux</span><span class="cs9C1B1871">主机不多，可直接在</span><span class="cs8926E06">Beacon</span><span class="cs9C1B1871">中执行命令。</span></p><p class="cs40DD2BC9"><span><img src="安全工具/CobaltStrike/Cobalt_Strike_3.x系列教程/Cobalt_Strike_批量上线主机/Cobalt%20Strike%20ssh%e7%99%bb%e5%bd%95_files/image4.png" width="560" height="394" alt="" style="border-width:0px;" /></span></p><p class="cs6FD73CFB"><span class="cs9C1B1871">在</span><span class="cs8926E06">Linux</span><span class="cs9C1B1871">目标机中查看网络连接状态，实际是与之前已上线的</span><span class="cs8926E06">Windows</span><span class="cs9C1B1871">主机建立的连接。</span></p><p class="cs40DD2BC9"><span class="cs8926E06">image</span></p></body>
+</html>

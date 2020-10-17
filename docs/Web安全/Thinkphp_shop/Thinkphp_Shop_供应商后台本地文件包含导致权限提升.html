@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.csD1E291E2{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:bold;font-style:normal;}
+			.csD6CA00D2{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs508254C{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;text-decoration: none;}
+			.cs4B51D5E4{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="thinkphp-shop-供应商后台本地文件包含导致权限提升"><span class="csDE05BCC">Thinkphp Shop </span><span class="csECDA2D3">供应商后台本地文件包含导致权限提升</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一、漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="二、漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="三、复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<h3 class="cs868C439D">
+			<a name="X6d522844536e5789775e6c09d895d8f34f9732b"><span class="csD1E291E2">1</span><span class="csD6CA00D2">、用户个人资料修改处上传图片</span></a></h3>
+		<p class="cs40DD2BC9"><span class="cs8926E06"><a class="cs508254C" href="http://www.0-sec.org/Home/User/info.html"><span class="cs4B51D5E4">http://www.0-sec.org/Home/User/info.html</span></a></span></p><h3 class="cs868C439D">
+			<a name="Xfedd80acff0d74511c04416b9e0c0b8cdcbbd2b"><span class="csD1E291E2">2</span><span class="csD6CA00D2">、上传一张正常图片，并在图片末尾加上一句话</span></a></h3>
+		<h3 class="cs868C439D">
+			<a name="X840bbbd32e95b537ad8402286797fc41389c006"><span class="csD1E291E2">3</span><span class="csD6CA00D2">、返回</span><span class="csD1E291E2">shell</span></a></h3>
+		<p class="cs40DD2BC9"><span class="cs8926E06">http://www.0-sec.org/supplier/order/delivery_print?template=public/upload/user/4575/head_pic/5989ee42cc5992e64a60c52b0cbb7602.png&amp;w=phpi</span></p></body>
+</html>

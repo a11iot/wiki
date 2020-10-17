@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csB2D98684{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs6FD73CFB{text-align:left;text-indent:0pt;margin:5pt 24pt 5pt 24pt}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.csE3F655E4{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:bold;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs7FFD2630{color:#000000;background-color:transparent;font-family:Microsoft JhengHei UI;font-size:11pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h2 class="cs868C439D">
+			<a name="recentapps"><span class="csB2D98684">RecentApps</span></a></h2>
+		<p class="cs6FD73CFB"><span class="cs8926E06">win10</span><span class="cs9C1B1871">之后特有，</span><span class="cs8926E06">RecentApps</span><span class="cs9C1B1871">包含了系统上已访问的多个应用程序和文件的引用。除了应用程序和文件名之外，</span><span class="cs8926E06">RecentApps</span><span class="cs9C1B1871">还提供了应用程序的路径，启动计数，文件的完整路径以及上次访问文件的时间。</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">注册表位置为：</span><span class="cs8926E06"> </span><span class="csE3F655E4">注</span><span class="cs9C1B1871">：记录实时更新，数据无加密</span></p><p class="cs3A447A38"><span class="cs9FB05234">HKCU\Software\Microsoft\Windows\Current Version\Search\RecentApps</span></p><p class="cs40DD2BC9"><span class="cs9FB05234">RecentApps</span><span class="cs9C1B1871">键的下面是一系列由</span><span class="cs8926E06">GUID</span><span class="cs9C1B1871">命名的子项，在</span><span class="cs8926E06">RecentApps</span><span class="cs9C1B1871">下的每个</span><span class="cs9FB05234">GUID</span><span class="cs9C1B1871">子项都对应一个应用程序。一些</span><span class="cs8926E06">GUID</span><span class="cs9C1B1871">子项也具有其他子项，它们与应用程序访问的特定文件相对应。</span></p><p class="cs40DD2BC9"><span><img src="安全技术/电子取证/Windows取证/从注册表中取证/RecentApps_files/image0.png" width="560" height="187" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="csE3F655E4">注</span><span class="cs9C1B1871">：</span><span class="cs9FB05234">LastAccessedTime</span><span class="cs9C1B1871">是采用</span><span class="cs8926E06">64</span><span class="cs9C1B1871">位的</span><span class="cs9FB05234">FILETIME</span><span class="cs9C1B1871">格式，转化为</span><span class="cs9FB05234">datetime</span><span class="cs9C1B1871">也比较简单，用系统自带的</span><span class="cs9FB05234">w32tm.exe</span><span class="cs9C1B1871">就行</span></p><p class="cs3A447A38"><span class="cs9FB05234">w32tm.exe /ntte 131781889970180000</span><span class="cs8926E06"><br/><br/></span><span class="cs9FB05234">output: 152525 08:03:17.0180000 - 2018/8/8 16:03:17</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">或者用</span><span class="cs8926E06">powershell</span></p><p class="cs3A447A38"><span class="cs9FB05234">powershell -c &quot;[datetime]::FromFileTime(0x1d42eee43808fa0)&quot;</span><span class="cs8926E06"><br/><br/></span><span class="cs9FB05234">output: 2018</span><span class="cs7FFD2630">年</span><span class="cs9FB05234">8</span><span class="cs7FFD2630">月</span><span class="cs9FB05234">8</span><span class="cs7FFD2630">日</span><span class="cs9FB05234"> 16:03:1</span></p></body>
+</html>

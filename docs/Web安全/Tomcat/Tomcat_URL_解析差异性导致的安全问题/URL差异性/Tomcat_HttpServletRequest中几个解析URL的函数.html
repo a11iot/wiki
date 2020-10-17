@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csD1E291E2{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:bold;font-style:normal;}
+			.csD6CA00D2{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs1773D91F{text-align:left;margin:2pt 0pt 2pt 0pt;list-style-type:disc;color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs2D2816FE{}
+			.csC48167EA{padding:0pt 5.4pt 0pt 5.4pt;border-top:none;border-right:none;border-bottom:1pt windowtext solid;border-left:none}
+			.csE0FE76B{text-align:left;text-indent:0pt;margin:2pt 0pt 2pt 0pt}
+			.csE35A2CA7{padding:0pt 5.4pt 0pt 5.4pt;border-top:none;border-right:none;border-bottom:none;border-left:none}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+		</style>
+	</head>
+	<body>
+		<h3 class="cs868C439D">
+			<a name="tomcat-httpservletrequest中几个解析url的函数"><span class="csD1E291E2">Tomcat HttpServletRequest</span><span class="csD6CA00D2">中几个解析</span><span class="csD1E291E2">URL</span><span class="csD6CA00D2">的函数</span></a></h3>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">在</span><span class="cs8926E06">Servlet</span><span class="cs9C1B1871">处理</span><span class="cs8926E06">URL</span><span class="cs9C1B1871">请求的路径时，</span><span class="cs8926E06">HTTPServletRequest</span><span class="cs9C1B1871">有如下几个常用的函数：</span></p><ul style="margin-top:0;margin-bottom:0;">
+			<li class="cs1773D91F"><span class="cs8926E06">request.getRequestURL()</span><span class="cs9C1B1871">：返回全路径；</span></li><li class="cs1773D91F"><span class="cs8926E06">request.getRequestURI()</span><span class="cs9C1B1871">：返回除去</span><span class="cs8926E06">Host</span><span class="cs9C1B1871">（域名或</span><span class="cs8926E06">IP</span><span class="cs9C1B1871">）部分的路径；</span></li><li class="cs1773D91F"><span class="cs8926E06">request.getContextPath()</span><span class="cs9C1B1871">：返回工程名部分，如果工程映射为</span><span class="cs9FB05234">/</span><span class="cs9C1B1871">，则返回为空；</span></li><li class="cs1773D91F"><span class="cs8926E06">request.getServletPath()</span><span class="cs9C1B1871">：返回除去</span><span class="cs8926E06">Host</span><span class="cs9C1B1871">和工程名部分的路径；</span></li><li class="cs1773D91F"><span class="cs8926E06">request.getPathInfo()</span><span class="cs9C1B1871">：仅返回传递到</span><span class="cs8926E06">Servlet</span><span class="cs9C1B1871">的路径，如果没有传递额外的路径信息，则此返回</span><span class="cs8926E06">Null</span><span class="cs9C1B1871">；</span></li></ul>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">网上的一个小结，</span><span class="cs8926E06">Servlet</span><span class="cs9C1B1871">的匹配路径为</span><span class="cs9FB05234">/test%3F/*</span><span class="cs9C1B1871">，并且</span><span class="cs8926E06">Web</span><span class="cs9C1B1871">应用是部署在</span><span class="cs9FB05234">/app</span><span class="cs9C1B1871">下，此时请求的</span><span class="cs8926E06">URL</span><span class="cs9C1B1871">为</span><span class="cs9FB05234">http://30thh.loc:8480/app/test%3F/a%3F+b;jsessionid=s%3F+ID?p+1=c+d&amp;p+2=e+f#a</span><span class="cs9C1B1871">，各个函数解析如下表：</span></p><table class="cs2D2816FE" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse;">
+			<tr>
+				<td class="csC48167EA" valign="bottom"><p class="csE0FE76B"><span class="cs9C1B1871">函数</span></p></td><td class="csC48167EA" valign="bottom"><p class="csE0FE76B"><span class="cs8926E06">URL</span><span class="cs9C1B1871">解码</span></p></td><td class="csC48167EA" valign="bottom"><p class="csE0FE76B"><span class="cs9C1B1871">解析结构</span></p></td></tr>
+			<tr>
+				<td class="csE35A2CA7" valign="top"><p class="csE0FE76B"><span class="cs8926E06">getRequestURL()</span></p></td><td class="csE35A2CA7" valign="top"><p class="csE0FE76B"><span class="cs8926E06">no</span></p></td><td class="csE35A2CA7" valign="top"><p class="csE0FE76B"><span class="cs9FB05234">http://30thh.loc:8480/app/test%3F/a%3F+b;jsessionid=s%3F+ID</span></p></td></tr>
+			<tr>
+				<td class="csE35A2CA7" valign="top"><p class="csE0FE76B"><span class="cs8926E06">getRequestURI()</span></p></td><td class="csE35A2CA7" valign="top"><p class="csE0FE76B"><span class="cs8926E06">no</span></p></td><td class="csE35A2CA7" valign="top"><p class="csE0FE76B"><span class="cs9FB05234">/app/test%3F/a%3F+b;jsessionid=s%3F+ID</span></p></td></tr>
+			<tr>
+				<td class="csE35A2CA7" valign="top"><p class="csE0FE76B"><span class="cs8926E06">getContextPath()</span></p></td><td class="csE35A2CA7" valign="top"><p class="csE0FE76B"><span class="cs8926E06">no</span></p></td><td class="csE35A2CA7" valign="top"><p class="csE0FE76B"><span class="cs9FB05234">/app</span></p></td></tr>
+			<tr>
+				<td class="csE35A2CA7" valign="top"><p class="csE0FE76B"><span class="cs8926E06">getServletPath()</span></p></td><td class="csE35A2CA7" valign="top"><p class="csE0FE76B"><span class="cs8926E06">yes</span></p></td><td class="csE35A2CA7" valign="top"><p class="csE0FE76B"><span class="cs9FB05234">/test?</span></p></td></tr>
+			<tr>
+				<td class="csE35A2CA7" valign="top"><p class="csE0FE76B"><span class="cs8926E06">getPathInfo()</span></p></td><td class="csE35A2CA7" valign="top"><p class="csE0FE76B"><span class="cs8926E06">yes</span></p></td><td class="csE35A2CA7" valign="top"><p class="csE0FE76B"><span class="cs9FB05234">/a?+b</span></p></td></tr>
+		</table>
+		<p class="cs3A447A38"><span class="cs8926E06">&nbsp;</span></p></body>
+</html>

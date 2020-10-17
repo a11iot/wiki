@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs508254C{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;text-decoration: none;}
+			.cs4B51D5E4{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs1C2E50E7{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="pbootcms-csrf"><span class="csDE05BCC">PbootCMS csrf</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一、漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="二、漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="三、复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">我将网站建立在本地，本来想测试添加用户的操作，但是发现这里有</span><span class="cs8926E06">formcheck</span><span class="cs9C1B1871">验证，所以失败了</span></p><p class="cs40DD2BC9"><span><img src="Web安全/PbootCMS/PbootCMS%20csrf_files/image0.png" width="560" height="204" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">然后我想到了删除用户位置，首先我使用管理员账号登陆，在删除用户的操作时抓包。发现很简单。只有一个</span><span class="cs8926E06">id</span><span class="cs9C1B1871">来判断删除哪个用户</span></p><p class="cs40DD2BC9"><span><img src="Web安全/PbootCMS/PbootCMS%20csrf_files/image1.png" width="560" height="140" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">于是我直接构造一个新的</span><span class="cs8926E06">url</span><span class="cs9C1B1871">，</span><span class="cs8926E06"><a class="cs508254C" href="http://127.0.0.1/cve/p/admin.php/User/del/ucode/10004（上面是10003）"><span class="cs4B51D5E4">http://127.0.0.1/cve/p/admin.php/User/del/ucode/10004</span><span class="cs1C2E50E7">（上面是</span><span class="cs4B51D5E4">10003</span><span class="cs1C2E50E7">）</span></a></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">确认这个用户是存在的。然后访问</span><span class="cs8926E06"><a class="cs508254C" href="http://127.0.0.1/cve/p/admin.php/User/del/ucode/10004"><span class="cs4B51D5E4">http://127.0.0.1/cve/p/admin.php/User/del/ucode/10004</span></a></span></p><p class="cs40DD2BC9"><span><img src="Web安全/PbootCMS/PbootCMS%20csrf_files/image2.png" width="560" height="102" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">删除成功</span></p><p class="cs40DD2BC9"><span><img src="Web安全/PbootCMS/PbootCMS%20csrf_files/image3.png" width="560" height="371" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">但是这样很容易被熟悉的管理员识别，我们可以利用段网站来进行攻击。</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">短网址生成网站</span><span class="cs8926E06"><a class="cs508254C" href="https://www.ft12.com/"><span class="cs4B51D5E4">https://www.ft12.com/</span></a></span></p><p class="cs40DD2BC9"><span class="cs8926E06"><a class="cs508254C" href="http://127.0.0.1/cve/p/admin.php/User/del/ucode/10004"><span class="cs4B51D5E4">http://127.0.0.1/cve/p/admin.php/User/del/ucode/10004</span></a></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">可以缩短为</span><span class="cs8926E06"><a class="cs508254C" href="http://u6.gg/gPCcN"><span class="cs4B51D5E4">http://u6.gg/gPCcN</span></a></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">访问这个短网址，也可以变为</span><span class="cs8926E06"><a class="cs508254C" href="http://127.0.0.1/cve/p/admin.php/User/del/ucode/10004触发漏洞"><span class="cs4B51D5E4">http://127.0.0.1/cve/p/admin.php/User/del/ucode/10004</span><span class="cs1C2E50E7">触发漏洞</span></a></span></p><p class="cs40DD2BC9"><span class="cs8926E06">image</span></p></body>
+</html>

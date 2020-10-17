@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs6FD73CFB{text-align:left;text-indent:0pt;margin:5pt 24pt 5pt 24pt}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="cmseasy-738-本地文件包含漏洞"><span class="csDE05BCC">CmsEasy 7.3.8 </span><span class="csECDA2D3">本地文件包含漏洞</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="二漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">CmsEasy 7.3.8</span></p><h2 class="cs868C439D">
+			<a name="三复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">CmsEasy V7.3.8</span><span class="cs9C1B1871">框架后端的语言编辑功能函数接口对</span><span class="cs8926E06">include</span><span class="cs9C1B1871">的文件路径没有做安全性校验，攻击者可以通过该接口包含上传的带有</span><span class="cs8926E06">PHP</span><span class="cs9C1B1871">代码内容的任意后缀（合法）文件，导致远程代码执行</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">漏洞代码位置是位于</span><span class="cs8926E06">CmsEasy_7.3.8_UTF-8_20191230/lib/admin/language_admin.php</span><span class="cs9C1B1871">文件中的</span><span class="cs8926E06">edit_action</span><span class="cs9C1B1871">函数</span></p><p class="cs40DD2BC9"><span><img src="Web安全/CmsEasy/CmsEasy%207.3.8%20%e6%9c%ac%e5%9c%b0%e6%96%87%e4%bb%b6%e5%8c%85%e5%90%ab%e6%bc%8f%e6%b4%9e%20_files/image0.png" width="560" height="265" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs8926E06">$lang_choice</span><span class="cs9C1B1871">是从用户的</span><span class="cs8926E06">GET</span><span class="cs9C1B1871">请求参数中直接获取的，</span><span class="cs8926E06">$langurlname</span><span class="cs9C1B1871">是从数据库中获取的</span><span class="cs8926E06">langurlname</span><span class="cs9C1B1871">字段。后面将这两个参数直接拼接路劲赋值给</span><span class="cs8926E06">$path</span><span class="cs9C1B1871">，这里的</span><span class="cs8926E06">$lang_choice</span><span class="cs9C1B1871">拼接在最后，可以任意赋值（为后面文件包含导致命令执行奠定基础）。</span></p><p class="cs40DD2BC9"><span><img src="Web安全/CmsEasy/CmsEasy%207.3.8%20%e6%9c%ac%e5%9c%b0%e6%96%87%e4%bb%b6%e5%8c%85%e5%90%ab%e6%bc%8f%e6%b4%9e%20_files/image1.png" width="560" height="520" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">接着由于</span><span class="cs8926E06">266</span><span class="cs9C1B1871">行判断</span><span class="cs8926E06">POST</span><span class="cs9C1B1871">参数是否有</span><span class="cs8926E06">submit</span><span class="cs9C1B1871">，我们可以直接不传这个参数来绕开这一段的代码执行，到</span><span class="cs8926E06">299</span><span class="cs9C1B1871">行直接通过</span><span class="cs8926E06">inlcude</span><span class="cs9C1B1871">函数包含我们任意传递的值，导致文件包含</span></p><p class="cs40DD2BC9"><span class="cs8926E06">CmsEasy</span><span class="cs9C1B1871">对于任何用户存在文件和图片上传功能，虽然我们不能直接上传</span><span class="cs8926E06">php</span><span class="cs9C1B1871">文件（默认禁止），但是可以上传内容为</span><span class="cs8926E06">php</span><span class="cs9C1B1871">代码的图片后缀文件，因此可以通过这一处文件包含达到最后高危的命令执行问题</span></p><p class="cs40DD2BC9"><span><img src="Web安全/CmsEasy/CmsEasy%207.3.8%20%e6%9c%ac%e5%9c%b0%e6%96%87%e4%bb%b6%e5%8c%85%e5%90%ab%e6%bc%8f%e6%b4%9e%20_files/image2.png" width="560" height="327" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span><img src="Web安全/CmsEasy/CmsEasy%207.3.8%20%e6%9c%ac%e5%9c%b0%e6%96%87%e4%bb%b6%e5%8c%85%e5%90%ab%e6%bc%8f%e6%b4%9e%20_files/image3.png" width="560" height="285" alt="" style="border-width:0px;" /></span></p><h2 class="cs868C439D">
+			<a name="参考链接"><span class="cs83F14626">参考链接</span></a></h2>
+		<p class="cs6FD73CFB"><span class="cs8926E06">https://xz.aliyun.com/t/7273</span></p></body>
+</html>

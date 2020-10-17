@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csBF12A472{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:italic;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs508254C{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;text-decoration: none;}
+			.cs4B51D5E4{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs1C2E50E7{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h4 class="cs868C439D">
+			<a name="X1f6a6307158b6ec8a2e382ed0bfd2fc98a54435"><span class="csBF12A472">4.2.1.4 PsTools</span></a></h4>
+		<p class="cs40DD2BC9"><span class="cs8926E06">PsTools </span><span class="cs9C1B1871">是</span><span class="cs8926E06"> sysinternals </span><span class="cs9C1B1871">开发的一个功能强大的安全管理工具包，最新版目前共有</span><span class="cs8926E06"> 13 </span><span class="cs9C1B1871">个</span><span class="cs8926E06"> </span><span class="cs9C1B1871">各种功能的小工具。这里介绍下</span><span class="cs8926E06"> psexec</span><span class="cs9C1B1871">，</span><span class="cs8926E06">psexec </span><span class="cs9C1B1871">是一款远程执行命令的工具，在内网渗透</span><span class="cs8926E06"> </span><span class="cs9C1B1871">的时候常它来进行横向移动。</span><span class="cs8926E06"> </span><span class="cs9C1B1871">下载地址</span><span class="cs8926E06">:<a class="cs508254C" href="https://docs.microsoft.com/zh-cn/sysinternals/downloads/psexec"><span class="cs4B51D5E4">https://docs.microsoft.com/zh-cn/sysinternals/downloads/psexec</span></a></span></p><p class="cs40DD2BC9"><span><img src="域渗透/4、域内横向移动/4.2_横向移动/4.2.1_IPC+计划任务/4.2.1.4%20PsTools_files/image0.png" width="560" height="498" alt="" style="border-width:0px;" /></span></p><h5 class="cs868C439D">
+			<a name="psexec"><span class="cs4B51D5E4">PsExec</span></a></h5>
+		<h6 class="cs868C439D">
+			<a name="X9d0e14197287df14fffe1329758f282bdaed0fd"><span class="cs4B51D5E4">1</span><span class="cs1C2E50E7">、</span><span class="cs4B51D5E4"> </span><span class="cs1C2E50E7">若已建立</span><span class="cs4B51D5E4"> IPC$</span><span class="cs1C2E50E7">连接，无需再次输入账号密码，所有</span><span class="cs4B51D5E4"> pstools </span><span class="cs1C2E50E7">工具可直接使用</span><span class="cs4B51D5E4"> net use //</span><span class="cs1C2E50E7">查看</span><span class="cs4B51D5E4"> ipc </span><span class="cs1C2E50E7">连接状态</span></a></h6>
+		<p class="cs40DD2BC9"><span><img src="域渗透/4、域内横向移动/4.2_横向移动/4.2.1_IPC+计划任务/4.2.1.4%20PsTools_files/image1.png" width="560" height="145" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span><img src="域渗透/4、域内横向移动/4.2_横向移动/4.2.1_IPC+计划任务/4.2.1.4%20PsTools_files/image2.png" width="560" height="267" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span><img src="域渗透/4、域内横向移动/4.2_横向移动/4.2.1_IPC+计划任务/4.2.1.4%20PsTools_files/image3.png" width="560" height="262" alt="" style="border-width:0px;" /></span></p><h6 class="cs868C439D">
+			<a name="X4b579f4d98cd735f9ea778a76cd0bcbb560dae5"><span class="cs4B51D5E4">2</span><span class="cs1C2E50E7">、</span><span class="cs4B51D5E4"> </span><span class="cs1C2E50E7">若未建立</span><span class="cs4B51D5E4"> IPC </span><span class="cs1C2E50E7">连接，则要使用账号密码进行登录</span></a></h6>
+		<p class="cs3A447A38"><span class="cs9FB05234">PsExec.exe \\192.168.19.178 -u adtest\jeff1 -p test@123 cmd.exe</span></p><p class="cs40DD2BC9"><span class="cs8926E06">image</span></p></body>
+</html>

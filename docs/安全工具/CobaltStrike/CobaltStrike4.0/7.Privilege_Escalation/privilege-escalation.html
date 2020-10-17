@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csB2D98684{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs24C36B3{text-align:left;margin:0pt 0pt 10pt 0pt;list-style-type:disc;color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal}
+			.cs508254C{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;text-decoration: none;}
+			.cs4B51D5E4{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs9381D78F{text-align:left;margin:0pt 0pt 10pt -12pt;list-style-type:disc;color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="privilege-escalation"><span class="csDE05BCC">Privilege Escalation</span></a></h1>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">这一章节中我们讨论各种通过</span><span class="cs8926E06">Beacon</span><span class="cs9C1B1871">提权的方式</span><span class="cs8926E06"> </span><span class="cs9C1B1871">。</span></p><h2 class="cs868C439D">
+			<a name="elevate"><span class="csB2D98684">Elevate</span></a></h2>
+		<ul style="margin-top:0;margin-bottom:0;">
+			<li class="cs24C36B3"><span class="cs9C1B1871">列出权限目录：</span><span class="cs8926E06"> elevate</span></li><li class="cs24C36B3"><span class="cs9C1B1871">生成提权会话：</span><span class="cs8926E06">elevate [module] [listener]</span></li></ul>
+		<ul style="margin-top:0;margin-bottom:0;">
+			<li class="cs24C36B3"><span class="cs9C1B1871">界面操作如下：</span><span class="cs8926E06">[session] -&gt; Access -&gt;Elevate</span></li><li class="cs24C36B3"><span><img src="安全工具/CobaltStrike/CobaltStrike4.0/7.Privilege_Escalation/privilege-escalation_files/image0.png" width="560" height="285" alt="" style="border-width:0px;" /></span></li></ul>
+		<h2 class="cs868C439D">
+			<a name="runasadmin"><span class="csB2D98684">RunAsAdmin</span></a></h2>
+		<ul style="margin-top:0;margin-bottom:0;">
+			<li class="cs24C36B3"><span class="cs9C1B1871">列出提权命令提示：</span><span class="cs8926E06">runasadmin</span></li><li class="cs24C36B3"><span class="cs9C1B1871">在已提权会话中运行指令：</span><span class="cs8926E06">runasadmin [module] [command]</span></li></ul>
+		<h2 class="cs868C439D">
+			<a name="elevate-vs-runasadmin"><span class="csB2D98684">Elevate vs RunAsAdmin</span></a></h2>
+		<ul style="margin-top:0;margin-bottom:0;">
+			<li class="cs24C36B3"><span class="cs8926E06">elevate</span><span class="cs9C1B1871">能够产生一个提权的会话，一些提权工具可以很容易执行并达到提权目的。</span></li><li class="cs24C36B3"><span class="cs8926E06">runasadmin</span><span class="cs9C1B1871">可以使用自己的武器库进行，比如使用高权限运行一个</span><span class="cs8926E06">exe</span><span class="cs9C1B1871">文件，给目标发送命令，或者只是想执行一条</span><span class="cs8926E06">powershell</span><span class="cs9C1B1871">。使用</span><span class="cs8926E06">session-&gt;Access-&gt;One-liner </span><span class="cs9C1B1871">可以生成一条</span><span class="cs8926E06">powershell</span><span class="cs9C1B1871">来生成一个新的会话。</span></li></ul>
+		<h2 class="cs868C439D">
+			<a name="elevate-kit"><span class="csB2D98684">Elevate Kit</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">Elevate Kit </span><span class="cs9C1B1871">是一个</span><span class="cs8926E06">Aggressor</span><span class="cs9C1B1871">脚本，将几个提权漏洞集成到</span><span class="cs8926E06">Cobalt Strike</span><span class="cs9C1B1871">中。下载地址：</span><span class="cs8926E06"><a class="cs508254C" href="https://github.com/rsmudge/ElevateKit"><span class="cs4B51D5E4">https://github.com/rsmudge/ElevateKit</span></a></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">具体使用方法如下：</span></p><ul style="margin-top:0;margin-bottom:0;">
+			<li class="cs24C36B3"><span class="cs8926E06">Cobalt Strike -&gt; Scripts,</span><span class="cs9C1B1871">点击</span><span class="cs8926E06">Load, </span><span class="cs9C1B1871">将</span><span class="cs8926E06">elevate.cna</span><span class="cs9C1B1871">加载到</span><span class="cs8926E06">Cobalt Strike</span></li></ul>
+		<ul style="margin-top:0;margin-bottom:0;">
+			<li class="cs24C36B3"><span><img src="安全工具/CobaltStrike/CobaltStrike4.0/7.Privilege_Escalation/privilege-escalation_files/image1.png" width="560" height="345" alt="" style="border-width:0px;" /></span></li><li class="cs24C36B3"><span><img src="安全工具/CobaltStrike/CobaltStrike4.0/7.Privilege_Escalation/privilege-escalation_files/image2.png" width="560" height="413" alt="" style="border-width:0px;" /></span></li></ul>
+		<ul style="margin-top:0;margin-bottom:0;">
+			<li class="cs24C36B3"><span class="cs9C1B1871">选择</span><span class="cs8926E06">Interact </span><span class="cs9C1B1871">，在</span><span class="cs8926E06">Beacon</span><span class="cs9C1B1871">中输入</span><span class="cs8926E06">elevate</span><span class="cs9C1B1871">可以查看提权目录，新建一个监听器，使用</span><span class="cs8926E06">ms15-051</span><span class="cs9C1B1871">输入</span><span class="cs8926E06"> elevate ms15-051 [listener name]</span><span class="cs9C1B1871">，获取</span><span class="cs8926E06">system</span><span class="cs9C1B1871">权限成功。</span></li></ul>
+		<ul style="margin-top:0;margin-bottom:0;">
+			<li class="cs24C36B3"><span><img src="安全工具/CobaltStrike/CobaltStrike4.0/7.Privilege_Escalation/privilege-escalation_files/image3.png" width="560" height="533" alt="" style="border-width:0px;" /></span></li><li class="cs24C36B3"><span><img src="安全工具/CobaltStrike/CobaltStrike4.0/7.Privilege_Escalation/privilege-escalation_files/image4.png" width="560" height="366" alt="" style="border-width:0px;" /></span></li></ul>
+		<h2 class="cs868C439D">
+			<a name="sharpup"><span class="csB2D98684">SharpUp</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">sharpup</span><span class="cs9C1B1871">是一个用来扫描提权漏洞或者缺失安全配置项的工具，通过不同的利用方法进行提权。在</span><span class="cs8926E06">Beacon</span><span class="cs9C1B1871">中这样调用：</span><span class="cs9FB05234">execute-assembly /local/path/SharpUp.exe all</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">下载地址：</span><span class="cs8926E06"><a class="cs508254C" href="https://github.com/GhostPack/SharpUp"><span class="cs4B51D5E4">https://github.com/GhostPack/SharpUp</span></a></span></p><ul style="margin-top:0;margin-bottom:0;">
+			<li class="cs24C36B3"><span class="cs9C1B1871">在</span><span class="cs8926E06">Beacon</span><span class="cs9C1B1871">中执行</span><span class="cs9FB05234">execute-assembly /local/path/SharpUp.exe all</span><span class="cs8926E06"> </span><span class="cs9C1B1871">后，发现</span><span class="cs8926E06">VMTools</span><span class="cs9C1B1871">服务可修改。</span></li></ul>
+		<ul style="margin-top:0;margin-bottom:0;">
+			<li class="cs24C36B3"><span><img src="安全工具/CobaltStrike/CobaltStrike4.0/7.Privilege_Escalation/privilege-escalation_files/image5.png" width="560" height="347" alt="" style="border-width:0px;" /></span></li></ul>
+		<ul style="margin-top:0;margin-bottom:0;">
+			<li class="cs24C36B3"><span class="cs9C1B1871">生成一个</span><span class="cs8926E06">EXE Payload</span><span class="cs9C1B1871">，命名为</span><span class="cs8926E06">vmtoolsd.exe</span></li></ul>
+		<ul style="margin-top:0;margin-bottom:0;">
+			<li class="cs24C36B3"><span><img src="安全工具/CobaltStrike/CobaltStrike4.0/7.Privilege_Escalation/privilege-escalation_files/image6.png" width="560" height="357" alt="" style="border-width:0px;" /></span></li></ul>
+		<ul style="margin-top:0;margin-bottom:0;">
+			<li class="cs24C36B3"><span class="cs9C1B1871">将</span><span class="cs8926E06">vmtoolsd.exe</span><span class="cs9C1B1871">上传到目标服务器上，并修改该服务对应文件路径，重启服务后显示成功，然后在</span><span class="cs8926E06">Beacon</span><span class="cs9C1B1871">中连接监听器端口，</span><span class="cs8926E06">system</span><span class="cs9C1B1871">权限主机上线成功。</span></li></ul>
+		<ul style="margin-top:0;margin-bottom:0;">
+			<li class="cs24C36B3"><span><img src="安全工具/CobaltStrike/CobaltStrike4.0/7.Privilege_Escalation/privilege-escalation_files/image7.png" width="560" height="209" alt="" style="border-width:0px;" /></span></li><li class="cs24C36B3"><span><img src="安全工具/CobaltStrike/CobaltStrike4.0/7.Privilege_Escalation/privilege-escalation_files/image8.png" width="560" height="413" alt="" style="border-width:0px;" /></span></li></ul>
+		<h2 class="cs868C439D">
+			<a name="spawn-as"><span class="csB2D98684">Spawn As</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">spawn as</span><span class="cs9C1B1871">使用指定的凭证作为另一个用户生成一个会话。</span><span class="cs8926E06"> </span><span class="cs9C1B1871">打开方式：</span><span class="cs8926E06">[session]-&gt;Access-Spawn As</span></p><p class="cs40DD2BC9"><span><img src="安全工具/CobaltStrike/CobaltStrike4.0/7.Privilege_Escalation/privilege-escalation_files/image9.png" width="560" height="241" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span><img src="安全工具/CobaltStrike/CobaltStrike4.0/7.Privilege_Escalation/privilege-escalation_files/image10.png" width="560" height="380" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span><img src="安全工具/CobaltStrike/CobaltStrike4.0/7.Privilege_Escalation/privilege-escalation_files/image11.png" width="560" height="215" alt="" style="border-width:0px;" /></span></p><h2 class="cs868C439D">
+			<a name="kerberoasting"><span class="csB2D98684">Kerberoasting</span></a></h2>
+		<ul style="margin-top:0;margin-bottom:0;">
+			<li class="cs24C36B3"><span class="cs9C1B1871">一些服务是以域账户作为服务登陆账户，这些账户往往权限比较高，甚至有的时候是域管理员身份。</span></li><li class="cs24C36B3"><span class="cs8926E06">kerberos</span><span class="cs9C1B1871">认证中，服务账户与</span><span class="cs8926E06">DC</span><span class="cs9C1B1871">服务器中一个唯一的</span><span class="cs8926E06">SPN</span><span class="cs9C1B1871">（配置服务主体名称）关联。</span></li><li class="cs24C36B3"><span class="cs8926E06">kerberos</span><span class="cs9C1B1871">票据中部分使用了用户密码哈希值生成。</span></li><li class="cs24C36B3"><span class="cs9C1B1871">攻击思路：</span><ul style="margin-top:0;margin-bottom:0;">
+				<li class="cs24C36B3"><span class="cs9C1B1871">用</span><span class="cs8926E06">SPNs</span><span class="cs9C1B1871">在域控制器中查询账户</span><span class="cs8926E06"> </span><span class="cs9C1B1871">。</span></li><li class="cs24C36B3"><span class="cs9C1B1871">为关联服务向授权服务器申请一个票据</span><span class="cs8926E06"> </span><span class="cs9C1B1871">。</span></li><li class="cs24C36B3"><span class="cs9C1B1871">破解票据恢复密码。</span></li></ul>
+			</li><li class="cs24C36B3"><span class="cs9C1B1871">攻击步骤：</span><ul style="margin-top:0;margin-bottom:0;">
+				<li class="cs24C36B3"><span class="cs9C1B1871">在</span><span class="cs8926E06">Beacon</span><span class="cs9C1B1871">中</span><span class="cs8926E06"> </span><span class="cs9FB05234">execute-assembly /path/to/rubeus.exe kerberosst</span><span class="cs8926E06"> </span><span class="cs9C1B1871">得到一个域账号及生成的票据。</span></li></ul>
+			<ul style="margin-top:0;margin-bottom:0;">
+				<li class="cs24C36B3"><span><img src="安全工具/CobaltStrike/CobaltStrike4.0/7.Privilege_Escalation/privilege-escalation_files/image12.png" width="560" height="189" alt="" style="border-width:0px;" /></span></li><li class="cs24C36B3"><span><img src="安全工具/CobaltStrike/CobaltStrike4.0/7.Privilege_Escalation/privilege-escalation_files/image13.png" width="560" height="273" alt="" style="border-width:0px;" /></span></li></ul>
+			<ul style="margin-top:0;margin-bottom:0;">
+				<li class="cs24C36B3"><span class="cs9C1B1871">下载生成的票据文件，使用</span><span class="cs8926E06">hashcat</span><span class="cs9C1B1871">工具破解得到密码。</span></li></ul>
+			<ul style="margin-top:0;margin-bottom:0;">
+				<li class="cs24C36B3"><span><img src="安全工具/CobaltStrike/CobaltStrike4.0/7.Privilege_Escalation/privilege-escalation_files/image14.png" width="560" height="265" alt="" style="border-width:0px;" /></span></li></ul>
+			<ul style="margin-top:0;margin-bottom:0;">
+				<li class="cs24C36B3"><span class="cs9C1B1871">使用</span><span class="cs8926E06">sqawnas </span><span class="cs9C1B1871">生成另外一个会话。</span></li></ul>
+			<ul style="margin-top:0;margin-bottom:0;">
+				<li class="cs24C36B3"><span><img src="安全工具/CobaltStrike/CobaltStrike4.0/7.Privilege_Escalation/privilege-escalation_files/image15.png" width="560" height="357" alt="" style="border-width:0px;" /></span></li></ul>
+			</li></ul>
+		<h2 class="cs868C439D">
+			<a name="提权问题集"><span class="cs83F14626">提权问题集</span></a></h2>
+		<ul style="margin-top:0;margin-bottom:0;">
+			<li class="cs9381D78F"><span class="cs9C1B1871">没有权限，这种情况下需要查看是否有提权漏洞存在并利用。</span></li><li class="cs9381D78F"><span class="cs9C1B1871">当前用户</span><span class="cs8926E06"> </span><span class="cs9C1B1871">是</span><span class="cs8926E06">administrator</span><span class="cs9C1B1871">，但是没有相应权限</span></li><li class="cs9381D78F"><span class="cs9C1B1871">已经提权但是操作有限制。</span></li></ul>
+		<h2 class="cs868C439D">
+			<a name="uac"><span class="csB2D98684">UAC</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">用户账户控制（</span><span class="cs8926E06">User Account Control</span><span class="cs9C1B1871">）在</span><span class="cs8926E06">Windows Vista</span><span class="cs9C1B1871">及更高版本操作系统中采用的一种控制机制，其原理是通知用户是否对应用程序使用硬盘驱动器和系统文件授权，已达到帮助组织恶意程序损坏系统的效果。在操作系统中有三个权限，高权限（管理员权限），中权限（普通用户权限），低权限（限制权限）。在本地的管理员也会执行两种权限，一个是普通用户，另外一个是管理员权限。使用</span><span class="cs9FB05234">whoami /groups</span><span class="cs9C1B1871">可以查看当前用户属于哪个权限组。那么如何绕过</span><span class="cs8926E06">UAC</span><span class="cs9C1B1871">，以下是几种方法：</span></p><ul style="margin-top:0;margin-bottom:0;">
+			<li class="cs9381D78F"><span class="cs9C1B1871">使用</span><span class="cs9FB05234">elevate uac-teken-duplication [listener]</span><span class="cs8926E06">,</span><span class="cs9C1B1871">这个提权漏洞在</span><span class="cs8926E06">win10 RS5</span><span class="cs9C1B1871">的版本中已经被修复</span></li><li class="cs9381D78F"><span class="cs9FB05234">runasadmin uac-cmstplua [command]</span></li><li class="cs9381D78F"><span class="cs9C1B1871">其他</span><span class="cs8926E06">elevate kit</span><span class="cs9C1B1871">的方法</span></li></ul>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">首先生成一个</span><span class="cs8926E06">Powersehll one-liner </span><span class="cs9C1B1871">，然后使用</span><span class="cs8926E06">runasadmin uac-cmstplua [one-liner] </span><span class="cs9C1B1871">，绕过</span><span class="cs8926E06">uac</span><span class="cs9C1B1871">成功。</span></p><p class="cs40DD2BC9"><span><img src="安全工具/CobaltStrike/CobaltStrike4.0/7.Privilege_Escalation/privilege-escalation_files/image16.png" width="560" height="278" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span><img src="安全工具/CobaltStrike/CobaltStrike4.0/7.Privilege_Escalation/privilege-escalation_files/image17.png" width="560" height="205" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span><img src="安全工具/CobaltStrike/CobaltStrike4.0/7.Privilege_Escalation/privilege-escalation_files/image18.png" width="560" height="285" alt="" style="border-width:0px;" /></span></p><h2 class="cs868C439D">
+			<a name="access-token"><span class="csB2D98684">Access Token</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">当用户登录后，系统创建一个令牌（</span><span class="cs8926E06">Access Token</span><span class="cs9C1B1871">），里边包含了用户和用户组信息、登录进程返回的</span><span class="cs8926E06">SID</span><span class="cs9C1B1871">和由本地安全策略分配给用户和用户的安全组的特权列表，系统使用令牌控制用户可以访问哪些安全对象，并控制用户执行相关系统操作的能力。令牌会一直存在，直到系统被重启。</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">令牌权限：</span></p><ul style="margin-top:0;margin-bottom:0;">
+			<li class="cs9381D78F"><span class="cs9FB05234">whoami /priv</span><span class="cs9C1B1871">查看当前令牌的权限。</span></li><li class="cs9381D78F"><span class="cs9C1B1871">在</span><span class="cs8926E06">Beacon</span><span class="cs9C1B1871">中使用</span><span class="cs9FB05234">getprivs</span><span class="cs9C1B1871">可以获得尽可能多的权限。</span><span class="cs8926E06"> </span><span class="cs9C1B1871">首先查看当前权限，大部分为</span><span class="cs8926E06">disable</span><span class="cs9C1B1871">，使用</span><span class="cs8926E06">getprivs</span><span class="cs9C1B1871">后再查看当前权限，大部分已经是</span><span class="cs8926E06">enable</span><span class="cs9C1B1871">状态。</span></li></ul>
+		<ul style="margin-top:0;margin-bottom:0;">
+			<li class="cs9381D78F"><span><img src="安全工具/CobaltStrike/CobaltStrike4.0/7.Privilege_Escalation/privilege-escalation_files/image19.png" width="560" height="175" alt="" style="border-width:0px;" /></span></li><li class="cs9381D78F"><span><img src="安全工具/CobaltStrike/CobaltStrike4.0/7.Privilege_Escalation/privilege-escalation_files/image20.png" width="560" height="166" alt="" style="border-width:0px;" /></span></li></ul>
+		<ul style="margin-top:0;margin-bottom:0;">
+			<li class="cs9381D78F"><span class="cs9C1B1871">特权包括：</span><span class="cs8926E06">SeCreateTokenPrivilege</span><span class="cs9C1B1871">、</span><span class="cs8926E06">SeDebugPrivilege</span><span class="cs9C1B1871">、</span><span class="cs8926E06">SeTcbPrivilege</span><span class="cs9C1B1871">等</span><span class="cs8926E06"> </span><span class="cs9C1B1871">。</span></li></ul>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">获取</span><span class="cs8926E06">System</span><span class="cs9C1B1871">权限</span></p><ul style="margin-top:0;margin-bottom:0;">
+			<li class="cs9381D78F"><span class="cs8926E06">System</span><span class="cs9C1B1871">权限是系统最高权限。</span></li><li class="cs9381D78F"><span class="cs9C1B1871">在</span><span class="cs8926E06">Beacon</span><span class="cs9C1B1871">中使用</span><span class="cs9FB05234">getsystem</span><span class="cs9C1B1871">模拟</span><span class="cs8926E06">System</span><span class="cs9C1B1871">账户的令牌。</span></li><li class="cs9381D78F"><span class="cs9C1B1871">使用</span><span class="cs8926E06">elevate svc-exe [listener] </span><span class="cs9C1B1871">在目标机器上启动一个服务来产生一个新会话，拥有</span><span class="cs8926E06">System</span><span class="cs9C1B1871">权限。</span></li></ul>
+		<ul style="margin-top:0;margin-bottom:0;">
+			<li class="cs9381D78F"><span><img src="安全工具/CobaltStrike/CobaltStrike4.0/7.Privilege_Escalation/privilege-escalation_files/image21.png" width="560" height="335" alt="" style="border-width:0px;" /></span></li></ul>
+		<h2 class="cs868C439D">
+			<a name="credential-and-hash"><span class="csB2D98684">Credential and Hash</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">[session]-&gt;Access-Dump Hashes</span><span class="cs9C1B1871">，或者在</span><span class="cs8926E06">Beacon</span><span class="cs9C1B1871">中使用</span><span class="cs8926E06">hashdump</span><span class="cs9C1B1871">命令将目标机器中的哈希转存，</span><span class="cs8926E06">logopasswords</span><span class="cs9C1B1871">命令将使用</span><span class="cs8926E06">mimikatz</span><span class="cs9C1B1871">为登录到当前系统的用户读取明文密码和哈希。</span><span class="cs8926E06">logopasswords</span><span class="cs9C1B1871">命令与</span><span class="cs8926E06">[session]-&gt;Access-&gt;Run Mimikatz</span><span class="cs9C1B1871">相同。</span><span class="cs8926E06"> </span><span class="cs9C1B1871">使用</span><span class="cs8926E06">dcsync [domain]</span><span class="cs9C1B1871">从域控中提取所有账户密码哈希。所有的凭证在</span><span class="cs8926E06">View-&gt;Credentials</span><span class="cs9C1B1871">中查看。</span></p><p class="cs40DD2BC9"><span><img src="安全工具/CobaltStrike/CobaltStrike4.0/7.Privilege_Escalation/privilege-escalation_files/image22.png" width="560" height="122" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span><img src="安全工具/CobaltStrike/CobaltStrike4.0/7.Privilege_Escalation/privilege-escalation_files/image23.png" width="560" height="130" alt="" style="border-width:0px;" /></span></p><h2 class="cs868C439D">
+			<a name="mimikatz"><span class="csB2D98684">Mimikatz</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">mimikatz [command] [arguments] </span><span class="cs9C1B1871">执行一个</span><span class="cs8926E06">mimikatz</span><span class="cs9C1B1871">命令</span></p><p class="cs40DD2BC9"><span class="cs8926E06">mimikatz ![command] [arguments] </span><span class="cs9C1B1871">使用</span><span class="cs8926E06">System</span><span class="cs9C1B1871">权限执行</span><span class="cs8926E06">mimikatz</span><span class="cs9C1B1871">命令</span></p><p class="cs40DD2BC9"><span class="cs8926E06">mimikatz @[command] [arguments] </span><span class="cs9C1B1871">使用当前令牌执行</span><span class="cs8926E06">mimikatz</span><span class="cs9C1B1871">命</span></p></body>
+</html>

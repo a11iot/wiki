@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csD1E291E2{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:bold;font-style:normal;}
+			.csD6CA00D2{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h3 class="cs868C439D">
+			<a name="tomcat-getrequesturi的处理"><span class="csD1E291E2">Tomcat getRequestURI()</span><span class="csD6CA00D2">的处理</span></a></h3>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">我们直接在</span><span class="cs8926E06">index.jsp</span><span class="cs9C1B1871">中调用</span><span class="cs8926E06">getRequestURI()</span><span class="cs9C1B1871">函数的地方打上断点调试即可。</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">这里是直接调用</span><span class="cs8926E06">Request.requestURI()</span><span class="cs9C1B1871">函数然后直接返回其字符串值：</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Tomcat/Tomcat_URL_解析差异性导致的安全问题/调试分析/Tomcat%20getRequestURI()%e7%9a%84%e5%a4%84%e7%90%86_files/image0.png" width="560" height="197" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">跟进</span><span class="cs8926E06">Request.requestURI()</span><span class="cs9C1B1871">函数，这里是直接返回请求的</span><span class="cs8926E06">URL</span><span class="cs9C1B1871">内容，没有做任何处理以及</span><span class="cs8926E06">URL</span><span class="cs9C1B1871">解码：</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Tomcat/Tomcat_URL_解析差异性导致的安全问题/调试分析/Tomcat%20getRequestURI()%e7%9a%84%e5%a4%84%e7%90%86_files/image1.png" width="560" height="219" alt="" style="border-width:0px;" /></span><span class="cs8926E06"><br/>Tomcat</span></p></body>
+</html>

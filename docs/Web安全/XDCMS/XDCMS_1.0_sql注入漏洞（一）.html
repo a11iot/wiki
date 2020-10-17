@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs7FFD2630{color:#000000;background-color:transparent;font-family:Microsoft JhengHei UI;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs6FD73CFB{text-align:left;text-indent:0pt;margin:5pt 24pt 5pt 24pt}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="xdcms-10-sql注入漏洞一"><span class="csDE05BCC">XDCMS 1.0 sql</span><span class="csECDA2D3">注入漏洞（一）</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="二漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">XDCMS 1.0</span></p><h2 class="cs868C439D">
+			<a name="三复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">注入存在于用户登录页面：</span><span class="cs9FB05234">/index.php?m=member&amp;f=login</span></p><p class="cs40DD2BC9"><span><img src="Web安全/XDCMS/XDCMS%201.0%20sql%e6%b3%a8%e5%85%a5%e6%bc%8f%e6%b4%9e%ef%bc%88%e4%b8%80%ef%bc%89_files/image0.jpg" width="560" height="217" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">漏洞文件</span><span class="cs8926E06">:</span><span class="cs9FB05234">/modules/member/index.php</span><span class="cs9C1B1871">，</span><span class="cs9FB05234">lines:112</span></p><p class="cs40DD2BC9"><span><img src="Web安全/XDCMS/XDCMS%201.0%20sql%e6%b3%a8%e5%85%a5%e6%bc%8f%e6%b4%9e%ef%bc%88%e4%b8%80%ef%bc%89_files/image1.jpg" width="560" height="562" alt="" style="border-width:0px;" /></span></p><p class="cs3A447A38"><span class="cs9FB05234">login_save()`</span><span class="cs7FFD2630">在用户登录界面时调用，</span><span class="cs9FB05234">URL:`/index.php?m=member&amp;f=login</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">参数</span><span class="cs8926E06">m</span><span class="cs9C1B1871">与</span><span class="cs8926E06">f</span><span class="cs9C1B1871">的包含方式为</span><span class="cs8926E06">:</span><span class="cs9FB05234">/ modules/$m/$c.php</span></p><p class="cs6FD73CFB"><span class="cs8926E06">index.php -&gt; system/common.inc.php -&gt; fun.inc.php -&gt; global.inc.php[</span><span class="cs9C1B1871">接受</span><span class="cs8926E06">m</span><span class="cs9C1B1871">、</span><span class="cs8926E06">f</span><span class="cs9C1B1871">参数的值</span><span class="cs8926E06">] -&gt; </span><span class="cs9C1B1871">包含</span><span class="cs8926E06">modules/$m/$c.php</span></p><p class="cs40DD2BC9"><span class="cs8926E06">$username</span><span class="cs9C1B1871">值使用了</span><span class="cs9FB05234">safe_html()</span><span class="cs9C1B1871">进行过滤，且过滤字符均可使用大小写绕过</span></p><p class="cs40DD2BC9"><span class="cs8926E06">htmlspecialchars()</span><span class="cs9C1B1871">未设置第二个参数，导致仅对双引号</span><span class="cs8926E06">&rdquo;</span><span class="cs9C1B1871">进行转义，单引号</span><span class="cs8926E06">&rsquo;</span><span class="cs9C1B1871">不会被转义掉，因而存在注入</span></p><p class="cs6FD73CFB"><span class="cs9C1B1871">第二个参数详解：</span></p><p class="cs6FD73CFB"><span class="cs8926E06">ENT_COMPAT</span><span class="cs9C1B1871">（默认值）：只转换双引号。</span></p><p class="cs6FD73CFB"><span class="cs8926E06">ENT_QUOTES</span><span class="cs9C1B1871">：两种引号都转换。</span></p><p class="cs6FD73CFB"><span class="cs8926E06">ENT_NOQUOTES</span><span class="cs9C1B1871">：两种引号都不转换。</span></p><p class="cs40DD2BC9"><span><img src="Web安全/XDCMS/XDCMS%201.0%20sql%e6%b3%a8%e5%85%a5%e6%bc%8f%e6%b4%9e%ef%bc%88%e4%b8%80%ef%bc%89_files/image2.jpg" width="560" height="51" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">但此处注入由于过滤了</span><span class="cs9FB05234">.</span><span class="cs9C1B1871">，无法通过</span><span class="cs8926E06">information_schema</span><span class="cs9C1B1871">来获取表名，需去猜测，较为鸡肋</span></p><p class="cs40DD2BC9"><span><img src="Web安全/XDCMS/XDCMS%201.0%20sql%e6%b3%a8%e5%85%a5%e6%bc%8f%e6%b4%9e%ef%bc%88%e4%b8%80%ef%bc%89_files/image3.jpg" width="560" height="162" alt="" style="border-width:0px;" /></span></p></body>
+</html>

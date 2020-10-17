@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.csD1E291E2{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:bold;font-style:normal;}
+			.csD6CA00D2{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:bold;font-style:normal;}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="pluck-cms-4710-后台-文件包含文件上传导致getshell"><span class="csDE05BCC">Pluck CMS 4.7.10 </span><span class="csECDA2D3">后台</span><span class="csDE05BCC"> </span><span class="csECDA2D3">文件包含</span><span class="csDE05BCC">+</span><span class="csECDA2D3">文件上传导致</span><span class="csDE05BCC">getshell</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一、漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="二、漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">Pluck CMS Pluck CMS &lt;=4.7.10</span></p><h2 class="cs868C439D">
+			<a name="三、复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<h3 class="cs868C439D">
+			<a name="Xca264c49faa1b11717610891815ae3c4227d3cf"><span class="csD1E291E2">1</span><span class="csD6CA00D2">、分析过程</span></a></h3>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">目前最新版本为</span><span class="cs8926E06">4.7.10</span><span class="cs9C1B1871">，个人测试</span><span class="cs8926E06">github</span><span class="cs9C1B1871">上最旧的</span><span class="cs8926E06">4.7.2</span><span class="cs9C1B1871">版本仍然存在该漏洞，框架本身语言选择模块数据注入导致的文件包含漏洞，官方更新版本并没有对这部分代码进行修改，可以认为是全版本通用的。该漏洞是在复现</span><span class="cs8926E06">&quot;</span><span class="cs9C1B1871">我怎么这么帅</span><span class="cs8926E06">&quot;</span><span class="cs9C1B1871">在先知发表的《</span><span class="cs8926E06">Pluck CMS 4.7.10</span><span class="cs9C1B1871">远程代码执行漏洞分析》之余审计其他代码发现的，在此致谢。</span></p><p class="cs40DD2BC9"><span class="cs8926E06">v4.7.1</span><span class="cs9C1B1871">分析</span><span class="cs8926E06"> </span><span class="cs9C1B1871">从入口文件</span><span class="cs8926E06">admin.php</span><span class="cs9C1B1871">查看</span><span class="cs8926E06">:</span></p><p class="cs40DD2BC9"><span class="cs8926E06">&nbsp;</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">查看</span><span class="cs8926E06">language.php,</span><span class="cs9C1B1871">满足指定的文件存在，并传入的</span><span class="cs8926E06">cont1</span><span class="cs9C1B1871">参数和原本设置的</span><span class="cs8926E06">$langpref</span><span class="cs9C1B1871">参数不等，进入</span><span class="cs8926E06">save_language($cont1)</span><span class="cs9C1B1871">。</span></p><p class="cs40DD2BC9"><span class="cs8926E06">&nbsp;</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">调用</span><span class="cs8926E06">save_file</span><span class="cs9C1B1871">方法。</span></p><p class="cs40DD2BC9"><span class="cs8926E06">&nbsp;</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">由于只有一个数据，直接</span><span class="cs8926E06">182</span><span class="cs9C1B1871">写入</span><span class="cs8926E06">php</span><span class="cs9C1B1871">文件。</span></p><p class="cs40DD2BC9"><span class="cs8926E06">&nbsp;</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">至此，</span><span class="cs8926E06">langpref</span><span class="cs9C1B1871">的值变成可控值，这个值对应的文件，用于控制网站的语言选择，会自动被全局</span><span class="cs8926E06">php</span><span class="cs9C1B1871">文件包含。可以包含上传功能点上传的图种文件解析其中的一句话导致</span><span class="cs8926E06">getshell</span><span class="cs9C1B1871">。文件上传功能点使用白名单，但是没有进行重命名，所以路径可以简单猜解。</span></p><p class="cs40DD2BC9"><span class="cs8926E06">&nbsp;</span></p><h3 class="cs868C439D">
+			<a name="X762edb118cfe17baf741c72b23a6386686d55cb"><span class="csD1E291E2">2</span><span class="csD6CA00D2">、复现过程</span></a></h3>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">文件上传一个可以写一句话木马的</span><span class="cs8926E06">php</span><span class="cs9C1B1871">图种。</span></p><p class="cs40DD2BC9"><span class="cs8926E06">&nbsp;</span></p><p class="cs40DD2BC9"><span class="cs8926E06">&nbsp;</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">上述参数保存于</span><span class="cs8926E06">php</span><span class="cs9C1B1871">文件：</span></p><p class="cs3A447A38"><span class="cs9FB05234">\data\settings\langpref.php</span></p><p class="cs40DD2BC9"><span class="cs8926E06">&nbsp;</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">由于该参数是网站语言控制的</span><span class="cs8926E06">php</span><span class="cs9C1B1871">文件，访问任意网页，包含</span><span class="cs8926E06">langpref</span><span class="cs9C1B1871">对应的文件。</span></p><p class="cs40DD2BC9"><span class="cs8926E06">&nbsp;</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">访问生成的</span><span class="cs8926E06">php</span><span class="cs9C1B1871">一句话木马。</span></p><p class="cs40DD2BC9"><span class="cs8926E06">&nbsp;</span></p></body>
+</html>

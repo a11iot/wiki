@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csB2D98684{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.csD6CA00D2{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:bold;font-style:normal;}
+			.csD1E291E2{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:bold;font-style:normal;}
+			.cs6FD73CFB{text-align:left;text-indent:0pt;margin:5pt 24pt 5pt 24pt}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+		</style>
+	</head>
+	<body>
+		<h2 class="cs868C439D">
+			<a name="cobalt-strike-c2-profile-原理"><span class="csB2D98684">Cobalt Strike C2 Profile </span><span class="cs83F14626">原理</span></a></h2>
+		<h3 class="cs868C439D">
+			<a name="关于-cobaltstrike-团队服务器工作原理"><span class="csD6CA00D2">关于</span><span class="csD1E291E2"> CobaltStrike </span><span class="csD6CA00D2">团队服务器工作原理</span></a></h3>
+		<p class="cs6FD73CFB"><span class="cs9C1B1871">从上面我们大概了解了下</span><span class="cs8926E06"> C2 </span><span class="cs9C1B1871">的基础工作原理</span><span class="cs8926E06">,</span><span class="cs9C1B1871">接着</span><span class="cs8926E06">,</span><span class="cs9C1B1871">就再来简单看下</span><span class="cs8926E06"> CobaltStrike </span><span class="cs9C1B1871">的工作细节</span><span class="cs8926E06">,</span><span class="cs9C1B1871">其实</span><span class="cs8926E06">,</span><span class="cs9C1B1871">说白点</span><span class="cs8926E06">,</span><span class="cs9C1B1871">上面的通信模型就是</span><span class="cs8926E06"> CobaltStrike </span><span class="cs9C1B1871">的工作原理</span><span class="cs8926E06">,</span><span class="cs9C1B1871">只不过</span><span class="cs8926E06">,</span><span class="cs9C1B1871">叫法不同</span><span class="cs8926E06">,</span><span class="cs9C1B1871">更加细节具体了而已</span><span class="cs8926E06">,</span><span class="cs9C1B1871">如下图所示</span><span class="cs8926E06">,cobaltstrike </span><span class="cs9C1B1871">团队服务器会将要执行的任何动作都以计划任务列表的形式进行管理</span><span class="cs8926E06">,</span><span class="cs9C1B1871">也就是说</span><span class="cs8926E06">,</span><span class="cs9C1B1871">通过</span><span class="cs8926E06"> cobaltstrike </span><span class="cs9C1B1871">客户端发送到团队服务器的任何动作都会被弄成计划任务的形式依次排队</span><span class="cs8926E06">[ </span><span class="cs9C1B1871">这也就是</span><span class="cs8926E06"> beacon </span><span class="cs9C1B1871">内置的那个</span><span class="cs8926E06"> job </span><span class="cs9C1B1871">命令存在的实际意义</span><span class="cs8926E06">,</span><span class="cs9C1B1871">后续还会再说明这个东西</span><span class="cs8926E06"> ],</span><span class="cs9C1B1871">而后等着目标机器上的负载</span><span class="cs8926E06">[payload]</span><span class="cs9C1B1871">来下载这些计划任务列表中的具体指令去目标机器上执行</span><span class="cs8926E06">,</span><span class="cs9C1B1871">随后再依次把执行完的结果回传给</span><span class="cs8926E06"> cobaltstrike </span><span class="cs9C1B1871">团队服务器</span><span class="cs8926E06">,</span><span class="cs9C1B1871">团队服务器再回显至</span><span class="cs8926E06"> CobaltStrike </span><span class="cs9C1B1871">客户端</span><span class="cs8926E06">,</span><span class="cs9C1B1871">大概流程其实就这么简单</span><span class="cs8926E06">,</span><span class="cs9C1B1871">自己已是竭尽所能的将这个东西简化的不能再简化了</span><span class="cs8926E06">,</span><span class="cs9C1B1871">目的就是为了便于弟兄们能彻底理解</span><span class="cs8926E06">,</span><span class="cs9C1B1871">当你真正理解了这些最基础的常识之后</span><span class="cs8926E06">,</span><span class="cs9C1B1871">后续对</span><span class="cs8926E06"> CobaltStrike </span><span class="cs9C1B1871">的某些功能的具体实现细节理解的肯定也会更深</span><span class="cs8926E06">,</span><span class="cs9C1B1871">实战应用上自然就更加得心应手</span><span class="cs8926E06">,ok,</span><span class="cs9C1B1871">废话不多说</span><span class="cs8926E06">,</span><span class="cs9C1B1871">我们继续往下看</span></p><p class="cs40DD2BC9"><span class="cs8926E06">image</span></p></body>
+</html>

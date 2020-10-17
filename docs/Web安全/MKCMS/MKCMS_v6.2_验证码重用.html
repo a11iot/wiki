@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs7FFD2630{color:#000000;background-color:transparent;font-family:Microsoft JhengHei UI;font-size:11pt;font-weight:normal;font-style:normal;}
+			.csE3F655E4{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:bold;font-style:normal;}
+			.cs6FD73CFB{text-align:left;text-indent:0pt;margin:5pt 24pt 5pt 24pt}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="mkcms-v62-验证码重用"><span class="csDE05BCC">MKCMS v6.2 </span><span class="csECDA2D3">验证码重用</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="二漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">MKCMS v6.2</span></p><h2 class="cs868C439D">
+			<a name="三复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9FB05234">/admin/cms_login.php</span><span class="cs9C1B1871">验证码处的逻辑如下，比较</span><span class="cs8926E06">session</span><span class="cs9C1B1871">中的验证码和输入的是否一致，不一致就进入</span><span class="cs9FB05234">alert_href</span><span class="cs9C1B1871">，这个</span><span class="cs9FB05234">js</span><span class="cs9C1B1871">跳转，实际是在刷新页面</span></p><p class="cs3A447A38"><span class="cs9FB05234">/admin/cms_login.php:</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">&lt;?php </span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> 6 &nbsp;&nbsp;...</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> 7 &nbsp;if(isset($_POST[&#39;submit&#39;])){</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> 8: &nbsp;&nbsp;&nbsp;&nbsp;if ($_SESSION[&#39;verifycode&#39;] != $_POST[&#39;verifycode&#39;]) {</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> 9 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alert_href(&#39;</span><span class="cs7FFD2630">验证码错误</span><span class="cs9FB05234">&#39;,&#39;cms_login.php&#39;);</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">10 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span></p><p class="cs40DD2BC9"><span><img src="Web安全/MKCMS/MKCMS%20v6.2%20%e9%aa%8c%e8%af%81%e7%a0%81%e9%87%8d%e7%94%a8_files/image0.png" width="560" height="119" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">跳转后就会刷新验证码，然而我用的是</span><span class="cs8926E06">burp</span><span class="cs9C1B1871">，默认是不解析</span><span class="cs8926E06">js</span><span class="cs9C1B1871">的</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">全局搜索这个</span><span class="cs9FB05234">$_SESSION[&#39;verifycode&#39;]</span><span class="cs9C1B1871">，发现只在</span><span class="cs9FB05234">/system/verifycode.php</span><span class="cs9C1B1871">有赋值，也就是说，如果使用验证码后，我们不跟随</span><span class="cs9FB05234">js</span><span class="cs9C1B1871">跳转，就不会重置验证码，</span><span class="csE3F655E4">验证码也就能被重复使用</span><span class="cs9C1B1871">了</span></p><p class="cs40DD2BC9"><span><img src="Web安全/MKCMS/MKCMS%20v6.2%20%e9%aa%8c%e8%af%81%e7%a0%81%e9%87%8d%e7%94%a8_files/image1.png" width="560" height="389" alt="" style="border-width:0px;" /></span></p><h2 class="cs868C439D">
+			<a name="参考链接"><span class="cs83F14626">参考链接</span></a></h2>
+		<p class="cs6FD73CFB"><span class="cs8926E06">https://xz.aliyun.com/t/7580#toc-4</span></p></body>
+</html>

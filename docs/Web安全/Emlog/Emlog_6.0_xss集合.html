@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.csD1E291E2{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:bold;font-style:normal;}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.csD6CA00D2{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:bold;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="emlog-60-xss集合"><span class="csDE05BCC">Emlog 6.0 xss</span><span class="csECDA2D3">集合</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="二漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">Emlog 6.0</span></p><h2 class="cs868C439D">
+			<a name="三复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<h3 class="cs868C439D">
+			<a name="uploadify-swf-xss"><span class="csD1E291E2">Uploadify SWF XSS</span></a></h3>
+		<p class="cs40DD2BC9"><span class="cs8926E06">Emlog</span><span class="cs9C1B1871">使用了</span><span class="cs8926E06"> uploadify.swf </span><span class="cs9C1B1871">的方式上传文件，文件路径</span><span class="cs8926E06"> /include/lib/js/uploadify/uploadify.swf</span></p><p class="cs40DD2BC9"><span class="cs8926E06">payload</span></p><p class="cs3A447A38"><span class="cs9FB05234">http://www.0-sec.org/include/lib/js/uploadify/uploadify.swf?uploadifyID=00%22%29%29;}catch%28e%29{alert%281%29;}//%28%22&amp;movieName=%22])}catch(e){if(!window.x){window.x=1;alert(document.cookie)}}//&amp;.swf</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">效果，可无视浏览器</span><span class="cs8926E06">filter</span><span class="cs9C1B1871">：</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Emlog/Emlog%206.0%20xss%e9%9b%86%e5%90%88_files/image0.png" width="560" height="317" alt="" style="border-width:0px;" /></span></p><h3 class="cs868C439D">
+			<a name="反射xss"><span class="csD6CA00D2">反射</span><span class="csD1E291E2">xss</span></a></h3>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">此处的</span><span class="cs8926E06">XSS</span><span class="cs9C1B1871">主要发生在</span><span class="cs8926E06">cookie</span><span class="cs9C1B1871">上，因为某些页面如</span><span class="cs8926E06"> admin/admin_log,admin/sort.php,admin/link.php</span><span class="cs9C1B1871">页面需要在表单中添加了</span><span class="cs8926E06">hidden</span><span class="cs9C1B1871">属性的</span><span class="cs8926E06">token</span><span class="cs9C1B1871">值，而这个</span><span class="cs8926E06">token</span><span class="cs9C1B1871">值直接从用户的</span><span class="cs8926E06">cookie</span><span class="cs9C1B1871">中取得，导致了一个反射型</span><span class="cs8926E06">XSS</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">拦截抓包修改</span><span class="cs8926E06">cookie</span><span class="cs9C1B1871">中的</span><span class="cs8926E06">token</span><span class="cs9C1B1871">值如下：</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Emlog/Emlog%206.0%20xss%e9%9b%86%e5%90%88_files/image1.png" width="560" height="448" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">效果：</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Emlog/Emlog%206.0%20xss%e9%9b%86%e5%90%88_files/image2.png" width="560" height="206" alt="" style="border-width:0px;" /></span></p><h3 class="cs868C439D">
+			<a name="侧边栏存储性xss"><span class="csD6CA00D2">侧边栏存储性</span><span class="csD1E291E2">XSS</span></a></h3>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">为了同样是为了支持</span><span class="cs8926E06">HTML</span><span class="cs9C1B1871">代码的输出，没有转义对应的脚本代码标签，导致了存储性的</span><span class="cs8926E06">XSS</span><span class="cs9C1B1871">存在</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Emlog/Emlog%206.0%20xss%e9%9b%86%e5%90%88_files/image3.png" width="560" height="337" alt="" style="border-width:0px;" /></span></p></body>
+</html>

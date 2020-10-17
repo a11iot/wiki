@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.csB2D98684{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.csD1E291E2{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:bold;font-style:normal;}
+			.csD6CA00D2{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:bold;font-style:normal;}
+			.csBF12A472{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:italic;}
+			.cs6EDCDAE2{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:italic;}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="weblogic爆破"><span class="csDE05BCC">weblogic</span><span class="csECDA2D3">爆破</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一、部署weblogic"><span class="cs83F14626">一、部署</span><span class="csB2D98684">weblogic</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">现有的</span><span class="cs8926E06">redhat</span><span class="cs9C1B1871">环境</span><span class="cs8926E06">7.0,jdk</span><span class="cs9C1B1871">版本</span><span class="cs8926E06">1.7</span><span class="cs9C1B1871">。</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Weblogic/weblogic%e7%88%86%e7%a0%b4_files/image0.png" width="371" height="84" alt="" style="border-width:0px;" /></span></p><h2 class="cs868C439D">
+			<a name="二、weblogic下载"><span class="cs83F14626">二、</span><span class="csB2D98684">weblogic</span><span class="cs83F14626">下载</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">操作系统：</span><span class="cs8926E06">RedHat7</span></p><p class="cs40DD2BC9"><span class="cs8926E06">weblogic</span><span class="cs9C1B1871">版本：</span><span class="cs8926E06">10.3.6</span></p><h2 class="cs868C439D">
+			<a name="三、安装weblogic"><span class="cs83F14626">三、安装</span><span class="csB2D98684">weblogic</span></a></h2>
+		<h3 class="cs868C439D">
+			<a name="X810a8c9accd61024b9450a20d2cc2cc5869ecef"><span class="csD1E291E2">1</span><span class="csD6CA00D2">、</span><span class="csD1E291E2">weblogic</span><span class="csD6CA00D2">安装</span></a></h3>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">创建一个用户</span></p><p class="cs40DD2BC9"><span class="cs8926E06">useradd weblogic</span></p><p class="cs40DD2BC9"><span class="cs8926E06">passwd weblogic</span></p><p class="cs40DD2BC9"><span class="cs8926E06">chmod a+x wls1036_generic.jar</span></p><p class="cs40DD2BC9"><span class="cs8926E06">su weblogic</span></p><p class="cs40DD2BC9"><span class="cs8926E06">java -jar wls1036_generic.jar -mode=console</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">出现问题</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Weblogic/weblogic%e7%88%86%e7%a0%b4_files/image1.png" width="443" height="259" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">提示空间内存大小不够，清理空间再下一步。</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Weblogic/weblogic%e7%88%86%e7%a0%b4_files/image2.png" width="553" height="37" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs8926E06">[root@localhostsrc]# cd /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.51-2.4.5.5.el7.x86_64</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Weblogic/weblogic%e7%88%86%e7%a0%b4_files/image3.png" width="515" height="87" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">修改</span><span class="cs8926E06"> commEnv.sh </span><span class="cs9C1B1871">文件</span></p><p class="cs40DD2BC9"><span class="cs8926E06">JAVA_HOME=&quot;/usr/lib/jvm/java-1.7.0-openjdk-1.7.0.9.x86_64/ jre&quot;</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Weblogic/weblogic%e7%88%86%e7%a0%b4_files/image4.png" width="553" height="128" alt="" style="border-width:0px;" /></span></p><h3 class="cs868C439D">
+			<a name="X1ceaef1300d732530063459b14b489cedd6b783"><span class="csD1E291E2">2</span><span class="csD6CA00D2">、启动</span><span class="csD1E291E2">weblogic</span></a></h3>
+		<p class="cs40DD2BC9"><span class="cs8926E06">[weblogic@localhostroot]$cd /home/weblogic/Oracle/Middleware/user_projects/domains/base_domain/ [weblogic@localhost base_domain]$ ./startWebLogic.sh</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Weblogic/weblogic%e7%88%86%e7%a0%b4_files/image5.png" width="553" height="56" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">在目录</span><span class="cs8926E06">/usr/lib/jvm/java-1.7.0-openjdk-1.7.0.79.x86_64</span><span class="cs9C1B1871">中找不到</span><span class="cs8926E06">JRE</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">编辑</span><span class="cs8926E06">setDomainEnv.sh</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Weblogic/weblogic%e7%88%86%e7%a0%b4_files/image6.png" width="475" height="27" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">重新启动</span><span class="cs8926E06">weblogic</span><span class="cs9C1B1871">服务</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Weblogic/weblogic%e7%88%86%e7%a0%b4_files/image7.png" width="553" height="187" alt="" style="border-width:0px;" /></span></p><h2 class="cs868C439D">
+			<a name="四、破解weblogic控制台密码"><span class="cs83F14626">四、破解</span><span class="csB2D98684">weblogic</span><span class="cs83F14626">控制台密码</span></a></h2>
+		<h3 class="cs868C439D">
+			<a name="第一步-将用户名和密码保存到bootproperties文件中"><span class="csD6CA00D2">第一步</span><span class="csD1E291E2"> </span><span class="csD6CA00D2">将用户名和密码保存到</span><span class="csD1E291E2">boot.properties</span><span class="csD6CA00D2">文件中</span></a></h3>
+		<p class="cs40DD2BC9"><span class="cs8926E06">[root@localhost security]# pwd</span></p><p class="cs40DD2BC9"><span class="cs8926E06">/home/weblogic/Oracle/Middleware/user_projects/domains/base_domain/servers/AdminServer/security</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">在</span><span class="cs8926E06">adminserver</span><span class="cs9C1B1871">目录下创建</span><span class="cs8926E06">security</span><span class="cs9C1B1871">目录，并创建文件</span><span class="cs8926E06">boot.properties</span></p><p class="cs40DD2BC9"><span class="cs8926E06">Username=weblogic</span></p><p class="cs40DD2BC9"><span class="cs8926E06">Password=weblogic123</span></p><h3 class="cs868C439D">
+			<a name="第二步-重新启动weblogic服务"><span class="csD6CA00D2">第二步</span><span class="csD1E291E2"> </span><span class="csD6CA00D2">重新启动</span><span class="csD1E291E2">WebLogic</span><span class="csD6CA00D2">服务</span></a></h3>
+		<p class="cs40DD2BC9"><span class="cs8926E06">[root@localhost bin]# ./startWebLogic.sh&amp;</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Weblogic/weblogic%e7%88%86%e7%a0%b4_files/image8.png" width="403" height="67" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">已经加密</span></p><h3 class="cs868C439D">
+			<a name="第三步-暴力破解"><span class="csD6CA00D2">第三步</span><span class="csD1E291E2"> </span><span class="csD6CA00D2">暴力破解</span></a></h3>
+		<h4 class="cs868C439D">
+			<a name="Xe42e8c00a7e0c60e164f95447a1abe2ed366882"><span class="csBF12A472">1.java</span><span class="cs6EDCDAE2">和</span><span class="csBF12A472">javac</span><span class="cs6EDCDAE2">的版本一致</span></a></h4>
+		<p class="cs40DD2BC9"><span><img src="Web安全/Weblogic/weblogic%e7%88%86%e7%a0%b4_files/image9.png" width="560" height="77" alt="" style="border-width:0px;" /></span></p><h4 class="cs868C439D">
+			<a name="Xfaf44185e21a0dd52ded381ab3cdd9061cdd5a7"><span class="csBF12A472">2.</span><span class="cs6EDCDAE2">编译</span><span class="csBF12A472">WebLogicPasswordDecryptor.java</span></a></h4>
+		<p class="cs40DD2BC9"><span><img src="Web安全/Weblogic/weblogic%e7%88%86%e7%a0%b4_files/image10.png" width="553" height="73" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs8926E06">3.</span><span class="cs9C1B1871">破解密码</span></p><p class="cs40DD2BC9"><span class="cs8926E06">&nbsp;</span></p></body>
+</html>

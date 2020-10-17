@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs1C2E50E7{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs4B51D5E4{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs6FD73CFB{text-align:left;text-indent:0pt;margin:5pt 24pt 5pt 24pt}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="cmseasy-738-sql注入漏洞"><span class="csDE05BCC">CmsEasy 7.3.8 sql</span><span class="csECDA2D3">注入漏洞</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="二漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">CmsEasy 7.3.8</span></p><h2 class="cs868C439D">
+			<a name="三复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">漏洞代码位于</span><span class="cs8926E06">lib/admin/language_admin.php</span><span class="cs9C1B1871">的</span><span class="cs8926E06">add_action</span><span class="cs9C1B1871">函数</span></p><p class="cs40DD2BC9"><span><img src="Web安全/CmsEasy/CmsEasy%207.3.8%20sql%e6%b3%a8%e5%85%a5%e6%bc%8f%e6%b4%9e%20_files/image0.png" width="560" height="206" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">在测试后发现</span><span class="cs8926E06">CmsEasy V7.3.8</span><span class="cs9C1B1871">框架已经对</span><span class="cs8926E06">SQLi</span><span class="cs9C1B1871">进行了转义和过滤，包括（</span><span class="cs8926E06">select</span><span class="cs9C1B1871">、</span><span class="cs8926E06">* </span><span class="cs9C1B1871">、</span><span class="cs8926E06">sleep</span><span class="cs9C1B1871">等等），为了确定具体的过滤名单，从源码中查找检测函数</span></p><h5 class="cs868C439D">
+			<a name="Xfc3a5a44337039638c4713ec92c7e64ffeab407"><span class="cs1C2E50E7">但是经过一番搜索后，源码中发现实际调用的注入检测函数并没有被定义，仔细研究后确定是在几个加密混淆的核心代码中实现了。。（闭源一定意味着安全吗？）</span><span class="cs4B51D5E4">&mdash;&mdash;</span><span class="cs1C2E50E7">通过一番周折后得到函数</span></a></h5>
+		<p class="cs40DD2BC9"><span><img src="Web安全/CmsEasy/CmsEasy%207.3.8%20sql%e6%b3%a8%e5%85%a5%e6%bc%8f%e6%b4%9e%20_files/image1.png" width="560" height="48" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">显而易见，这样简单的过滤很容易被部分</span><span class="cs8926E06">SQLi</span><span class="cs9C1B1871">关键组成字符绕过，导致</span><span class="cs8926E06">SQL</span><span class="cs9C1B1871">注入，例如，可以使用</span><span class="cs8926E06">benchmark</span><span class="cs9C1B1871">函数来代替</span><span class="cs8926E06">sleep</span><span class="cs9C1B1871">以达到基于时间的注入。除了通过得到源码来明确黑名单的，用</span><span class="cs8926E06">fuzz</span><span class="cs9C1B1871">同样可以得到过滤的黑名单，之后再想办法绕过</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">而类似的漏洞成因在同一个文件的</span><span class="cs8926E06">edit_action</span><span class="cs9C1B1871">函数中也存在</span></p><p class="cs40DD2BC9"><span><img src="Web安全/CmsEasy/CmsEasy%207.3.8%20sql%e6%b3%a8%e5%85%a5%e6%bc%8f%e6%b4%9e%20_files/image2.png" width="560" height="286" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">这两处接口都存在</span><span class="cs8926E06">SQL</span><span class="cs9C1B1871">注入漏洞，提交的</span><span class="cs8926E06">payload</span><span class="cs9C1B1871">绕过过滤黑名单后可以进行利用</span></p><p class="cs40DD2BC9"><span><img src="Web安全/CmsEasy/CmsEasy%207.3.8%20sql%e6%b3%a8%e5%85%a5%e6%bc%8f%e6%b4%9e%20_files/image3.png" width="560" height="275" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span><img src="Web安全/CmsEasy/CmsEasy%207.3.8%20sql%e6%b3%a8%e5%85%a5%e6%bc%8f%e6%b4%9e%20_files/image4.png" width="560" height="278" alt="" style="border-width:0px;" /></span></p><h2 class="cs868C439D">
+			<a name="参考链接"><span class="cs83F14626">参考链接</span></a></h2>
+		<p class="cs6FD73CFB"><span class="cs8926E06">https://xz.aliyun.com/t/7273</span></p></body>
+</html>

@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs508254C{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;text-decoration: none;}
+			.cs4B51D5E4{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.csD6CA00D2{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:bold;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.csBF12A472{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:italic;}
+			.cs7FFD2630{color:#000000;background-color:transparent;font-family:Microsoft JhengHei UI;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs6FD73CFB{text-align:left;text-indent:0pt;margin:5pt 24pt 5pt 24pt}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="百度ueditor编辑器-xss漏洞"><span class="csECDA2D3">百度</span><span class="csDE05BCC">ueditor</span><span class="csECDA2D3">编辑器</span><span class="csDE05BCC"> xss</span><span class="csECDA2D3">漏洞</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一、漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">产品官网下载地址：</span></p><p class="cs40DD2BC9"><span class="cs8926E06"><a class="cs508254C" href="https://ueditor.baidu.com/website/download.html#mini"><span class="cs4B51D5E4">https://ueditor.baidu.com/website/download.html#mini</span></a></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">涉及版本：</span><span class="cs8926E06">php , asp, jsp, net</span></p><h2 class="cs868C439D">
+			<a name="二、漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="三、复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<h3 class="cs868C439D">
+			<a name="漏洞分析"><span class="csD6CA00D2">漏洞分析</span></a></h3>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">存在漏洞的文件：</span></p><p class="cs3A447A38"><span class="cs9FB05234">/php/getContent.php</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">/asp/getContent.asp</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">/jsp/getContent.jsp</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">/net/getContent.ashx</span></p><h4 class="cs868C439D">
+			<a name="phpgetcontentphp"><span class="csBF12A472">/php/getContent.php</span></a></h4>
+		<p class="cs40DD2BC9"><span><img src="Web安全/Ueditor/%e7%99%be%e5%ba%a6ueditor%e7%bc%96%e8%be%91%e5%99%a8%20xss%e6%bc%8f%e6%b4%9e_files/image0.png" width="560" height="289" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">入进行了过滤，但是在</span><span class="cs8926E06">14</span><span class="cs9C1B1871">行输出时却使用了</span><span class="cs8926E06">htmlspecialchars_decode</span><span class="cs9C1B1871">，造成</span><span class="cs8926E06">XSS</span><span class="cs9C1B1871">漏洞。</span></p><h4 class="cs868C439D">
+			<a name="aspgetcontentasp"><span class="csBF12A472">/asp/getContent.asp</span></a></h4>
+		<p class="cs40DD2BC9"><span><img src="Web安全/Ueditor/%e7%99%be%e5%ba%a6ueditor%e7%bc%96%e8%be%91%e5%99%a8%20xss%e6%bc%8f%e6%b4%9e_files/image1.png" width="560" height="167" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">获取</span><span class="cs8926E06">myEditor</span><span class="cs9C1B1871">参数无过滤，直接输出。</span></p><h4 class="cs868C439D">
+			<a name="jspgetcontentjsp"><span class="csBF12A472">/jsp/getContent.jsp</span></a></h4>
+		<p class="cs40DD2BC9"><span><img src="Web安全/Ueditor/%e7%99%be%e5%ba%a6ueditor%e7%bc%96%e8%be%91%e5%99%a8%20xss%e6%bc%8f%e6%b4%9e_files/image2.png" width="560" height="190" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">获取</span><span class="cs8926E06">myEditor</span><span class="cs9C1B1871">参数无过滤，直接输出。</span></p><h4 class="cs868C439D">
+			<a name="netgetcontentashx"><span class="csBF12A472">/net/getContent.ashx</span></a></h4>
+		<p class="cs40DD2BC9"><span><img src="Web安全/Ueditor/%e7%99%be%e5%ba%a6ueditor%e7%bc%96%e8%be%91%e5%99%a8%20xss%e6%bc%8f%e6%b4%9e_files/image3.png" width="560" height="394" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">获取</span><span class="cs8926E06">myEditor</span><span class="cs9C1B1871">参数无过滤，直接输出。</span></p><h3 class="cs868C439D">
+			<a name="漏洞复现"><span class="csD6CA00D2">漏洞复现</span></a></h3>
+		<p class="cs40DD2BC9"><span class="cs8926E06">php</span><span class="cs9C1B1871">版本测试，其他版本一样。</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Ueditor/%e7%99%be%e5%ba%a6ueditor%e7%bc%96%e8%be%91%e5%99%a8%20xss%e6%bc%8f%e6%b4%9e_files/image4.png" width="560" height="270" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs8926E06">url:</span></p><p class="cs3A447A38"><span class="cs9FB05234">http://0-sec.org/php/getcontent.php</span></p><p class="cs40DD2BC9"><span class="cs8926E06">payload:</span></p><p class="cs3A447A38"><span class="cs9FB05234">myEditor=&lt;script&gt;alert(document.cookie)&lt;/script&gt;</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">// myEditor</span><span class="cs7FFD2630">中的</span><span class="cs9FB05234">&rsquo; E &rsquo;</span><span class="cs7FFD2630">必须大写，小写无效。</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">由于只是个反弹</span><span class="cs8926E06">XSS</span><span class="cs9C1B1871">，单独这个漏洞影响小。若能结合使用该编辑器的网站的其他漏洞使用，则可能产生不错的效果。</span></p><h2 class="cs868C439D">
+			<a name="四、参考链接"><span class="cs83F14626">四、参考链接</span></a></h2>
+		<p class="cs6FD73CFB"><span class="cs8926E06"><a class="cs508254C" href="https://blog.csdn.net/yun2diao/article/details/91381846"><span class="cs4B51D5E4">https://blog.csdn.net/yun2diao/article/details/91381846</span></a></span></p></body>
+</html>

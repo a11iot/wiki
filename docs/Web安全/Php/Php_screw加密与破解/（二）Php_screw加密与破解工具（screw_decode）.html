@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs6FD73CFB{text-align:left;text-indent:0pt;margin:5pt 24pt 5pt 24pt}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs7FFD2630{color:#000000;background-color:transparent;font-family:Microsoft JhengHei UI;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="二php-screw加密与破解工具screw_decode"><span class="csECDA2D3">（二）</span><span class="csDE05BCC">Php screw</span><span class="csECDA2D3">加密与破解工具（</span><span class="csDE05BCC">screw_decode</span><span class="csECDA2D3">）</span></a></h1>
+		<p class="cs6FD73CFB"><span class="cs9C1B1871">项目地址</span></p><p class="cs3A447A38"><span class="cs9FB05234">https://github.com/ianxtianxt/screw_decode</span></p><p class="cs6FD73CFB"><span class="cs9C1B1871">项目介绍</span></p><p class="cs3A447A38"><span class="cs7FFD2630">前提需要有加密之后的文件，和加密的扩展库</span><span class="cs9FB05234">php_screw.so </span><span class="cs7FFD2630">打开</span><span class="cs9FB05234">screwdecode.c</span><span class="cs7FFD2630">找到</span><span class="cs9FB05234">PM9SCREW,PM9SCREW_LEN</span><span class="cs7FFD2630">和</span><span class="cs9FB05234">pm9screw_mycryptkey</span><span class="cs7FFD2630">，</span><span class="cs9FB05234">3</span><span class="cs7FFD2630">个可能被使用者修改，需要用</span><span class="cs9FB05234">IDA</span><span class="cs7FFD2630">去查找然后替换掉。</span><span class="cs9FB05234"> pm9screw_mycryptkey</span><span class="cs7FFD2630">是至关重要的，拿不到就解密不了。别的两个可以暴力尝试解决</span><span class="cs9FB05234">,</span><span class="cs7FFD2630">其实就是读取掉头部</span><span class="cs9FB05234">n</span><span class="cs7FFD2630">个字节尝试解密。</span></p><p class="cs6FD73CFB"><span class="cs9C1B1871">安装与使用方法</span></p><p class="cs3A447A38"><span class="cs7FFD2630">安装：</span><span class="cs8926E06"><br/><br/></span><span class="cs9FB05234">git clone https://github.com/ianxtianxt/screw_decode.git</span><span class="cs8926E06"><br/><br/></span><span class="cs9FB05234">make</span><span class="cs8926E06"><br/><br/></span><span class="cs7FFD2630">如果以上出错，就看报错然后</span><span class="cs9FB05234">google,</span><span class="cs7FFD2630">一个是依赖</span><span class="cs9FB05234">php-devel</span><span class="cs7FFD2630">，一个是依赖</span><span class="cs9FB05234">zlibc-devel</span><span class="cs8926E06"><br/><br/></span><span class="cs7FFD2630">使用：</span><span class="cs8926E06"><br/><br/></span><span class="cs9FB05234">sudo ./decode path</span><span class="cs8926E06"><br/><br/></span><span class="cs7FFD2630">说明</span><span class="cs9FB05234">: </span><span class="cs7FFD2630">结果保存在同目录，文件名字为原文件名字后面追加</span><span class="cs9FB05234">.decode, sudo </span><span class="cs7FFD2630">权限保证可以有</span><span class="cs9FB05234">chdir</span><span class="cs7FFD2630">和创建文件权限。</span></p><h2 class="cs868C439D">
+			<a name="参考链接"><span class="cs83F14626">参考链接</span></a></h2>
+		<p class="cs6FD73CFB"><span class="cs8926E06">https://www.cnblogs.com/StudyCat/p/11268399.html</span></p></body>
+</html>

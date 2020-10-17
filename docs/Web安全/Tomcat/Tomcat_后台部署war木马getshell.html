@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs6FD73CFB{text-align:left;text-indent:0pt;margin:5pt 24pt 5pt 24pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs7FFD2630{color:#000000;background-color:transparent;font-family:Microsoft JhengHei UI;font-size:11pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="tomcat-后台部署war木马getshell"><span class="csDE05BCC">Tomcat </span><span class="csECDA2D3">后台部署</span><span class="csDE05BCC">war</span><span class="csECDA2D3">木马</span><span class="csDE05BCC">getshell</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="二漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="三复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">在获取到令牌后，我们可以进入</span><span class="cs8926E06">Tomcat</span><span class="cs9C1B1871">后台了：</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Tomcat/Tomcat%20%e5%90%8e%e5%8f%b0%e9%83%a8%e7%bd%b2war%e6%9c%a8%e9%a9%acgetshell_files/image0.jpg" width="560" height="304" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">在这个后台，我们可以操作每个应用的状态</span><span class="cs8926E06">&hellip;&hellip;</span><span class="cs9C1B1871">以及读取每个应用下的</span><span class="cs8926E06">Session</span><span class="cs9C1B1871">。</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">但是这都不是最大的安全隐患</span><span class="cs8926E06"> :)</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">下面来讲一下如何制作</span><span class="cs8926E06">war</span><span class="cs9C1B1871">包。</span></p><p class="cs6FD73CFB"><span class="cs8926E06">war</span><span class="cs9C1B1871">包：</span><span class="cs8926E06">Java web</span><span class="cs9C1B1871">工程，都是打成</span><span class="cs8926E06">war</span><span class="cs9C1B1871">包，进行发布，如果我们的服务器选择</span><span class="cs8926E06">TOMCAT</span><span class="cs9C1B1871">等轻量级服务器，一般就打出</span><span class="cs8926E06">WAR</span><span class="cs9C1B1871">包进行发布</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Tomcat/Tomcat%20%e5%90%8e%e5%8f%b0%e9%83%a8%e7%bd%b2war%e6%9c%a8%e9%a9%acgetshell_files/image1.jpg" width="560" height="159" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">先准备了一个</span><span class="cs8926E06">JSP</span><span class="cs9C1B1871">的一句话木马，安装好</span><span class="cs8926E06">JDK</span><span class="cs9C1B1871">环境，我的目录是在</span><span class="cs9FB05234">C:\Program Files (x86)\Java\jdk1.8.0_131\bin</span><span class="cs8926E06">,</span><span class="cs9C1B1871">这个目录下又个文件叫</span><span class="cs9FB05234">jar.exe</span><span class="cs9C1B1871">。</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">执行</span><span class="cs8926E06">:</span><span class="cs9FB05234">jar -cvf [war</span><span class="cs7FFD2630">包名称</span><span class="cs9FB05234">].war </span><span class="cs7FFD2630">打包目录</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Tomcat/Tomcat%20%e5%90%8e%e5%8f%b0%e9%83%a8%e7%bd%b2war%e6%9c%a8%e9%a9%acgetshell_files/image2.jpg" width="560" height="345" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">我们现在已经打包好了一个</span><span class="cs8926E06">WAR</span><span class="cs9C1B1871">包。</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">找到</span><span class="cs8926E06">Tomcat</span><span class="cs9C1B1871">管理页面中的</span><span class="cs9FB05234">WAR file to deploy</span><span class="cs9C1B1871">进行上传就可以部署了。</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Tomcat/Tomcat%20%e5%90%8e%e5%8f%b0%e9%83%a8%e7%bd%b2war%e6%9c%a8%e9%a9%acgetshell_files/image3.jpg" width="560" height="267" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">应用列表已经出现了我们的目录：</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Tomcat/Tomcat%20%e5%90%8e%e5%8f%b0%e9%83%a8%e7%bd%b2war%e6%9c%a8%e9%a9%acgetshell_files/image4.jpg" width="560" height="229" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">访问文件名即可：</span></p><p class="cs40DD2BC9"><span><img src="Web安全/Tomcat/Tomcat%20%e5%90%8e%e5%8f%b0%e9%83%a8%e7%bd%b2war%e6%9c%a8%e9%a9%acgetshell_files/image5.jpg" width="560" height="179" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs8926E06">##</span><span class="cs9C1B1871">参考链接</span></p><p class="cs6FD73CFB"><span class="cs8926E06">https://payloads.online/archivers/2017-08-17/2#tomcat-%E7%88%86%E7%A0%B4</span></p></body>
+</html>

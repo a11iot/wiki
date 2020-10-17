@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs6FD73CFB{text-align:left;text-indent:0pt;margin:5pt 24pt 5pt 24pt}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="lfcms-后台getshell"><span class="csDE05BCC">LFCMS </span><span class="csECDA2D3">后台</span><span class="csDE05BCC">getshell</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="二漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="三复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">该漏洞可以利用的原因一是在于后台对于站点配置数据没有做好过滤，二是利用了</span><span class="cs8926E06">tp3.2</span><span class="cs9C1B1871">版本下本身存在的缓存漏洞，漏洞起始利用点位于</span><span class="cs9FB05234">/Application/Admin/Controller/ConfigController.class.php</span><span class="cs9C1B1871">中的</span><span class="cs9FB05234">save</span><span class="cs9C1B1871">方法，代码如下</span></p><p class="cs40DD2BC9"><span><img src="Web安全/LFCMS/LFCMS%20%e5%90%8e%e5%8f%b0getshell_files/image0.png" width="560" height="286" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">该处将后台设置的配置项直接存储在数据库中，接着当用户访问站点前台页面时，会调用</span><span class="cs9FB05234">/Application/Home/Controller/HomeController.class.php</span><span class="cs9C1B1871">中的</span><span class="cs9FB05234">_initialize</span><span class="cs9C1B1871">方法，部分代码如图</span></p><p class="cs40DD2BC9"><span><img src="Web安全/LFCMS/LFCMS%20%e5%90%8e%e5%8f%b0getshell_files/image1.png" width="560" height="229" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">当第一次访问时，会调用第二十一行的缓存函数写缓存文件，在这里如果在设置配置数据的时候写入恶意的</span><span class="cs9FB05234">PHP</span><span class="cs9C1B1871">代码，就可以在缓存文件中写入我们想要执行的代码，进而</span><span class="cs9FB05234">getshell</span><span class="cs9C1B1871">，首先我们来到后台用户配置设置处</span></p><p class="cs40DD2BC9"><span><img src="Web安全/LFCMS/LFCMS%20%e5%90%8e%e5%8f%b0getshell_files/image2.png" width="560" height="289" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">提交数据抓取数据包，在其中一个设置项中填入</span><span class="cs9FB05234">php</span><span class="cs9C1B1871">代码，由于缓存文件对于配置项进行了注释，为了逃逸注释我们需要另起一行写入</span><span class="cs9FB05234">PHP</span><span class="cs9C1B1871">代码并将后面的无用数据注释掉，如图</span></p><p class="cs40DD2BC9"><span><img src="Web安全/LFCMS/LFCMS%20%e5%90%8e%e5%8f%b0getshell_files/image3.png" width="560" height="218" alt="" style="border-width:0px;" /></span><span class="cs8926E06"><br/></span><span class="cs9C1B1871">然后访问前台页面生成缓存文件，缓存文件在</span><span class="cs9FB05234">/Application/Runtime/Temp/</span><span class="cs9C1B1871">目录下，文件名为缓存数据名称的</span><span class="cs9FB05234">MD5</span><span class="cs9C1B1871">值，在这里也就是</span><span class="cs9FB05234">DB_CONFIG_DATA</span><span class="cs9C1B1871">的</span><span class="cs9FB05234">MD5</span><span class="cs9C1B1871">值，我们直接访问缓存文件</span></p><p class="cs3A447A38"><span class="cs9FB05234">http://www.0-sec.org/Application/Runtime/Temp/95a1fe934b68ebfee8468bf0bc4f0000.php</span></p><p class="cs40DD2BC9"><span><img src="Web安全/LFCMS/LFCMS%20%e5%90%8e%e5%8f%b0getshell_files/image4.png" width="560" height="200" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">成功的写入了</span><span class="cs9FB05234">PHP</span><span class="cs9C1B1871">代码</span></p><h2 class="cs868C439D">
+			<a name="参考链接"><span class="cs83F14626">参考链接</span></a></h2>
+		<p class="cs6FD73CFB"><span class="cs8926E06">https://xz.aliyun.com/t/7844#toc-4</span></p></body>
+</html>

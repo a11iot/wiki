@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.csE3F655E4{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:bold;font-style:normal;}
+			.cs5BEC2C28{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:bold;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="spring-boot-路由地址及接口调用详情泄漏"><span class="csDE05BCC">Spring Boot </span><span class="csECDA2D3">路由地址及接口调用详情泄漏</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">开发环境切换为线上生产环境时，相关人员没有更改配置文件或忘记切换配置环境，导致此漏洞</span></p><h2 class="cs868C439D">
+			<a name="二漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="三复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">直接访问以下几个路由，验证漏洞是否存在：</span></p><p class="cs3A447A38"><span class="cs9FB05234">/api-docs</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">/v2/api-docs</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">/swagger-ui.html</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">一些可能会遇到的接口路由变形：</span></p><p class="cs3A447A38"><span class="cs9FB05234">/api.html</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">/sw/swagger-ui.html</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">/api/swagger-ui.html</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">/template/swagger-ui.html</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">/spring-security-rest/api/swagger-ui.html</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">/spring-security-oauth-resource/swagger-ui.html</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">除此之外，下面的路由有时也会包含</span><span class="cs8926E06">(</span><span class="cs9C1B1871">或推测出</span><span class="cs8926E06">)</span><span class="cs9C1B1871">一些接口地址信息，但是无法获得参数相关信息：</span></p><p class="cs3A447A38"><span class="cs9FB05234">/mappings</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">/actuator/mappings</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">/metrics</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">/actuator/metrics</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">/beans</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">/actuator/beans</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">/configprops</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">/actuator/configprops</span></p><p class="cs40DD2BC9"><span class="csE3F655E4">一般来讲，知道</span><span class="cs5BEC2C28"> spring boot </span><span class="csE3F655E4">应用的相关接口和传参信息并不能算是漏洞</span><span class="cs9C1B1871">；</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">但是可以检查暴露的接口是否存在未授权访问、越权或者其他业务型漏洞。</span></p></body>
+</html>

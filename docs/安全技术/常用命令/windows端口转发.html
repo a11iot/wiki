@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs7FFD2630{color:#000000;background-color:transparent;font-family:Microsoft JhengHei UI;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="windows端口转发"><span class="csDE05BCC">windows</span><span class="csECDA2D3">端口转发</span></a></h1>
+		<p class="cs3A447A38"><span class="cs9FB05234">netsh interface ipv6 install &nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cs7FFD2630">首先安装</span><span class="cs9FB05234">IPV6</span><span class="cs7FFD2630">（</span><span class="cs9FB05234">xp</span><span class="cs7FFD2630">、</span><span class="cs9FB05234">2003</span><span class="cs7FFD2630">下</span><span class="cs9FB05234">IPV6</span><span class="cs7FFD2630">必须安装，否则端口转发不可用！）</span><span class="cs8926E06"><br/><br/></span><span class="cs9FB05234">netsh interface portproxy add v4tov4 listenaddress=0.0.0.0 listenport=22connectaddress=1.1.1.1 connectport=22 //</span><span class="cs7FFD2630">将本机</span><span class="cs9FB05234">22</span><span class="cs7FFD2630">到</span><span class="cs9FB05234">1.1.1.1</span><span class="cs7FFD2630">的</span><span class="cs9FB05234">22</span><span class="cs8926E06"><br/><br/></span><span class="cs9FB05234">netsh interface portproxy add v4tov4 listenaddress=192.168.193.1listenport=22 connectaddress=8.8.8.8 connectport=22</span><span class="cs8926E06"><br/><br/></span><span class="cs9FB05234">netsh interface portproxy add v4tov4 listenaddress=192.168.193.1listenport=22 connectaddress=</span><span class="cs7FFD2630">百度一下，你就知道</span><span class="cs9FB05234"> connectport=22</span><span class="cs8926E06"><br/><br/></span><span class="cs9FB05234">netsh interface portproxy show all &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cs7FFD2630">查看转发配置</span><span class="cs8926E06"><br/><br/></span><span class="cs9FB05234">netsh interface portproxy delete v4tov4 listenaddress=0.0.0.0listenport=22 &nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cs7FFD2630">删除配置</span><span class="cs8926E06"><br/><br/></span><span class="cs9FB05234">netsh firewall set portopening protocol=tcp port=22 name=Forwardmode=enable scope=all profile=all &nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cs7FFD2630">添加防火墙规则，允许连接</span><span class="cs9FB05234">22</span><span class="cs7FFD2630">：</span></p></body>
+</html>

