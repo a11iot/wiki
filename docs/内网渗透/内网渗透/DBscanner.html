@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs6EDCDAE2{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:italic;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs7FFD2630{color:#000000;background-color:transparent;font-family:Microsoft JhengHei UI;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs1C2E50E7{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs4B51D5E4{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h2 class="cs868C439D">
+			<a name="工具说明"><span class="cs83F14626">工具说明</span></a></h2>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">自动扫描内网常见</span><span class="cs8926E06">sql</span><span class="cs9C1B1871">、</span><span class="cs8926E06">no-sql</span><span class="cs9C1B1871">数据库脚本</span><span class="cs8926E06">(mysql</span><span class="cs9C1B1871">、</span><span class="cs8926E06">mssql</span><span class="cs9C1B1871">、</span><span class="cs8926E06">oracle</span><span class="cs9C1B1871">、</span><span class="cs8926E06">postgresql</span><span class="cs9C1B1871">、</span><span class="cs8926E06">redis</span><span class="cs9C1B1871">、</span><span class="cs8926E06">mongodb</span><span class="cs9C1B1871">、</span><span class="cs8926E06">memcached</span><span class="cs9C1B1871">、</span><span class="cs8926E06">elasticsearch)</span><span class="cs9C1B1871">，包含未授权访问及常规弱口令检测</span></p><h4 class="cs868C439D">
+			<a name="安装过程"><span class="cs6EDCDAE2">安装过程</span></a></h4>
+		<p class="cs3A447A38"><span class="cs7FFD2630">运行于</span><span class="cs9FB05234">python2</span><span class="cs7FFD2630">的环境下</span><span class="cs8926E06"><br/><br/></span><span class="cs9FB05234">pip install IPy</span><span class="cs8926E06"><br/><br/></span><span class="cs9FB05234">pip install gevent</span><span class="cs8926E06"><br/><br/></span><span class="cs9FB05234">pip install mysql-python</span><span class="cs8926E06"><br/><br/></span><span class="cs9FB05234">/*</span><span class="cs7FFD2630">如果遇到</span><span class="cs9FB05234"> WARNING: You are using pip version 19.2.3, however version 19.3 is available</span><span class="cs8926E06"><br/><br/></span><span class="cs9FB05234">python -m pip install -U pip</span><span class="cs8926E06"><br/><br/></span><span class="cs7FFD2630">下载</span><span class="cs9FB05234"> &nbsp;https://stackoverflow.com/questions/21440230/install-mysql-python-windows</span><span class="cs8926E06"><br/><br/></span><span class="cs7FFD2630">然后，运行</span><span class="cs9FB05234">pip install mysqlclient</span><span class="cs7FFD2630">；如果报错的话请运行</span><span class="cs9FB05234">pip install mysqlclient==1.3.4 </span><span class="cs7FFD2630">安装低版本的</span><span class="cs9FB05234">mysqlclient</span><span class="cs8926E06"><br/><br/></span><span class="cs9FB05234">*/</span><span class="cs8926E06"><br/><br/></span><span class="cs9FB05234">pip install cx_Oracle</span><span class="cs8926E06"><br/><br/><br/></span><span class="cs9FB05234">pip install pymongo</span><span class="cs8926E06"><br/><br/></span><span class="cs9FB05234">pip install psycopg2</span></p><p class="cs40DD2BC9"><span><img src="内网渗透/内网渗透/DBscanner_files/image0.png" width="560" height="312" alt="" style="border-width:0px;" /></span></p><h5 class="cs868C439D">
+			<a name="注："><span class="cs1C2E50E7">注：</span></a></h5>
+		<p class="cs40DD2BC9"><span class="cs9C1B1871">扫描整个</span><span class="cs8926E06">c</span><span class="cs9C1B1871">段的时候</span><span class="cs8926E06">ip</span><span class="cs9C1B1871">地址末尾一定要写</span><span class="cs8926E06">0</span><span class="cs9C1B1871">，否则会报错</span><span class="cs8926E06"> python dbscan.py 192.168.50.0/24</span></p><h5 class="cs868C439D">
+			<a name="github"><span class="cs4B51D5E4">Github:</span></a></h5>
+		<p class="cs40DD2BC9"><span class="cs8926E06">https://github.com/ianxtianxt/DBSc</span></p></body>
+</html>

