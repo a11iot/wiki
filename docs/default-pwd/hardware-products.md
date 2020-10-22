@@ -1341,3 +1341,9 @@
 |Vivotek|Vivotek|HTTP|root/|[相关产品](https://fofa.so/result?qbase64=YXBwPSJWaXZvdGVrLU5ldHdvcmstQ2FtZXJhIg%3D%3D)||
 |Ubiquiti|Ubiquiti|HTTP|ubnt/ubnt|||
 |Wodsee|Wodsee|HTTP|admin/|||
+
+## 小众硬件
+
+| 厂商 | 产品 | 协议 | 口令 | FOFAPro查询语法 | 备注 |
+| ---- | ---- | ---- | ---- | --------------- | ---- |
+|当虹科技|ArcVideo|HTTP|Admin/Arc123456|[相关产品](https://classic.fofa.so/result?qbase64=YXBwPSLlvZPombnnp5HmioAtQXJjdmlkZW8tTGl2ZSI%3D)||
