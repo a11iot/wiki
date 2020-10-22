@@ -1331,9 +1331,9 @@
         * [4.2.1.2_建立_IPC_连接、copy_文件、创建计划任务](域渗透/4、域内横向移动/4.2_横向移动/4.2.1_IPC+计划任务/4.2.1.2_建立_IPC_连接、copy_文件、创建计划任务.html)
         * [4.2.1.1_IPC_利用条件](域渗透/4、域内横向移动/4.2_横向移动/4.2.1_IPC+计划任务/4.2.1.1_IPC_利用条件.html)
         * [4.2.1.3_IPC_常见错误](域渗透/4、域内横向移动/4.2_横向移动/4.2.1_IPC+计划任务/4.2.1.3_IPC_常见错误.html)
-      * 4.2.4_PTH(pass the hash)
-        * [4.2.4.2_impacket-examples-windows](域渗透/4、域内横向移动/4.2_横向移动/4.2.4_PTH(pass the hash)/4.2.4.2_impacket-examples-windows.html)
-        * [4.2.4.1_Mimikatz](域渗透/4、域内横向移动/4.2_横向移动/4.2.4_PTH(pass the hash)/4.2.4.1_Mimikatz.html)
+      * 4.2.4_PTH(pass_the_hash)
+        * [4.2.4.2_impacket-examples-windows](域渗透/4、域内横向移动/4.2_横向移动/4.2.4_PTH(pass_the_hash)/4.2.4.2_impacket-examples-windows.html)
+        * [4.2.4.1_Mimikatz](域渗透/4、域内横向移动/4.2_横向移动/4.2.4_PTH(pass_the_hash)/4.2.4.1_Mimikatz.html)
       * 4.2.2_WMI
         * [4.2.2.1_WMI_利用条件](域渗透/4、域内横向移动/4.2_横向移动/4.2.2_WMI/4.2.2.1_WMI_利用条件.html)
         * [4.2.2.2_利用_wmic_进行横向移动](域渗透/4、域内横向移动/4.2_横向移动/4.2.2_WMI/4.2.2.2_利用_wmic_进行横向移动.html)
